@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
 html,
 body {
   padding: 0;
@@ -15,6 +17,10 @@ a {
   box-sizing: border-box;
 }
 
+.section__padding{
+  padding: 0 3%;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -23,4 +29,10 @@ a {
     color: white;
     background: black;
   }
+}
+
+:root{
+  --color-primary:  rgb(36, 74, 108);
+  
+  --font-family: 'Merriweather'
 }
