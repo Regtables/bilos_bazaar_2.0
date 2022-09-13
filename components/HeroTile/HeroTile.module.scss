@@ -1,0 +1,33 @@
+.container{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.title{
+  position: absolute;
+  right: 5%; 
+  top: 10%;
+  background-color: rgba(254, 254, 254, 0.251);
+  border-radius: 5px;
+
+  h3{
+    font-family: var(--font-family);
+    text-transform: capitalize;
+    font-size: 28px;
+    color: white;
+    font-weight: 500;
+    margin: 0;
+    padding: 1rem;
+  }
+}
+
+.button_container{
+  position: absolute;
+  bottom: 20%;
+  right: 10%;
+}
+
+.button{
+  padding: 2rem;
+}
