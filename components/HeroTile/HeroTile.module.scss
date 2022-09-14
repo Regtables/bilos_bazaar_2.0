@@ -25,9 +25,16 @@
 .button_container{
   position: absolute;
   bottom: 20%;
-  right: 10%;
+  left: 10%;
 }
 
 .button{
-  padding: 2rem;
+  padding: 0.7rem 2rem;
+  background-color: red;
+  border-radius: 30px;
+  font-family: var(--font-family);
+
+  &:hover{
+    background-color: white;
+  }
 }
