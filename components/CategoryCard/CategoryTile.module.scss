@@ -1,4 +1,60 @@
 .container{
-  width: 350px;
-  height: 250px;
+  width: 390px;
+  height: 200px;
+  position: relative;
+  transition: transform 0.3s;
+
+  &:hover{
+    transform: scale(1.03);
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 170px;
+    height: 150px
+  }
+}
+
+.name{
+  position: absolute;
+  font-family: var(--font-family);
+  top: 45%;
+  margin: 0;
+  color: white;
+  font-weight: 400;
+  font-size: 24px;
+  text-transform: capitalize;
+  z-index: 2;
+}
+
+.overlay{
+  position: absolute;
+  top: 0;
+  // bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgb(0, 0, 0);
+  opacity: 0.2;
+  transition: opacity 0.3s;
+
+  &:hover{
+    opacity: 0;
+    // border-radius: 5px;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 170px;
+  }
+}
+
+.image{
+  transition: 0.3s;
+  width: 100%;
+  height: 100%;
+
+  &:hover{
+    // border-radius: 5px;
+  }
 }

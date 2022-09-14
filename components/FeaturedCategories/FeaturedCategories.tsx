@@ -6,8 +6,8 @@ import CategoryTile from '../CategoryCard/CategoryTile'
 const FeaturedCategories = ({ categories }) => {
   console.log(categories)
   return (
-    <div className= {styles.container}>
-      <h2>Our Categories</h2>
+    <div className= {`${styles.container} section__padding`}>
+      <h2 className= 'section__heading'>Our Categories</h2>
       <div className= {styles.categories}>
         {categories.map((category, i) => (
           <CategoryTile category = {category} key = {i}/>

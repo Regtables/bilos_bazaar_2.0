@@ -21,6 +21,14 @@ a {
   padding: 0 3%;
 }
 
+.section__heading{
+  font-family: var(--font-family);
+  padding-bottom: 1rem;
+  border-bottom: 3px solid var(--color-secondary);
+  font-size: 32px;
+  color: var(--color-secondary);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -32,7 +40,8 @@ a {
 }
 
 :root{
-  --color-primary:  rgb(36, 74, 108);
+  --color-primary:  rgb(35, 84, 126);
+  --color-secondary: #745641;
   
   --font-family: 'Merriweather'
 }

@@ -2,6 +2,7 @@
   width: 100%;
   height: 83.5vh;
   position: relative;
+  display: flex;
 
   svg{
     color: rgba(190, 190, 190, 0.515);
@@ -13,7 +14,8 @@
 
 .tile{
   width: 100%;
-  height: 100%;
+  height: 97%;
+  margin: auto 0;
 }
 
 .prev{
