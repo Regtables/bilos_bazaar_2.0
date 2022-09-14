@@ -54,8 +54,8 @@ const Navbar = () => {
         <div className= {styles.partition}></div>
 
         <div className= {styles.links}>
-          {links.map((link) => (
-            <Link href = '/'>
+          {links.map((link, i) => (
+            <Link href = '/' key = {i}>
               <p>{link}</p>
             </Link>
           ))}

@@ -9,8 +9,8 @@ const FeaturedCategories = ({ categories }) => {
     <div className= {styles.container}>
       <h2>Our Categories</h2>
       <div className= {styles.categories}>
-        {categories.map((category) => (
-          <CategoryTile category = {category}/>
+        {categories.map((category, i) => (
+          <CategoryTile category = {category} key = {i}/>
         ))}
       </div>
     </div>
