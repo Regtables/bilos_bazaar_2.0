@@ -1,6 +1,6 @@
 .container{
-  width: 390px;
-  height: 200px;
+  width: 100%;
+  height: 250px;
   position: relative;
   transition: transform 0.3s;
 
@@ -53,8 +53,4 @@
   transition: 0.3s;
   width: 100%;
   height: 100%;
-
-  &:hover{
-    // border-radius: 5px;
-  }
 }

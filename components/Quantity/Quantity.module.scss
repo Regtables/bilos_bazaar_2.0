@@ -1,0 +1,35 @@
+.container{
+  display: flex;
+}
+
+.less{
+  border-radius: 20px 0 0 20px;
+  // color: var(--color-offBlack);
+  // border: 1px solid var(--color-offBlack);
+  // padding: 0.3rem;
+  // background-color: var(--color-primary);
+}
+
+.button{
+  color: var(--color-offBlack);
+  border: 1px solid var(--color-offBlack);
+  padding: 0.3rem;
+
+  transition: all 0.3s;
+  
+  &:hover{
+    border: 1px solid var(--color-primary);
+  }
+}
+
+.qty{
+  padding: 0 1rem;
+  border-top: 1px solid var(--color-offBlack);
+  border-bottom: 1px solid var(--color-offBlack) ;
+}
+
+.more{
+  border-radius: 0 20px 20px 0;
+  // color: var(--color-offBlack);
+  // border: 1px solid var(--color-offBlack);
+}

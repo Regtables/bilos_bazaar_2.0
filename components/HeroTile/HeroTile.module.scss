@@ -24,17 +24,18 @@
 
 .button_container{
   position: absolute;
-  bottom: 20%;
-  left: 10%;
+  bottom: 10%;
+  left: 42.9%;
 }
 
 .button{
-  padding: 0.7rem 2rem;
+  padding: 0.7rem 3rem;
   background-color: var(--color-primary);
   border-radius: 30px;
   font-family: var(--font-family);
 
   &:hover{
     background-color: white;
+    color: var(--color-primary);
   }
 }

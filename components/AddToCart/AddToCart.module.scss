@@ -1,0 +1,10 @@
+.button{
+  border-radius: 20px;
+  padding: 0.5rem 2.5rem;
+  background-color: var(--color-secondary);
+  font-family: var(--font-family);
+
+  &:hover{
+    background-color: red;
+  }
+}

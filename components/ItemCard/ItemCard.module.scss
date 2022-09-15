@@ -1,0 +1,129 @@
+.card{
+  width: 100%;
+  height: 400px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s;
+
+
+  &:hover{
+    transform: scale(1.01);
+  }
+  
+}
+
+.image{
+  position: relative;
+  width: 100%;
+  height: 200px;
+  // border-radius: 20px;
+}
+
+.category{
+  margin: 0.1rem 0;
+  font-family: var(--font-family);
+  border-bottom: 1px black solid;
+}
+
+.name{
+  // width: 100%;
+  // text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-secondary);
+  text-transform: capitalize;
+  font-family: var(--font-family);
+  margin: 1rem 0;
+}
+
+.content{
+  padding: 1rem;
+  display: flex;
+  height: 200px;
+  flex-direction: column;
+  // justify-content: space-evenly;
+  border-radius: 20px;
+  align-items: flex-start;
+}
+
+.button{
+  width: 50%;
+  // margin: 0 auto;
+  color: white;
+  // border-radius: 50%;
+  // height: 50px;
+  // width: 50px;
+}
+
+.price{
+  color: var(--color-secondary);
+  font-family: var(--font-family);
+  margin: 0.5rem 0;
+}
+
+.colors{
+  margin-top: 1rem;
+  display: flex;
+}
+
+.color{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 0.3rem;
+  // border: 1px double gray;
+}
+
+.buttons{
+  position: relative;
+  height: 200px;
+  z-index: 2;
+  transition: all 0.3s;
+
+  svg{
+    color: white;
+    height: 35px;
+    width: 35px;
+    z-index: 10;
+    opacity: 1;
+    border-radius: 10px;
+
+    // transition: all 0.3s;
+
+    // &:hover{
+    //   background-color: rgba(240, 248, 255, 0.291);
+    // }
+  }
+
+  .addToCart{
+    position: absolute;
+    left: 10%;
+    top: 35%;
+  }
+
+  .preview{
+    position: absolute;
+    right: 10%;
+    top: 35%;
+  }
+
+  .addToCart,.preview{
+    transition: all 0.3s;
+    border-radius: 10px;
+    &:hover{
+      background-color: rgba(240, 248, 255, 0.291);
+    }
+  }
+
+  &:hover{
+    background-color: rgba(0, 0, 0, 0.223);
+  }
+}
+
+.addToCard svg{
+  position: absolute;
+  top: 20;
+  left: 0;
+  z-index: 10;
+}
