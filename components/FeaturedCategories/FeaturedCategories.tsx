@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './FeaturedCategories.module.scss'
-import CategoryTile from '../CategoryCard/CategoryTile'
+import CategoryCard from '../CategoryCard/CategoryCard'
 
 const FeaturedCategories = ({ categories }) => {
   console.log(categories)
@@ -10,7 +10,7 @@ const FeaturedCategories = ({ categories }) => {
       <h2 className= 'section__heading'>Our Categories</h2>
       <div className= {styles.categories}>
         {categories.map((category, i) => (
-          <CategoryTile category = {category} key = {i}/>
+          <CategoryCard category = {category} key = {i}/>
         ))}
       </div>
     </div>

@@ -68,6 +68,7 @@ const ItemCard = ({ item }) => {
               <div
               className={styles.color}
               style={{ backgroundColor: `${color}` }}
+							key = {i}
 							></div>
               ))}
 					</div>

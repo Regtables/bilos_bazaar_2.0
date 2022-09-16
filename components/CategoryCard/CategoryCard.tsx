@@ -4,10 +4,10 @@ import Link from '@mui/material'
 import { ButtonBase } from '@mui/material'
 import { useNextSanityImage } from 'next-sanity-image'
 
-import styles from './CategoryTile.module.scss'
+import styles from './CategoryCard.module.scss'
 import { client } from '../../utils/client'
 
-const CategoryTile = ( { category } : {category: any}) => {
+const CategoryCard = ( { category } : {category: any}) => {
   const { image, category: name  } = category
   const imageProps: any = useNextSanityImage(client, image )
   return (
@@ -24,4 +24,4 @@ const CategoryTile = ( { category } : {category: any}) => {
   )
 }
 
-export default CategoryTile
+export default CategoryCard
