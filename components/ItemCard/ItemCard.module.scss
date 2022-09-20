@@ -24,6 +24,10 @@
   margin: 0.1rem 0;
   font-family: var(--font-family);
   border-bottom: 1px black solid;
+
+  @media screen and (max-width: 450px) {
+    font-size: 12px;
+  }
 }
 
 .name{
@@ -35,6 +39,10 @@
   text-transform: capitalize;
   font-family: var(--font-family);
   margin: 1rem 0;
+
+  @media screen and (max-width: 450px) {
+    font-size: 18px;
+  }
 }
 
 .content{
@@ -60,6 +68,10 @@
   color: var(--color-secondary);
   font-family: var(--font-family);
   margin: 0.5rem 0;
+
+  @media screen and (max-width: 450px) {
+    font-size: 15px;
+  }
 }
 
 .colors{
@@ -73,6 +85,11 @@
   border-radius: 50%;
   margin-right: 0.3rem;
   // border: 1px double gray;
+
+  @media screen and (max-width: 450px) {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .buttons{
