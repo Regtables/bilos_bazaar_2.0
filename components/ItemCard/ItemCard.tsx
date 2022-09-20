@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Card, Typography, Button, ButtonBase } from '@mui/material';
 import { useNextSanityImage } from 'next-sanity-image';
 import { BsEye, BsBagPlus } from 'react-icons/bs';
@@ -57,7 +58,7 @@ const ItemCard = ({ item }) => {
 				)}
 			</div>
 
-			<ButtonBase>
+			<ButtonBase href = {`/products/beach/${item.slug.current}`}>
 				<div className={styles.content}>
 					<h5 className={styles.category}>Towels</h5>
 					<h3 className={styles.name}> {item.name}</h3>
@@ -66,12 +67,12 @@ const ItemCard = ({ item }) => {
 					<div className={styles.colors}>
 						{colors.map((color, i) => (
               <div
-              className={styles.color}
-              style={{ backgroundColor: `${color}` }}
-							key = {i}
+								className={styles.color}
+								style={{ backgroundColor: `${color}` }}
+								key = {i}
 							></div>
               ))}
-					</div>
+					</div>	
 				</div>
 			</ButtonBase>
 		</Card>

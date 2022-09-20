@@ -1,12 +1,14 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSelector } from 'react-redux';
 import { BsBagFill, BsSearch, BsChevronCompactDown, BsTelephone } from 'react-icons/bs';
 import { AiOutlineInstagram, AiOutlineMenu, AiOutlineMail, AiOutlineCloseCircle } from 'react-icons/ai';
 import { GoLocation } from 'react-icons/go';
 import { FaFacebookF, FaUser } from 'react-icons/fa';
 
 import styles from './Navbar.module.scss'
+import { selectUser } from '../../redux/auth';
 
 const links = [
   'Home Decor',
@@ -14,6 +16,8 @@ const links = [
 ]
 
 const Navbar = () => {
+  const user = useSelector(selectUser)
+
   return (
     <div className= {`${styles.container}`}>
       <div className= {styles.logo_container}>
@@ -43,7 +47,9 @@ const Navbar = () => {
             <BsSearch />
 
             <div className= {styles.user}>
-              <FaUser />
+              <Link href = {user?._id ? `/user/${user._id}` : '/auth'}>
+                <FaUser />
+              </Link>
             </div>
             <div className= {styles.bag}>
               <BsBagFill />
