@@ -7,8 +7,8 @@ const CategoryList = ({ categories, activeCategory, setActiveCategory }) => {
   return (
     <div className= {styles.container}>
       {categories.map((category, i) => (
-        <div>
-          <CategoryTile category={category} key = {i}/>
+        <div key = {i}>
+          <CategoryTile category={category}/>
         </div>
       ))}
     </div>
