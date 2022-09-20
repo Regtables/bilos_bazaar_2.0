@@ -3,7 +3,7 @@ import { Grid } from '@mui/material'
 
 import styles from '../../styles/Products.module.scss'
 import { client } from '../../utils/client'
-import ProductTile from '../../components/productTile/ProductTile'
+import ProductTile from '../../components/ProductTile/ProductTile'
 
 
 const Products = ({ products }) => {
@@ -14,7 +14,7 @@ const Products = ({ products }) => {
         <h1 className= 'section__heading'>Our Products</h1>
       </header>
       {products.map((product, i) => (
-        <ProductTile product = {product} />
+        <ProductTile product = {product} key = {i} />
       ))}
     </div>
   
