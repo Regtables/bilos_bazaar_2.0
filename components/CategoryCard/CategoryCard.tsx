@@ -11,7 +11,7 @@ const CategoryCard = ( { category } : {category: any}) => {
   const { image, category: name  } = category
   const imageProps: any = useNextSanityImage(client, image )
   return (
-    <ButtonBase className= {styles.container} component = {Link} href = '/'>
+    <ButtonBase className= {styles.container} href = '/'>
       <div className= {styles.overlay}></div>
       <Image 
         { ...imageProps }
