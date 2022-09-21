@@ -1,0 +1,63 @@
+.container{
+  .name h1{
+    font-family: var(--font-family);
+    color: var(--color-secondary);
+    text-transform:capitalize;
+    margin: 0.5rem 0;
+    font-size: 42px;
+  }
+
+  .category h4{
+    font-size: 12px;
+    // color: var(--color-offBlack)
+    font-weight: 400;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+
+  .chip{
+    margin-right: 0.5rem;
+    font-size: 12px;
+    // background-color: var(--color-primary);
+    // background-color: rgb(187, 180, 139);
+    color: var(--color-offBlack);
+    
+    &:hover{
+      background-color: rgb(150, 150, 150);
+    }
+  }
+
+  .price h3{
+    margin: 0.5rem 0;
+    color: var(--color-offBlack);
+    font-size: 26px;
+  }
+
+  .description p {
+    margin-top: 0rem;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+
+  .dimentions{
+    display: flex;
+    align-items: center;
+    
+    p{
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      margin-top: 20px;
+      // font-family: var(--font-family);
+      letter-spacing: 0.04em;
+    }
+    svg{
+      height: 30px;
+      width: 30px;
+      margin-right: 0.5rem;
+      color: var(--color-primary);
+    }
+  }
+
+}

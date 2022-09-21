@@ -3,8 +3,13 @@
   padding: 0.5rem 2.5rem;
   background-color: var(--color-secondary);
   font-family: var(--font-family);
+  font-size: 11px;
 
   &:hover{
     background-color: red;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 0 3rem;
   }
 }

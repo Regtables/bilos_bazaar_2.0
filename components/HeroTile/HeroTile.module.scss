@@ -6,7 +6,7 @@
 
 .title{
   position: absolute;
-  right: 5%; 
+  left: 5%; 
   top: 10%;
   background-color: rgba(254, 254, 254, 0.251);
   border-radius: 5px;
@@ -22,10 +22,24 @@
   }
 }
 
+.description{
+  position: absolute;
+  left: 5%;
+  top: 22%;
+
+  p{
+    margin-left: 1rem;
+    color: white;
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 300;
+  }
+}
+
 .button_container{
   position: absolute;
   bottom: 10%;
-  left: 42.9%;
+  left: 5%;
 }
 
 .button{

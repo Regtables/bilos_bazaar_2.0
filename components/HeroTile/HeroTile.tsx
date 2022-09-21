@@ -29,6 +29,9 @@ const HeroTile = ({ tile } : { tile: tile}) => {
       <div className={styles.title}>
         <h3>{title}</h3>
       </div>
+      {/* <div className = {styles.description}>
+        <p>Browse our selected items</p>
+      </div> */}
       <div className={styles.button_container}>
         <Link href ='/'>
           <Button variant='contained' className= {styles.button} size = 'large'>Shop Now</Button>

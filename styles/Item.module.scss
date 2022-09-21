@@ -1,0 +1,35 @@
+.container{
+  // margin-top: 2rem;
+}
+
+.itemContent{
+  display: flex;
+  height: 100vh;
+}
+
+.imageCarousel{
+  flex: 0.6;
+}
+
+.itemInfo{
+  flex: 0.4;
+  padding-left: 1rem;
+
+  .colors{
+    margin-top: 1rem;
+  }
+
+  .qty{
+    margin-top: 1rem;
+  }
+
+  .cart{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+
+  .buy{
+    margin-top: 1rem;
+  }
+}

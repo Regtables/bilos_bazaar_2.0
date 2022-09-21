@@ -7,6 +7,8 @@ import { TiWeatherWindy } from 'react-icons/ti'
 
 import styles from './Preview.module.scss';
 import { client } from '../../utils/client';
+import { Item } from '../../types';
+
 import Quantity from '../Quantity/Quantity';
 import AddToCart from '../AddToCart/AddToCart';
 import BuyNow from '../BuyNow/BuyNow';
@@ -25,7 +27,7 @@ const Preview = ({
 	showPreview,
 	setShowPreview,
 }: {
-	item: any;
+	item: Item;
 	showPreview: any;
 	setShowPreview: any;
 }) => {
@@ -52,6 +54,8 @@ const Preview = ({
             layout = 'fill'
             objectFit='cover'
             objectPosition= '70%'
+            priority
+            alt = {item.name}
           />
         </div>
 				<div className={styles.information}>
