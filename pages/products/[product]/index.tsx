@@ -1,43 +1,71 @@
 import React, { useState } from 'react'
-import Image from 'next/image'
-import { Paper } from '@mui/material'
-import { client } from '../../../utils/client'
+import { useSelector } from 'react-redux'
+import { Paper, TextField, InputAdornment } from '@mui/material'
+import { client, urlFor } from '../../../utils/client'
 import { useNextSanityImage } from 'next-sanity-image'
-
-import CategoryList from '../../../components/CategoryList/CategoryList'
+import { BsSearch } from 'react-icons/bs'
 
 import styles from '../../../styles/Product.module.scss'
+import { Item, Product } from '../../../types'
+import { productItemsQuery } from '../../../utils/queries'
+import { selectActiveCategory } from '../../../redux/items'
 
-const Product = ({ product }) => {
+import CategoryList from '../../../components/CategoryList/CategoryList'
+import Breadcrums from '../../../components/Breadcrums/Breadcrums'
+import ItemCard from '../../../components/ItemCard/ItemCard'
+
+const Product = ({ product, items } : { product: Product, items: [Item] } ) => {
   const { product: name, productImage: image, categories } = product
-  const [activeCategory, setActiveCategory] = useState('')
+  const activeCategory = useSelector(selectActiveCategory)
+
   const imageProps: any = useNextSanityImage(client, image)
   console.log(product)
+  console.log(items)
+
   return (
     <div className = {`${styles.page} section__padding`}>
       <div className= {styles.breadcrums}>
-      <Paper className= {styles.container}>
-          <div className= {styles.banner}>
-            <Image 
-              { ...imageProps }
-              layout = 'fill'
-              objectFit='cover'
-            />
+        <Breadcrums
+          product = {name}
+          category = {activeCategory}
+        />
+      </div>
+      <Paper className= {styles.container} elevation = {3}>
+          <div 
+            className= {styles.banner}
+          >
             <div className = {styles.heading}>
               <h1>{name}</h1>
             </div>
+            {/* <div className= {styles.search}>
+              <TextField 
+                size='small' 
+                label = 'Search'
+                variant='filled'
+                inputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <BsSearch />
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </div> */}
           </div>
 
           <div className= {styles.content}>
             <div className = {styles.categories}>
-              <CategoryList categories={categories} />
+              <CategoryList 
+                categories={categories} 
+              />
             </div>
             <div className = {styles.items}>
-
+              {items.map((item, i) => (
+                <ItemCard item = {item} />
+              ))}
             </div>
           </div>
       </Paper>
-      </div>
     </div>
   )
 }
@@ -46,9 +74,12 @@ export const getStaticProps = async ({ params: { product }}) => {
   const productQuery= `*[_type == "product" && product == "${product.replace('-', ' ')}"]{product, categories[]->, productImage}`
   const productData = await client.fetch(productQuery)
 
+ const productItemsData = await client.fetch(productItemsQuery(product))
+
   return {
     props: {
-      product: productData[0]
+      product: productData[0],
+      items: productItemsData
     }
   }
 }

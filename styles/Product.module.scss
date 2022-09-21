@@ -1,37 +1,63 @@
 .container{
-  margin-top: 1rem;
+  // margin-top: 1rem;
   height: 100vh;
   width: 100%;
-  border-radius: 40px 40px 0 0;
+  border-radius: 10px 10px 0 0;
   background-color: aliceblue;
 }
 
 .banner{
-  position: relative;
-  height: 20%;
   width: 100%;
-  img{
-    border-radius: 40px 40px 0 0;
-    // filter: blur(1px);
-  }
+  border-radius: inherit;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.044);
+  border-bottom: 2px var(--color-secondary) solid;
 
   .heading{
-    position: absolute;
-    width: 100%;
+    // position: absolute;
+    // width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.069);
+    padding: 1rem;
+    padding-bottom: 0.5rem;
     display: flex;
     align-items: flex-end;
-    border-radius: 40px 40px 0 0;
+    border-radius: inherit;
+    // border-radius: 40px 40px 0 0;
     
     h1{
       font-family: var(--font-family);
       text-transform: capitalize;
-      color: var(--color-offBlack);
-      // color: var(--color-secondary);
+      color: var(--color-secondary);
       // color: aliceblue;
-      padding-left: 2rem;
-      font-size: 48px;
+      // color: white;
+      font-weight: 500;
+      margin: 0;
+      font-size: 42px;
     }
+  }
+}
+
+.content{
+  margin-top: 1rem;
+  display: flex;
+}
+
+.categories{
+  flex: 0.2;
+  margin-left: 0.5rem;
+}
+
+.items{
+  flex: 0.8;
+  margin-left: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+
+  @media screen and (max-width: 450px) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }

@@ -1,17 +1,30 @@
 import React from 'react'
 
 import styles from './CategoryList.module.scss'
+import { Category } from '../../types'
+
 import CategoryTile from '../CategoryTile/CategoryTile'
 
-const CategoryList = ({ categories, activeCategory, setActiveCategory } : {categories: [string], activeCategory: string, setActiveCategory: any}) => {
+const CategoryList = ({ categories } : { categories: [Category] }) => {
   return (
     <div className= {styles.container}>
+      <CategoryTile 
+        category = 'all'
+      />
       {categories.map((category, i) => (
-        <div key = {i}>
-          <CategoryTile category={category}/>
-        </div>
+        <CategoryTile 
+          category={category.category} 
+          key = {i} 
+        />
       ))}
+      <CategoryTile 
+        category = 'discounted items'
+      />
+      <CategoryTile 
+        category= 'latest arrivals' 
+      />
     </div>
+
   )
 }
 
