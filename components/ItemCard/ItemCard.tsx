@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Typography, Button, ButtonBase } from '@mui/material';
@@ -8,6 +9,8 @@ import { BsEye, BsBagPlus } from 'react-icons/bs';
 import styles from './ItemCard.module.scss';
 import { Item } from '../../types';
 import { client } from '../../utils/client';
+import { addCartItem, selectCart } from '../../redux/cart';
+
 import Preview from '../Prevew/Preview';
 
 const colors = [
@@ -20,11 +23,27 @@ const colors = [
 ];
 
 const ItemCard = ({ item }: { item: Item }) => {
+	const { name, variants } = item
+	const dispatch = useDispatch()
+	const cart = useSelector(selectCart)
 	const [hover, setHover] = useState(false);
+	const [activeVariant, setActiveVariant] = useState(item.colors[0])
+	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
 	const imageProps: any = useNextSanityImage(client, item.images[0].image);
 
-	console.log(item);
+	// const itemInBag = cart?.cartItems?.find((item) => item.name === name && item.activeVariant.color === activeVariant.color)
+
+	// console.log(itemInBag)
+
+	const addItemToCart = () => {
+		dispatch(addCartItem({
+			item,
+			activeVariant,
+			qty
+		}))
+	}
+
 	return (
 		<>
 			<Card
@@ -42,7 +61,10 @@ const ItemCard = ({ item }: { item: Item }) => {
 					{hover && (
 						<div className={styles.buttons}>
 							<div className={styles.addToCart}>
-								<Button className={styles.button}>
+								<Button 
+									className={styles.button} 
+									onClick = {addItemToCart}
+								>
 									<BsBagPlus />
 								</Button>
 							</div>
@@ -77,11 +99,15 @@ const ItemCard = ({ item }: { item: Item }) => {
 					</div>
 				</ButtonBase>
 			</Card>
+
 			{showPreview && (
 				<Preview
 					item={item}
+					qty = {qty}
+					setQty = {setQty}
 					showPreview={showPreview}
 					setShowPreview={setShowPreview}
+					addItemToCart = {addItemToCart}
 				/>
 			)}
 		</>

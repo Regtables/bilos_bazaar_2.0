@@ -26,15 +26,21 @@ const Preview = ({
 	item,
 	showPreview,
 	setShowPreview,
+  qty,
+  setQty,
+  addItemToCart
 }: {
 	item: Item;
-	showPreview: any;
+	showPreview: boolean;
 	setShowPreview: any;
+  qty: number;
+  setQty: any;
+  addItemToCart: any
 }) => {
   const { name, price, images } = item
-  const imageProps: any = useNextSanityImage(client, images[0].image)
-  const [qty, setQty] = useState(1)
 
+  const imageProps: any = useNextSanityImage(client, images[0].image)
+ 
 	return (
 		<Backdrop
 			sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

@@ -31,7 +31,8 @@ export interface Item {
   slug: {
     current: string
   },
-  dimentions: string
+  dimentions: string,
+  variants: [Variant]
 }
 
 export interface Image{
@@ -40,6 +41,15 @@ export interface Image{
     _ref: string,
     _type: string
   }
+}
+
+export interface Variant{
+  _type: string,
+  id: string,
+  color: string,
+  image: Image,
+  inStock: boolean,
+  itemQuantity: number
 }
 
 export interface Slug{
