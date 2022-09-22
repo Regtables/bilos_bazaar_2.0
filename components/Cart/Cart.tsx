@@ -6,7 +6,10 @@ import { BsBag } from 'react-icons/bs'
 import { IoIosCloseCircleOutline} from 'react-icons/io'
 
 import styles from './Cart.module.scss'
+import { CartItem } from '../../types'
 import { selectCart } from '../../redux/cart'
+
+import CartItemTile from '../CartItemTile/CartItemTile'
 
 const Cart = ({ showCart, setShowCart }: { showCart: boolean, setShowCart: any}) => {
   const [animateCart, setAnimateCart] = useState({})
@@ -16,12 +19,12 @@ const Cart = ({ showCart, setShowCart }: { showCart: boolean, setShowCart: any})
 
   useEffect(() => {
     if(showCart){
-      setAnimateCart({width: ['0%', '50%']})
+      setAnimateCart({x: ['1000px', '0px']})
     }
   }, [showCart])
 
   const handleClose = () => {
-    setAnimateCart({width: ['50%', '0%']})
+    setAnimateCart({x: ['0px', '1000px']})
 
     setTimeout(() => {
       setShowCart(false)
@@ -41,29 +44,59 @@ const Cart = ({ showCart, setShowCart }: { showCart: boolean, setShowCart: any})
             animate = {animateCart}
             transition = {{duration: 0.3}}
           >
-            <div className= {styles.heading}>
-              <div className= {styles.headingText}>
-                <h3>Your shopping bag</h3>
-                <BsBag />
-              </div>
-              <div className= {styles.close} onClick = {handleClose}>
-                <IoIosCloseCircleOutline />
-              </div>
-            </div>
-
-            <div className = {styles.content}>
-              {cartItems.length === 0 ? (
-                <div className = {styles.empty}>
-                  <h3>You have no items in your bag</h3>
-                  <Button>Back to shopping</Button>
+            <div className= {styles.wrapper}>
+              <div className= {styles.heading}>
+                <div className= {styles.headingText}>
+                  <div>
+                    <h3>Your shopping bag</h3>
+                    {/* <h5>2 Items</h5> */}
+                  </div>
+                  <div>
+                  <BsBag />
+                  </div>
                 </div>
-              ) : (
-                <div className= {styles.items}>
-                  {cartItems.map((item, i) => (
-                    <>
-                      <h4>{item.item.name}</h4>
-                    </>
-                  ))}
+                <div className= {styles.close} onClick = {handleClose}>
+                  <IoIosCloseCircleOutline />
+                </div>
+              </div>
+
+              <div className = {styles.content}>
+                {cartItems.length === 0 ? (
+                  <div className = {styles.empty}>
+                    <h3>You have no items in your bag</h3>
+                    <Button 
+                      className = {styles.back} 
+                      variant = 'contained'
+                      onClick = {handleClose}
+                    >
+                      Back to shopping
+                    </Button>
+                  </div>
+                ) : (
+                  <div className= {styles.items}>
+                    {cartItems.map((item: CartItem, i: number) => (
+                      <CartItemTile item = {item} key = {i}/>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {cartItems.length > 0 && (
+                <div className= {styles.checkout}>
+                  <div className= {styles.terms}>
+                    <p>Shipping and taxes will be calculated at checkout.</p>
+                  </div>
+                  <div className= {styles.total}>
+                    <div className= {styles.totalText}>
+                      <h5>Total</h5>
+                    </div>
+                    <div className= {styles.amount}>
+                      <h5>R 1000</h5>
+                    </div>
+                  </div>
+                  <div className= {styles.checkoutButton}>
+                    <Button variant = 'contained' className= {styles.btn}>checkout</Button>
+                  </div>
                 </div>
               )}
             </div>

@@ -1,9 +1,17 @@
 .container{
   display: flex;
+  width: 100%;
+  height: 100%;
+
+  p{
+    margin: 0;
+  }
 }
 
 .less{
+  flex: 0.33;
   border-radius: 20px 0 0 20px;
+  background-color: rgba(255, 0, 0, 0.056);
   // color: var(--color-offBlack);
   // border: 1px solid var(--color-offBlack);
   // padding: 0.3rem;
@@ -13,9 +21,10 @@
 .button{
   color: var(--color-offBlack);
   border: 1px solid var(--color-offBlack);
-  padding: 0.3rem;
-  height: auto;
-
+  // padding: 0.3rem;
+  // height: auto;
+  min-width: unset;
+  padding: 0;
   transition: all 0.3s;
   
   &:hover{
@@ -24,13 +33,20 @@
 }
 
 .qty{
-  padding: 0 1rem;
+  // padding: 0 1rem;
+  flex: 0.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
   border-top: 1px solid var(--color-offBlack);
   border-bottom: 1px solid var(--color-offBlack) ;
 }
 
 .more{
+  flex: 0.33;
   border-radius: 0 20px 20px 0;
+  background-color: rgba(0, 128, 0, 0.048);
   // color: var(--color-offBlack);
   // border: 1px solid var(--color-offBlack);
 }

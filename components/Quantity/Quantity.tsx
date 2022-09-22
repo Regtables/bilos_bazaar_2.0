@@ -4,7 +4,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
 import styles from './Quantity.module.scss'
 
-const Quantity = ({ qty, setQty }) => {
+const Quantity = ({ qty, setQty } : { qty: number, setQty: any }) => {
   return (
     <div className = {styles.container}>
       <Button 

@@ -95,3 +95,9 @@ export interface Color{
   code: string,
 
 }
+
+export interface CartItem{
+  item: Item,
+  variant: Variant,
+  qty: number
+}

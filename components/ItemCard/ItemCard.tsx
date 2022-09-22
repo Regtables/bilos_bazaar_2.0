@@ -39,7 +39,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const addItemToCart = () => {
 		dispatch(addCartItem({
 			item,
-			activeVariant,
+			variant: activeVariant,
 			qty
 		}))
 	}
