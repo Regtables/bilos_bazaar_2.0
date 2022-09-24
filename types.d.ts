@@ -32,7 +32,8 @@ export interface Item {
     current: string
   },
   dimentions: string,
-  variants: [Variant]
+  variants: [Variant],
+  colors: any
 }
 
 export interface Image{
