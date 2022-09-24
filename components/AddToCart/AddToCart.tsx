@@ -4,7 +4,7 @@ import { Button } from '@mui/material'
 import styles from './AddToCart.module.scss'
 import { Item } from '../../types'
 
-const AddToCart = ({ item } : { item: Item }) => {
+const AddToCart = () => {
   return (
     <Button
       variant='contained'
