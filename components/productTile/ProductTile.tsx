@@ -6,8 +6,9 @@ import { useNextSanityImage } from 'next-sanity-image'
 
 import styles from './ProductTile.module.scss'
 import { client } from '../../utils/client'
+import { Product } from '../../types'
 
-const ProductTile = ({ product }) => {
+const ProductTile = ({ product } : { product: Product}) => {
   const { product: name, productImage: image, slug } = product
   const imageProps: any = useNextSanityImage(client, image)
 
