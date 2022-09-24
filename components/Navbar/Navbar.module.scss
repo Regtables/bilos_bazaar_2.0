@@ -18,6 +18,18 @@
     flex-direction: column;
     width: 90%;
     height: 90%;
+    flex: 0.5;
+  }
+}
+
+.logo_image{
+  position: relative;
+  height: 80px;
+  width: 80px;
+
+  @media screen and (max-width: 450px) {
+    height: 40px;
+    width: 40px;
   }
 }
 
@@ -43,10 +55,25 @@
     font-weight: 300;
   }
 
+  @media screen and (max-width: 450px) {
+    // h1{
+    //   font-size: 12px;
+    // }
+
+    // h2{
+    //   font-size: 10px;
+    // }
+    display: none;
+  }
+
 }
 
 .links_container{
   flex: 0.5;
+
+  @media screen and (max-width: 450px) {
+    flex: 0.8;
+  }
 }
 
 .partition{

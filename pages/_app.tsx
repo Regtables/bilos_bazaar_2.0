@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 
 import Navbar from '../components/Navbar/Navbar'
 import Footer from '../components/Footer/Footer'
+import Cart from '../components/Cart/Cart'
 import { store } from '../redux/store'
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -14,6 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <div>
           <nav>
             <Navbar />
+            <Cart />
           </nav>
           <main>
             <Component {...pageProps} />

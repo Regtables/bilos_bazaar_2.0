@@ -99,5 +99,6 @@ export interface Color{
 export interface CartItem{
   item: Item,
   variant: Variant,
-  qty: number
+  qty: number,
+  subTotal: number
 }

@@ -2,8 +2,9 @@ import React from 'react'
 import { Button } from '@mui/material'
 
 import styles from './AddToCart.module.scss'
+import { Item } from '../../types'
 
-const AddToCart = () => {
+const AddToCart = ({ item } : { item: Item }) => {
   return (
     <Button
       variant='contained'

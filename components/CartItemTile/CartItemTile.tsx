@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 import { useNextSanityImage } from 'next-sanity-image'
 import { Card, ButtonBase, Button} from '@mui/material'
@@ -7,23 +8,30 @@ import { BsBagX } from 'react-icons/bs'
 import { CartItem } from '../../types'
 import { client } from '../../utils/client'
 import styles from './CartItemTile.module.scss'
+import { removeCartItem  } from '../../redux/cart'
 
 import Quantity from '../Quantity/Quantity'
 
 const CartItemTile = ({ item } : { item: CartItem }) => {
   const { 
     variant: { image, color }, 
-    item: { name, price, category: { itemType } }
+    item: { name, price, category: { itemType } },
+    qty
   } = item;
+  const dispatch = useDispatch()
+  const [qtyy, setQty] = useState(1)
 
-  const [qty, setQty] = useState(1)
+
+  const handelQtyChange = () => {
+
+  }
 
   const imageProps: any = useNextSanityImage(client, image)
 
   console.log(item)
   return (
     <ButtonBase className = {styles.container}>
-      <Card className = {styles.card} elevation = {3}>
+      <Card className = {styles.card} elevation = {2}>
         <div className = {styles.image}>
           <Image 
             { ...imageProps }
@@ -51,11 +59,11 @@ const CartItemTile = ({ item } : { item: CartItem }) => {
         </div>
 
         <div className = {styles.price}>
-          <p>R {price}</p>
+          <p>R {price*qty}</p>
         </div>
 
         <div className = {styles.remove}>
-          <Button className = {styles.removeButton}>
+          <Button className = {styles.removeButton} onClick = {() => dispatch(removeCartItem(item))}>
             <BsBagX /> 
           </Button> 
         </div>

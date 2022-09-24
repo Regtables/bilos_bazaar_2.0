@@ -7,13 +7,18 @@ import { IoIosCloseCircleOutline} from 'react-icons/io'
 
 import styles from './Cart.module.scss'
 import { CartItem } from '../../types'
-import { selectCart } from '../../redux/cart'
+import { selectCartItems, selectShowCart, toggleCart, selectCartTotal } from '../../redux/cart'
 
 import CartItemTile from '../CartItemTile/CartItemTile'
 
-const Cart = ({ showCart, setShowCart }: { showCart: boolean, setShowCart: any}) => {
+const Cart = () => {
+  const dispatch = useDispatch()
   const [animateCart, setAnimateCart] = useState({})
-  const cartItems = useSelector(selectCart)
+  const showCart = useSelector(selectShowCart)
+  const cartTotal = useSelector(selectCartTotal)
+  const cartItems = useSelector(selectCartItems)
+
+  const cartItemsArr = Object.values(cartItems)
 
   console.log(cartItems)
 
@@ -27,7 +32,7 @@ const Cart = ({ showCart, setShowCart }: { showCart: boolean, setShowCart: any})
     setAnimateCart({x: ['0px', '1000px']})
 
     setTimeout(() => {
-      setShowCart(false)
+     dispatch(toggleCart(false))
     }, 300);
   }
   
@@ -52,7 +57,7 @@ const Cart = ({ showCart, setShowCart }: { showCart: boolean, setShowCart: any})
                     {/* <h5>2 Items</h5> */}
                   </div>
                   <div>
-                  <BsBag />
+                    <BsBag />
                   </div>
                 </div>
                 <div className= {styles.close} onClick = {handleClose}>
@@ -61,7 +66,7 @@ const Cart = ({ showCart, setShowCart }: { showCart: boolean, setShowCart: any})
               </div>
 
               <div className = {styles.content}>
-                {cartItems.length === 0 ? (
+                {cartItemsArr.length === 0 ? (
                   <div className = {styles.empty}>
                     <h3>You have no items in your bag</h3>
                     <Button 
@@ -74,14 +79,14 @@ const Cart = ({ showCart, setShowCart }: { showCart: boolean, setShowCart: any})
                   </div>
                 ) : (
                   <div className= {styles.items}>
-                    {cartItems.map((item: CartItem, i: number) => (
+                    {cartItemsArr.map((item: CartItem, i: number) => (
                       <CartItemTile item = {item} key = {i}/>
                     ))}
                   </div>
                 )}
               </div>
 
-              {cartItems.length > 0 && (
+              {cartItemsArr.length > 0 && (
                 <div className= {styles.checkout}>
                   <div className= {styles.terms}>
                     <p>Shipping and taxes will be calculated at checkout.</p>
@@ -91,7 +96,7 @@ const Cart = ({ showCart, setShowCart }: { showCart: boolean, setShowCart: any})
                       <h5>Total</h5>
                     </div>
                     <div className= {styles.amount}>
-                      <h5>R 1000</h5>
+                      <h5>R {cartTotal}</h5>
                     </div>
                   </div>
                   <div className= {styles.checkoutButton}>

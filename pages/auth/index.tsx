@@ -5,7 +5,7 @@ import { Paper, Grid, Button } from '@mui/material';
 import { FaLock } from 'react-icons/fa';
 import { GoogleLogin } from '@react-oauth/google';
 
-import styles from '../../styles/Auth.module.scss';
+import styles from './Auth.module.scss';
 import Input from '../../components/Input/Input';
 import { signin, signup, selectUser } from '../../redux/auth';
 

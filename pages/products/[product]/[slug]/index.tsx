@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import type { GetStaticProps, GetStaticPaths } from 'next';
 
 import { client } from '../../../../utils/client';
-import styles from '../../../../styles/Item.module.scss';
+import styles from './Item.module.scss';
 import { Item } from '../../../../types'
 
 import ItemInfo from '../../../../components/ItemInfo/ItemInfo';

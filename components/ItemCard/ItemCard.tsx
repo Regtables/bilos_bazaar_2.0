@@ -9,7 +9,7 @@ import { BsEye, BsBagPlus } from 'react-icons/bs';
 import styles from './ItemCard.module.scss';
 import { Item } from '../../types';
 import { client } from '../../utils/client';
-import { addCartItem, selectCart } from '../../redux/cart';
+import { addCartItem, selectCartItems } from '../../redux/cart';
 
 import Preview from '../Prevew/Preview';
 
@@ -25,7 +25,7 @@ const colors = [
 const ItemCard = ({ item }: { item: Item }) => {
 	const { name, variants } = item
 	const dispatch = useDispatch()
-	const cart = useSelector(selectCart)
+	const cart = useSelector(selectCartItems)
 	const [hover, setHover] = useState(false);
 	const [activeVariant, setActiveVariant] = useState(item?.colors[0])
 	const [qty, setQty] = useState(1)

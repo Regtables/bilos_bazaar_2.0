@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
@@ -8,6 +9,7 @@ import { GoLocation } from 'react-icons/go';
 import { FaFacebookF, FaUser } from 'react-icons/fa';
 
 import styles from './Navbar.module.scss'
+import { toggleCart } from '../../redux/cart';
 import { selectUser } from '../../redux/auth';
 import Cart from '../Cart/Cart';
 
@@ -17,6 +19,7 @@ const links = [
 ]
 
 const Navbar = () => {
+  const dispatch = useDispatch()
   const user = useSelector(selectUser)
   const [showCart, setShowCart] = useState(false)
 
@@ -26,11 +29,13 @@ const Navbar = () => {
         <div className= {styles.logo_container}>
           <Link href={'/'}>
             <div className = {styles.logo}>
-              <Image 
-                src = '/logo-no-border.png'
-                height={80}
-                width = {80}
-              />
+              <div className = {styles.logo_image}>
+                <Image 
+                  src = '/logo-no-border.png'
+                  layout='fill'
+                />
+              </div>
+
               <div className= {styles.logo_text}>
                 <h1>Bilos Bazaar</h1>
                 <div className= {styles.partition}></div>
@@ -56,7 +61,7 @@ const Navbar = () => {
               </div>
               <div 
                 className= {styles.bag}
-                onClick = {() => setShowCart(true)}
+                onClick = {() => dispatch(toggleCart(true))}
               >
                 <BsBagFill />
               </div>
@@ -74,11 +79,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      
-      <Cart 
-        showCart = {showCart}
-        setShowCart = {setShowCart}
-      />
     </>
   )
 }
