@@ -79,7 +79,7 @@ const Cart = () => {
                   </div>
                 ) : (
                   <div className= {styles.items}>
-                    {cartItemsArr.map((item: CartItem, i: number) => (
+                    {cartItemsArr.map((item: any, i: number) => (
                       <CartItemTile item = {item} key = {i}/>
                     ))}
                   </div>
