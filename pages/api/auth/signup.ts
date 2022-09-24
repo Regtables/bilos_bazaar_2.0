@@ -5,12 +5,12 @@ import jwt from 'jsonwebtoken'
 import { client } from '../../../utils/client'
 import { SanityDocument } from '@sanity/client'
 
-type Data = {
-  name: string,
-  message: string
-}
+// type Data = {
+//   name: string,
+//   message: string
+// }
 
-export default async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler( req: NextApiRequest, res: NextApiResponse) {
   const { firstName, lastName, password, confirmPassword, email } = req.body
 
   if(req.method === "POST"){
