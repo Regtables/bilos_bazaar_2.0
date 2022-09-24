@@ -1,9 +1,11 @@
 import React from 'react'
 
+import { Category } from '../../types'
+
 import styles from './FeaturedCategories.module.scss'
 import CategoryCard from '../CategoryCard/CategoryCard'
 
-const FeaturedCategories = ({ categories }) => {
+const FeaturedCategories = ({ categories } : { categories: [Category]}) => {
   console.log(categories)
   return (
     <div className= {`${styles.container} section__padding`}>
