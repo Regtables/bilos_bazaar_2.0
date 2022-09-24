@@ -50,7 +50,7 @@ const Item = ({ item } : {item: Item}) => {
             <ItemInfo item= {item} />
           </div>
           <div className= {styles.colors}>
-            <ItemColors colors = {colors} size = {25} />
+            <ItemColors colors = {colors} size = {25} activeColor = {activeVariant} setActiveColor = {setActiveVariant} />
           </div>
           <div className= {styles.cart}>
             <div className= {styles.qty}>
