@@ -4,9 +4,10 @@ import { Grid } from '@mui/material'
 import styles from '../../styles/Products.module.scss'
 import { client } from '../../utils/client'
 import ProductTile from '../../components/ProductTile/ProductTile'
+import { Product } from '../../types'
 
 
-const Products = ({ products }) => {
+const Products = ({ products } : { products: [Product]}) => {
   console.log(products)
   return (
     <div className= {`${styles.container} section__padding`}>

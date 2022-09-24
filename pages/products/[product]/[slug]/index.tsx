@@ -22,6 +22,11 @@ const colors = [
 	'#ffeb3b',
 ];
 
+interface Params {
+  slug: string,
+  product: string
+}
+
 const Item = ({ item } : {item: Item}) => {
   const { images } = item
 
@@ -69,7 +74,7 @@ const Item = ({ item } : {item: Item}) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params } : { params: any}) => {
   const { slug } = params
 
   const itemQuery = `*[_type == "item" && slug.current == "${slug}"]`

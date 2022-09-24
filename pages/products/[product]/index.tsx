@@ -28,6 +28,7 @@ const Product = ({ product, items } : { product: Product, items: [Item] } ) => {
         <Breadcrums
           product = {name}
           category = {activeCategory}
+          item = {''}
         />
       </div>
       <Paper className= {styles.container} elevation = {8}>
@@ -70,7 +71,7 @@ const Product = ({ product, items } : { product: Product, items: [Item] } ) => {
   )
 }
 
-export const getStaticProps = async ({ params: { product }}) => {
+export const getStaticProps = async ({ params: { product } } : {params: any }) => {
   const productQuery= `*[_type == "product" && product == "${product.replace('-', ' ')}"]{product, categories[]->, productImage}`
   const productData = await client.fetch(productQuery)
 
