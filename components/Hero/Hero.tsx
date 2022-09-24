@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { AiFillLeftCircle, AiFillRightCircle } from 'react-icons/ai'
 
 import styles from './Hero.module.scss'
+import { HeroImage } from '../../types'
+
 import HeroTile from '../HeroTile/HeroTile'
 
-const Hero = ({ data } : { data: any}) => {
+const Hero = ({ data } : { data: [HeroImage] }) => {
   const [activeTile, setActiveTile] = useState(data[0])
   const [index, setIndex] = useState(0)
 

@@ -1,18 +1,14 @@
 import React from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
 import { useNextSanityImage } from 'next-sanity-image'
 import { Button } from '@mui/material'
 
 import styles from './HeroTile.module.scss'
+import { HeroImage } from '../../types'
 import { client } from '../../utils/client'
-import Link from 'next/link'
 
-interface tile {
-  image: string,
-  title: string,
-}
-
-const HeroTile = ({ tile } : { tile: tile}) => {
+const HeroTile = ({ tile } : { tile: HeroImage }) => {
   const { title, image } = tile
   const imageProps = useNextSanityImage(client, image)
 
