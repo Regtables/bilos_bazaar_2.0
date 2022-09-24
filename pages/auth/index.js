@@ -24,11 +24,11 @@ const Auth = () => {
 	const [isSignup, setIsSignup] = useState(false);
 	const [formData, setFormData] = useState(initialState || null);
 
-	const handleChange = (e: any) => {
+	const handleChange = (e) => {
 		setFormData({ ...formData, [e?.target?.name]: e?.target?.value })
 	};
 
-	const handleSubmit = async (e: any) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 
 		if(isSignup){
