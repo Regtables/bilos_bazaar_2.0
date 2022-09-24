@@ -61,7 +61,7 @@ const Product = ({ product, items } : { product: Product, items: [Item] } ) => {
             </div>
             <div className = {styles.items}>
               {items.map((item, i) => (
-                <ItemCard item = {item} />
+                <ItemCard item = {item} key = {i} />
               ))}
             </div>
           </div>

@@ -27,7 +27,7 @@ const ItemInfo = ({ item } : { item: Item }) => {
 
         <div className= {styles.tags}>
           {tags.map((tag, i) => (
-            <Chip label = {tag} className = {styles.chip} />
+            <Chip label = {tag} className = {styles.chip} key = {i} />
           ))}
         </div>
 

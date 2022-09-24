@@ -11,6 +11,7 @@ const ItemColors = ({ colors, activeColor, setActiveColor, size } : { colors: [C
         <div 
           className= {styles.color}
           style = {{backgroundColor: `${color}`, width: `${size}px`, height: `${size}px`}}
+          key = {i}
         >
         </div>
       ))}
