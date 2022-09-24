@@ -15,7 +15,7 @@ import Quantity from '../Quantity/Quantity'
 const CartItemTile = ({ item } : { item: CartItem }) => {
   const { 
     variant: { image, color }, 
-    item: { name, price, category: { itemType } },
+    item: { name, price },
     qty
   } = item;
   const dispatch = useDispatch()
