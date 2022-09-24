@@ -2,8 +2,9 @@ import React from 'react'
 
 import styles from './FeaturedItems.module.scss'
 import ItemCard from '../ItemCard/ItemCard'
+import { Item } from '../../types'
 
-const FeaturedItems = ({ items }) => {
+const FeaturedItems = ({ items } : { items: [Item] }) => {
   return (
     <div className='section__padding'>
       <h2 className='section__heading'>Our Best Selling Items</h2>
