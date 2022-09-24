@@ -27,10 +27,10 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const dispatch = useDispatch()
 	const cart = useSelector(selectCart)
 	const [hover, setHover] = useState(false);
-	const [activeVariant, setActiveVariant] = useState(item.colors[0])
+	const [activeVariant, setActiveVariant] = useState(item?.colors[0])
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
-	const imageProps: any = useNextSanityImage(client, item.images[0].image);
+	const imageProps: any = useNextSanityImage(client, item?.images[0].image);
 
 	// const itemInBag = cart?.cartItems?.find((item) => item.name === name && item.activeVariant.color === activeVariant.color)
 

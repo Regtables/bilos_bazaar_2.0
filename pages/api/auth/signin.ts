@@ -12,6 +12,8 @@ type Data = {
 export default async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
   const { email, password } = req.body
 
+  console.log(req.body)
+
   if(req.method === "POST"){
     try{
       const existingUser = await client.fetch(`*[_type == "user" && username == "${email}"]`)
@@ -19,11 +21,14 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
       if(!(existingUser.length > 0)) {
    
         res.status(404).json({ message: 'Your account was not found in our system' })
+        res.end()
+        // return Promise.reject()
       } else {
         const isPasswordCorrect: boolean = await bcrypt.compare(password, existingUser[0].password)
 
         if(!isPasswordCorrect){
           res.status(401).json({ message: 'Invalid password'})
+          res.end()
         } 
         else{
           const token = jwt.sign({email: email, id: existingUser._id}, 'test', { expiresIn: '1h'})

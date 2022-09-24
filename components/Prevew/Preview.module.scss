@@ -136,7 +136,17 @@
   margin-top: 1rem;
   display: flex;
   width: 80%;
+  height: 37px;
   justify-content: space-between;
+
+  .qty{
+    flex: 0.5;
+    margin-right: 0.5rem;
+  }
+
+  .add{
+    flex: 0.5;
+  }
 
   @media screen and (max-width: 450px) {
     width: 100%;

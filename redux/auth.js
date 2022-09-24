@@ -4,14 +4,22 @@ import * as api from '../api/index'
 
 export const signin = createAsyncThunk('auth/signin', async (formData) => {
   try{
-    const { data } = await api.signin(formData)
-
-    return data
-  } catch (error) {
+    const response = await api.signin(formData)
     
-    const { response: { data: { message } } } = error
+    const data = await response.json()
+    console.log(data)
+
+    return response
+    // return data
+  } catch (error) {
+
+    console.log(error)
+
+    
+    
+    // const { response: { data: { message } } } = error
      
-    Promise.reject()
+    // Promise.reject()
   }
 })
 
@@ -44,11 +52,11 @@ const authSlice = createSlice({
       })
       .addCase(signin.fulfilled, (state, action) => {
         console.log(action.payload)
-        const { existingUser: user, token } = action?.payload
-        state.user = user[0]
-        state.token = token
-        state.isLoading = false
-        state.hasError = false
+        // const { existingUser: user, token } = action?.payload
+        // state.user = user[0]
+        // state.token = token
+        // state.isLoading = false
+        // state.hasError = false
       })
       .addCase(signin.rejected, (state, action) => {
         console.log(action.payload)

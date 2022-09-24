@@ -50,11 +50,15 @@ const Item = ({ item } : {item: Item}) => {
             <ItemInfo item= {item} />
           </div>
           <div className= {styles.colors}>
-            <ItemColors colors = {colors} size = {30} />
+            <ItemColors colors = {colors} size = {25} />
           </div>
           <div className= {styles.cart}>
-            <Quantity qty={qty} setQty = {setQty} />
-            <AddToCart />
+            <div className= {styles.qty}>
+              <Quantity qty={qty} setQty = {setQty} />
+            </div>
+            <div className= {styles.add}>
+              <AddToCart />
+            </div>
           </div>
           <div className= {styles.buy}>
             <BuyNow />

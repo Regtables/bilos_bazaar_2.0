@@ -96,8 +96,12 @@ const Preview = ({
           </div>
           
           <div className= {styles.cart}>
-            <Quantity qty = {qty} setQty = {setQty} />
-            <AddToCart />
+            <div className = {styles.qty}>
+              <Quantity qty = {qty} setQty = {setQty} />
+            </div>
+            <div className= {styles.add}>
+              <AddToCart />
+            </div>
           </div>
 
           <div className= {styles.buyNow}>

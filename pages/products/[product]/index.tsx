@@ -30,7 +30,7 @@ const Product = ({ product, items } : { product: Product, items: [Item] } ) => {
           category = {activeCategory}
         />
       </div>
-      <Paper className= {styles.container} elevation = {3}>
+      <Paper className= {styles.container} elevation = {8}>
           <div 
             className= {styles.banner}
           >
