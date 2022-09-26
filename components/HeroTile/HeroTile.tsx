@@ -30,7 +30,18 @@ const HeroTile = ({ tile } : { tile: HeroImage }) => {
       </div> */}
       <div className={styles.button_container}>
         <Link href ='/'>
-          <Button variant='contained' className= {styles.button} size = 'large'>Shop Now</Button>
+          <Button 
+            variant='contained' 
+            className= {styles.button} 
+            size = 'large'
+            disabled
+            sx = {{
+              color: 'white',
+              backgroundColor: 'var(--color-primary)'
+            }}
+          >
+              Shop Now
+          </Button>
         </Link>
       </div>
     </div>
