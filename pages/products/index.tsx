@@ -5,7 +5,7 @@ import styles from '../../styles/Products.module.scss'
 import { client } from '../../utils/client'
 import { Product } from '../../types'
 
-import ProductTile from '../../components/ProductTile/ProductTile'
+// import ProductTile from '../../components/ProductTile/ProductTile'
 
 const Products = ({ products } : { products: [Product]}) => {
   console.log(products)
@@ -15,7 +15,8 @@ const Products = ({ products } : { products: [Product]}) => {
         <h1 className= 'section__heading'>Our Products</h1>
       </header>
       {products.map((product, i) => (
-        <ProductTile product = {product} key = {i} />
+        // <ProductTile product = {product} key = {i} />
+        <></>
       ))}
     </div>
   
