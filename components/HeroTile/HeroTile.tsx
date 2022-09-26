@@ -37,6 +37,10 @@ const HeroTile = ({ tile } : { tile: HeroImage }) => {
             sx = {{
               color: 'white',
               backgroundColor: 'var(--color-primary)',
+              hover: {
+                backgroundColor: 'white',
+                color: 'var(--color-primary)'
+              }
             }}
           >
               Shop Now
