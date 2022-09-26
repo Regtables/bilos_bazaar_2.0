@@ -34,10 +34,9 @@ const HeroTile = ({ tile } : { tile: HeroImage }) => {
             variant='contained' 
             className= {styles.button} 
             size = 'large'
-            disabled
             sx = {{
               color: 'white',
-              backgroundColor: 'var(--color-primary)'
+              backgroundColor: 'var(--color-primary)',
             }}
           >
               Shop Now
