@@ -3,9 +3,9 @@ import { Grid } from '@mui/material'
 
 import styles from '../../styles/Products.module.scss'
 import { client } from '../../utils/client'
-import ProductTile from '../../components/ProductTile/ProductTile'
 import { Product } from '../../types'
 
+import ProductTile from '../../components/ProductTile/ProductTile'
 
 const Products = ({ products } : { products: [Product]}) => {
   console.log(products)
