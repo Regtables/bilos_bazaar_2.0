@@ -49,7 +49,7 @@ const Auth = () => {
 
 	return (
 		<div className={styles.auth} style = {{backgroundImage: 'url(/item9.jpeg)'}}>
-			<Paper className={styles.container}>
+			<div className={styles.container}>
 				<div className={styles.heading}>
 					<div className = {styles.icon}>
 						<FaLock />
@@ -127,7 +127,7 @@ const Auth = () => {
 				>
 					{isSignup ? 'Allready have an account? Sign In' : 'Dont have an account? Sign Up'}
 				</Button>
-			</Paper>
+			</div>
 		</div>
 	);
 };

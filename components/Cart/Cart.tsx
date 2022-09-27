@@ -41,9 +41,12 @@ const Cart = () => {
       {showCart && (
         <Backdrop 
           open = {showCart}
-          // onClick = {() => setShowCart(false)}
+          // onClick = {() => dispatch(toggleCart(false))}
           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         >
+          <div className= {styles.backdrop} onClick = {handleClose}>
+            
+          </div>
           <motion.div 
             className= {styles.container}
             animate = {animateCart}

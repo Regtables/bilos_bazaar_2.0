@@ -1,14 +1,31 @@
 import React from 'react'
-import { Button } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { Button, Alert } from '@mui/material'
 
 import styles from './AddToCart.module.scss'
-import { Item } from '../../types'
+import { Item, Variant } from '../../types'
+import { addCartItem } from '../../redux/cart'
 
-const AddToCart = () => {
+const AddToCart = ({ item, activeVariant, qty } : { item: Item, activeVariant: Variant, qty: number }) => {
+  const dispatch = useDispatch()
+
+  const addItem = () => {
+    dispatch(addCartItem({
+      item: item,
+      variant: activeVariant,
+      qty: qty
+    }))
+
+    return (
+      <Alert severity='success'>{`Added ${qty} ${item.name} to your bag`}</Alert>
+    )
+  }
+
   return (
     <Button
       variant='contained'
       className= {styles.button}
+      onClick = {addItem}
     >
       Add to Bag
     </Button>

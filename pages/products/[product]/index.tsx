@@ -5,7 +5,7 @@ import { client, urlFor } from '../../../utils/client'
 import { useNextSanityImage } from 'next-sanity-image'
 import { BsSearch } from 'react-icons/bs'
 
-import styles from '../../../styles/Product.module.scss'
+import styles from './Product.module.scss'
 import { Item, Product } from '../../../types'
 import { productItemsQuery } from '../../../utils/queries'
 import { selectActiveCategory } from '../../../redux/items'

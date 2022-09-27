@@ -15,9 +15,10 @@
 }
 
 .name{
-  position: absolute;
+    // position: absolute;
+  text-align: center;
   font-family: var(--font-family);
-  top: 45%;
+  // top: 45%;
   margin: 0;
   color: white;
   font-weight: 400;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Backdrop, Button } from '@mui/material';
 import { useNextSanityImage } from 'next-sanity-image';
 import { IoIosCloseCircleOutline} from 'react-icons/io'
@@ -7,7 +8,8 @@ import { TiWeatherWindy } from 'react-icons/ti'
 
 import styles from './Preview.module.scss';
 import { client } from '../../utils/client';
-import { Item } from '../../types';
+import { itemSlug } from '../../utils/helpers';
+import { Item, Variant } from '../../types';
 
 import Quantity from '../Quantity/Quantity';
 import AddToCart from '../AddToCart/AddToCart';
@@ -28,6 +30,8 @@ const Preview = ({
 	setShowPreview,
   qty,
   setQty,
+  activeVariant,
+  setActiveVariant,
   addItemToCart
 }: {
 	item: Item;
@@ -35,9 +39,13 @@ const Preview = ({
 	setShowPreview: any;
   qty: number;
   setQty: any;
+  activeVariant: Variant,
+  setActiveVariant: any
   addItemToCart: any
 }) => {
   const { name, price, images } = item
+
+  console.log(item)
 
   const imageProps: any = useNextSanityImage(client, images[0].image)
  
@@ -74,7 +82,7 @@ const Preview = ({
             variant = 'text'
             className = {styles.moreInformation}
           >
-            More Information
+            <Link href = {itemSlug(item)}> More Information</Link>
           </Button>
 
           <div className= {styles.partition}>
@@ -100,7 +108,11 @@ const Preview = ({
               <Quantity qty = {qty} setQty = {setQty} />
             </div>
             <div className= {styles.add}>
-              <AddToCart />
+              <AddToCart
+                item={item}
+                activeVariant = {activeVariant}
+                qty = {qty}
+              />
             </div>
           </div>
 

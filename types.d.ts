@@ -76,7 +76,7 @@ export interface Category{
   image: Image,
   itemType: string,
   items: [Item],
-  product: string
+  product: Product
 
 }
 

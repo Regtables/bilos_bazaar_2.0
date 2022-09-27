@@ -9,6 +9,7 @@ import { BsEye, BsBagPlus } from 'react-icons/bs';
 import styles from './ItemCard.module.scss';
 import { Item } from '../../types';
 import { client } from '../../utils/client';
+import { itemSlug } from '../../utils/helpers';
 import { addCartItem, selectCartItems } from '../../redux/cart';
 
 import Preview from '../Prevew/Preview';
@@ -27,7 +28,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const dispatch = useDispatch()
 	const cart = useSelector(selectCartItems)
 	const [hover, setHover] = useState(false);
-	const [activeVariant, setActiveVariant] = useState(item?.colors[0])
+	const [activeVariant, setActiveVariant] = useState(item?.variants[0])
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
 	const imageProps: any = useNextSanityImage(client, item?.images[0].image);
@@ -81,7 +82,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 					)}
 				</div>
 
-				<ButtonBase href={`/products/beach/${item.slug.current}`}>
+				<ButtonBase href={itemSlug(item)}>
 					<div className={styles.content}>
 						<h5 className={styles.category}>Towels</h5>
 						<h3 className={styles.name}> {item.name}</h3>
@@ -105,6 +106,8 @@ const ItemCard = ({ item }: { item: Item }) => {
 					item={item}
 					qty = {qty}
 					setQty = {setQty}
+					activeVariant = {activeVariant}
+					setActiveVariant = {setActiveVariant}
 					showPreview={showPreview}
 					setShowPreview={setShowPreview}
 					addItemToCart = {addItemToCart}

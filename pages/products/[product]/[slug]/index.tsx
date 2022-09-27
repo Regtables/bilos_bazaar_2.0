@@ -30,7 +30,7 @@ interface Params {
 const Item = ({ item } : {item: Item}) => {
   const { images } = item
 
-  const [activeVariant, setActiveVariant] = useState('')
+  const [activeVariant, setActiveVariant] = useState(item.variants[0])
   const [qty, setQty] = useState(1)
 
   console.log(item)
@@ -62,7 +62,11 @@ const Item = ({ item } : {item: Item}) => {
               <Quantity qty={qty} setQty = {setQty} />
             </div>
             <div className= {styles.add}>
-              <AddToCart />
+              <AddToCart
+                item={item}
+                activeVariant = {activeVariant}
+                qty = {qty}
+              />
             </div>
           </div>
           <div className= {styles.buy}>
