@@ -19,12 +19,9 @@ const links = [
   'Beach'
 ]
 
-const Navbar = ({ allItems } : { allItems: [Item]}) => {
+const Navbar = () => {
   const dispatch = useDispatch()
   const user = useSelector(selectUser)
-  const [showCart, setShowCart] = useState(false)
-
-  console.log(allItems)
 
   return (
     <>

@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps, props }: { Component: any, pageProps: App
       <GoogleOAuthProvider clientId=''>
         <div>
           <nav>
-            <Navbar allItems = {props.allItems} />
+            <Navbar />
             <Cart />
           </nav>
           <main>
@@ -34,17 +34,17 @@ function MyApp({ Component, pageProps, props }: { Component: any, pageProps: App
   ) 
 }
 
-MyApp.getInitialProps = async () => {
-  const allItems = await client.fetch(itemsQuery())
+// MyApp.getInitialProps = async () => {
+//   const allItems = await client.fetch(itemsQuery())
 
-  console.log(allItems)
+//   console.log(allItems)
 
-  return {
-    props: {
-      allItems
-    },
-    revalidate: 1
-  }
-}
+//   return {
+//     props: {
+//       allItems
+//     },
+//     revalidate: 1
+//   }
+// }
 
 export default MyApp
