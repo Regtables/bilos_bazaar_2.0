@@ -11,6 +11,7 @@ import { FaFacebookF, FaUser } from 'react-icons/fa';
 import styles from './Navbar.module.scss'
 import { toggleCart } from '../../redux/cart';
 import { selectUser } from '../../redux/auth';
+import { Item } from '../../types';
 import Cart from '../Cart/Cart';
 
 const links = [
@@ -18,10 +19,12 @@ const links = [
   'Beach'
 ]
 
-const Navbar = () => {
+const Navbar = ({ allItems } : { allItems: [Item]}) => {
   const dispatch = useDispatch()
   const user = useSelector(selectUser)
   const [showCart, setShowCart] = useState(false)
+
+  console.log(allItems)
 
   return (
     <>

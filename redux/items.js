@@ -9,12 +9,15 @@ const itemsSlice = createSlice({
   reducers: {
     setActiveCategory: (state, action) => {
       state.activeCategory = action.payload
+    },
+    setAllItems: (state, action) => {
+      state.allItems = action.payload
     }
   }
 })
 
 export const selectActiveCategory = (state) => state.items.activeCategory
 
-export const { setActiveCategory } = itemsSlice.actions
+export const { setActiveCategory, setAllItems } = itemsSlice.actions
 
 export default itemsSlice.reducer

@@ -4,21 +4,22 @@ import type { Component } from 'react'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { Provider } from 'react-redux'
 
-import Navbar from '../components/Navbar/Navbar'
-import Footer from '../components/Footer/Footer'
-import Cart from '../components/Cart/Cart'
 import { store } from '../redux/store'
 import { client } from '../utils/client'
 import { itemsQuery } from '../utils/queries'
+import { setAllItems } from '../redux/items'
+
+import Navbar from '../components/Navbar/Navbar'
+import Footer from '../components/Footer/Footer'
+import Cart from '../components/Cart/Cart'
 
 function MyApp({ Component, pageProps, props }: { Component: any, pageProps: AppProps, props: any }) {
-  console.log(props)
   return (
     <Provider store={store}>
       <GoogleOAuthProvider clientId=''>
         <div>
           <nav>
-            <Navbar />
+            <Navbar allItems = {props.allItems} />
             <Cart />
           </nav>
           <main>

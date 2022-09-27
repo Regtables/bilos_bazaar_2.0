@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import styles from './ImageCarousel.module.scss'
 import SlideShowImage from '../SlideShowImage/SlideShowImage'
+import { Variant } from '../../types'
 
 interface itemImage {
   color: string,
@@ -13,7 +14,7 @@ interface itemImage {
 }
 
 
-const ImageCarousel = ({ images, activeVariant } : { images: [itemImage], activeVariant: string }) => {
+const ImageCarousel = ({ images, activeVariant } : { images: [itemImage], activeVariant: Variant }) => {
   console.log(images)
   const [index, setIndex] = useState(0)
   const [activeImage, setActiveImage] = useState(images[index])
