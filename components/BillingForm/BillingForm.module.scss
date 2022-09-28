@@ -1,0 +1,13 @@
+.heading{
+  color: var(--color-offBlack);
+  h5{
+    font-weight: 300;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  svg{
+    margin-right: 0.5rem;
+  }
+}

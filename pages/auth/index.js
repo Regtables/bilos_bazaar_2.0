@@ -7,7 +7,7 @@ import { GoogleLogin } from '@react-oauth/google';
 
 import styles from './Auth.module.scss';
 import Input from '../../components/Input/Input';
-import { signin, signup, selectUser } from '../../redux/auth';
+import { signin, signup, selectUser, isLoadingUser } from '../../redux/auth';
 
 const initialState = {
 	firstName: '',
@@ -21,8 +21,11 @@ const Auth = () => {
 	const dispatch = useDispatch()
 	const router = useRouter()
 	const user = useSelector(selectUser)
+	const isLoading = useSelector(isLoadingUser)
 	const [isSignup, setIsSignup] = useState(false);
 	const [formData, setFormData] = useState(initialState || null);
+
+	console.log(user)
 
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e?.target?.name]: e?.target?.value })
@@ -32,14 +35,26 @@ const Auth = () => {
 		e.preventDefault();
 
 		if(isSignup){
-			const { payload: { result } }= await dispatch(signup(formData))
-			setFormData(initialState)
-			router.push(`/user/${result._id}`)
+			await dispatch(signup(formData))
+				.then((res) => {
+					console.log(res)
+					if(user._id){
+						setFormData(initialState)
+						router.push(`/user/${user._id}`)
+					}
+				})
 			
 		} else {
-			dispatch(signin(formData))
-			setFormData(initialState)
-			// router.push(`/user/${existingUser[0]._id}`)
+			await dispatch(signin(formData))
+				.then((res) => {
+					const { payload } = res
+					const id = payload.existingUser[0]._id
+	
+					if(id){
+						setFormData(initialState)
+						router.push(`/user/${id}`)
+					}
+				})
 		}
 	}
 
@@ -49,7 +64,7 @@ const Auth = () => {
 
 	return (
 		<div className={styles.auth} style = {{backgroundImage: 'url(/item9.jpeg)'}}>
-			<div className={styles.container}>
+			<div className={styles.container} style = {isLoading ? {cursor: 'progress'} : {cursor: 'auto'}}>
 				<div className={styles.heading}>
 					<div className = {styles.icon}>
 						<FaLock />

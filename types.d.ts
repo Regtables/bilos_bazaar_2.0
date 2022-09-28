@@ -5,6 +5,25 @@ export interface Category{
   
 }
 
+export interface BillingInfo{
+  name: string,
+  surname: string,
+  provice: string,
+  city: string,
+  phone: number,
+  email: string,
+  address: string
+}
+
+export interface User{
+  _type: string,
+  _id: string,
+  _createdAt: string
+  billingInfo: BillingInfo,
+  wishlist: string,
+  payments: string
+}
+
 export interface Item {
   _type: string,
   _id: string,

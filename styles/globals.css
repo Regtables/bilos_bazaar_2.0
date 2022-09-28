@@ -22,6 +22,10 @@ a {
   padding: 0 3%;
 }
 
+.section__margin{
+  margin: 0 3%;
+}
+
 .section__heading{
   font-family: var(--font-family);
   padding-bottom: 1rem;

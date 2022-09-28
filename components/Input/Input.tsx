@@ -10,6 +10,7 @@ const Input = ({
 	onChange,
 	handleShowPassword,
 	value,
+	size
 }: {
 	name: string;
 	type: string;
@@ -19,6 +20,7 @@ const Input = ({
 	onChange: any;
 	handleShowPassword: any;
 	value: string;
+	size: string
 }) => {
 	return (
 		<Grid item xs={12} sm={half ? 6 : 12}>
@@ -32,7 +34,7 @@ const Input = ({
 				fullWidth
 				value={value}
 				required
-				size='medium'
+				size= {size}
 			/>
 		</Grid>
 	);

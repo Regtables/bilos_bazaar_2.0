@@ -1,0 +1,38 @@
+.container{
+  background-color: aliceblue;
+  margin: 2rem 0 2rem 2rem;
+
+  @media screen and (max-width: 450px) {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+  }
+}
+
+.section{
+  display: flex;
+  align-items: center;
+  padding: 0.3rem 2rem;
+  justify-content: flex-start;
+
+  svg{
+    margin-right: 0.5rem;
+    color: var(--color-primary);
+  }
+
+  h5{
+    font-weight: 300;
+    text-transform: capitalize;
+    font-size: 16px;
+  }
+  // border: 2px solid black;
+
+  &.active{
+    background-color: rgb(195, 211, 223);
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 0.3rem 0.5rem;
+    width: 33%;
+  }
+}

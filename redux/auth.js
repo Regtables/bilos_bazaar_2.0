@@ -9,17 +9,11 @@ export const signin = createAsyncThunk('auth/signin', async (formData) => {
     const data = await response.json()
     console.log(data)
 
-    return response
-    // return data
+    return data
+
   } catch (error) {
 
     console.log(error)
-
-    
-    
-    // const { response: { data: { message } } } = error
-     
-    // Promise.reject()
   }
 })
 
@@ -51,12 +45,12 @@ const authSlice = createSlice({
         state.hasError = false
       })
       .addCase(signin.fulfilled, (state, action) => {
-        console.log(action.payload)
-        // const { existingUser: user, token } = action?.payload
-        // state.user = user[0]
-        // state.token = token
-        // state.isLoading = false
-        // state.hasError = false
+        console.log('signing in')
+        const { existingUser: user, token } = action?.payload
+        state.user = user[0]
+        state.token = token
+        state.isLoading = false
+        state.hasError = false
       })
       .addCase(signin.rejected, (state, action) => {
         console.log(action.payload)
@@ -84,5 +78,6 @@ const authSlice = createSlice({
 })
 
 export const selectUser = (state) => state.user.user
+export const isLoadingUser = (state) => state.user.isLoading
 
 export default authSlice.reducer
