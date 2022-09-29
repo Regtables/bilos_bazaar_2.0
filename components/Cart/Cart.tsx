@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux'
 import { Backdrop, Button } from '@mui/material'
 import { motion } from 'framer-motion'
@@ -103,7 +104,11 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className= {styles.checkoutButton}>
-                    <Button variant = 'contained' className= {styles.btn}>checkout</Button>
+                    <Link href = '/checkout'>
+                      <Button variant = 'contained' className= {styles.btn}>
+                        Checkout
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               )}

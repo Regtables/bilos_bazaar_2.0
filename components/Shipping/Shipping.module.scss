@@ -1,0 +1,26 @@
+.container{
+  padding: 1rem;
+}
+
+.differentAddress{
+  display: flex;
+  align-items: center;
+}
+
+.toggle{
+  height: 15px;
+  width: 15px;
+  outline: 1px solid var(--color-offBlack);
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.fee{
+  display: flex;
+  padding: 2rem 1rem;
+  justify-content: space-between;
+}
+
+.confirm{
+  margin-top: 1rem;
+}

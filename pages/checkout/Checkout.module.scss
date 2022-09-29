@@ -1,0 +1,31 @@
+.container{
+  display: flex;
+  margin-top: 3rem;
+
+  input{
+    background-color: white;
+  }
+}
+
+.billing{
+  flex: 0.6;
+}
+
+.billingInfo{
+  padding: 0.5rem 1rem 1rem 1rem; 
+  background-color: aliceblue;
+}
+
+.shipping{
+  margin-top: 2rem;
+}
+
+.orderInfo{
+  position: sticky;
+  top: 20px;
+  flex:0.4;
+  height: 10%;
+  display: flex;
+  // height: unset;
+  margin-left: 2rem;
+}
