@@ -15,13 +15,26 @@ import { Item } from '../../types';
 import Cart from '../Cart/Cart';
 
 const links = [
-  'Home Decor',
-  'Beach'
+  {
+    link: 'Home Decor',
+    slug: 'home-decor'
+  },
+  {
+    link: 'Beach',
+    slug: 'beach'
+  }
 ]
 
 const Navbar = () => {
   const dispatch = useDispatch()
   const user = useSelector(selectUser)
+  const [hover, setHover] = useState()
+
+  const toggleHover = (link: any) => {
+    setTimeout(() => {
+      setHover(link.link)
+    }, 300);
+  }
 
   return (
     <>
@@ -72,9 +85,21 @@ const Navbar = () => {
 
           <div className= {styles.links}>
             {links.map((link, i) => (
-              <Link href = '/' key = {i}>
-                <p>{link}</p>
-              </Link>
+              <div className = {styles.link} onMouseLeave = {() => setHover('')}>
+                <Link href = {`/products/${link.slug}`} key = {i}>
+                  <p 
+                    onMouseEnter={() => toggleHover(link)}
+                  >
+                    {link.link}
+                  </p>
+                </Link>
+
+                {hover === link.link && (
+                  <div className= {styles.dropdown}>
+                    <p>categories</p>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>

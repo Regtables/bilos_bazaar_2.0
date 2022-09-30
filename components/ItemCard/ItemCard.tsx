@@ -10,7 +10,7 @@ import styles from './ItemCard.module.scss';
 import { Item } from '../../types';
 import { client } from '../../utils/client';
 import { itemSlug } from '../../utils/helpers';
-import { addCartItem, selectCartItems } from '../../redux/cart';
+import { addCartItem, selectCartItems, toggleCart } from '../../redux/cart';
 
 import Preview from '../Prevew/Preview';
 
@@ -43,6 +43,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 			variant: activeVariant,
 			qty
 		}))
+		dispatch(toggleCart(true))
 	}
 
 	return (

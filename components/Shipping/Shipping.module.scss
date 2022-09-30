@@ -1,10 +1,24 @@
 .container{
+  // padding: 1rem;
+}
+
+.heading{
+  padding: 0.5rem 1rem;
+  background-color: rgb(228, 229, 230);;
+}
+
+.content{
   padding: 1rem;
 }
 
 .differentAddress{
   display: flex;
   align-items: center;
+  margin: 1rem 0;
+
+  p{
+    font-weight: 500;
+  }
 }
 
 .toggle{
@@ -19,8 +33,32 @@
   display: flex;
   padding: 2rem 1rem;
   justify-content: space-between;
+  background-color: rgb(244, 249, 255);
 }
 
 .confirm{
   margin-top: 1rem;
+}
+
+.to{
+  font-weight: 500;
+}
+
+.address{
+  font-weight: 300;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  // margin-bottom: 0;
+
+  svg{
+    margin-right: 0.5rem;
+  }
+}
+
+.viewFees{
+  font-size: 12px;
+  text-transform: capitalize;
+  text-decoration: underline;
+  cursor:pointer;
 }

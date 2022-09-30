@@ -7,13 +7,13 @@ import styles from './BillingForm.module.scss'
 import Input from '../Input/Input'
 import { minWidth } from '@mui/system'
 
-const BillingForm = () => {
+const BillingForm = ({checkout} : {checkout: boolean}) => {
   return (
     <div className= {styles.container}>
-      <div className= {styles.heading}>
-        <h5><AiFillInfoCircle /> Billing Information</h5>
+      <div className= {styles.heading} style = {checkout && {backgroundColor: 'rgb(228, 229, 230)', padding: '0.5rem 1rem'}}>
+        <h3 className='checkout__heading'><AiFillInfoCircle /> Billing Information</h3>
       </div>
-      <form>
+      <form className= {styles.form}>
         <Grid container spacing = {2}>
           <Input 
             name = 'name'
@@ -127,7 +127,7 @@ const BillingForm = () => {
           </Grid>
           <Grid item>
             <div className= {styles.save}>
-              <Button variant='contained' type = 'submit'>Save</Button>
+              <Button variant='contained' type = 'submit' sx = {{borderRadius: '20px', backgroundColor: 'var(--color-primary)'}}>Save</Button>
             </div>
           </Grid>
         </Grid>

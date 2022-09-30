@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { Backdrop, Button } from '@mui/material'
 import { motion } from 'framer-motion'
@@ -14,6 +15,7 @@ import CartItemTile from '../CartItemTile/CartItemTile'
 
 const Cart = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const [animateCart, setAnimateCart] = useState({})
   const showCart = useSelector(selectShowCart)
   const cartTotal = useSelector(selectCartTotal)
@@ -28,6 +30,10 @@ const Cart = () => {
       setAnimateCart({x: ['1000px', '0px']})
     }
   }, [showCart])
+
+  useEffect(() => {
+    handleClose()
+  }, [router])
 
   const handleClose = () => {
     setAnimateCart({x: ['0px', '1000px']})
@@ -52,6 +58,7 @@ const Cart = () => {
             className= {styles.container}
             animate = {animateCart}
             transition = {{duration: 0.3}}
+            initial = {{x: 1000}}
           >
             <div className= {styles.wrapper}>
               <div className= {styles.heading}>

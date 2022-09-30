@@ -20,6 +20,10 @@ a {
 
 .section__padding{
   padding: 0 3%;
+
+  @media screen and (max-width: 450px) {
+    padding: 0 5%;;
+  }
 }
 
 .section__margin{
@@ -32,6 +36,30 @@ a {
   border-bottom: 3px solid var(--color-secondary);
   font-size: 32px;
   color: var(--color-secondary);
+}
+
+.checkout__heading{
+  color: black;
+  font-weight: 300;
+  font-size: 23px;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-family);
+
+  svg{
+    color: var(--color-primary);
+    margin-right: 0.5rem;
+  }
+
+  @media screen and (max-width: 450px) {
+    font-size: 20px;
+  }
+}
+
+input{
+  &.focus{
+    box-shadow: 5px 5px 5px var(--color-primary);
+  }
 }
 
 @media (prefers-color-scheme: dark) {

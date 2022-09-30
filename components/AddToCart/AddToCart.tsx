@@ -4,7 +4,7 @@ import { Button, Alert } from '@mui/material'
 
 import styles from './AddToCart.module.scss'
 import { Item, Variant } from '../../types'
-import { addCartItem } from '../../redux/cart'
+import { addCartItem, toggleCart } from '../../redux/cart'
 
 const AddToCart = ({ item, activeVariant, qty } : { item: Item, activeVariant: Variant, qty: number }) => {
   const dispatch = useDispatch()
@@ -15,10 +15,7 @@ const AddToCart = ({ item, activeVariant, qty } : { item: Item, activeVariant: V
       variant: activeVariant,
       qty: qty
     }))
-
-    return (
-      <Alert severity='success'>{`Added ${qty} ${item.name} to your bag`}</Alert>
-    )
+    dispatch(toggleCart(true))
   }
 
   return (

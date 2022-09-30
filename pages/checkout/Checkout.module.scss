@@ -1,23 +1,47 @@
 .container{
-  display: flex;
-  margin-top: 3rem;
+  // display: flex;
+  // margin-top: 3rem;
 
   input{
     background-color: white;
   }
 }
 
+.content{
+  display: flex;
+
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+  }
+}
+
+.continue{
+  cursor: pointer;
+
+  p{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--color-primary);
+  }
+
+  svg{
+    margin-right: 0.5rem;
+  }
+}
+
 .billing{
-  flex: 0.6;
+  flex: 0.7;
 }
 
 .billingInfo{
-  padding: 0.5rem 1rem 1rem 1rem; 
-  background-color: aliceblue;
+  // padding: 0.5rem 1rem 1rem 1rem; 
+  // background-color: aliceblue;
 }
 
 .shipping{
   margin-top: 2rem;
+  // background-color: aliceblue;
 }
 
 .orderInfo{
@@ -28,4 +52,10 @@
   display: flex;
   // height: unset;
   margin-left: 2rem;
+
+  @media screen and (max-width: 450px) {
+    margin-left: unset;
+    margin-top: 2rem;
+  }
 }
+
