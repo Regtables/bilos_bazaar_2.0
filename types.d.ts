@@ -46,7 +46,10 @@ export interface Item {
       }
     }
   }],
-  description: string,
+  description: {
+    short: string,
+    long: string
+  },
   slug: {
     current: string
   },

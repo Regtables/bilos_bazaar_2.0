@@ -40,13 +40,14 @@
 }
 
 .content{
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   display: flex;
+  padding: 1rem;
 }
 
 .categories{
   flex: 0.2;
-  margin-left: 0.5rem;
+  // margin-left: 0.5rem;
 
   @media screen and (max-width: 450px) {
     flex: 0.4;
@@ -55,10 +56,11 @@
 
 .items{
   flex: 0.8;
-  margin-left: 2rem;
+  // padding: 0.5rem;
+  margin-left: 1rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-column-gap: 20px;
+  grid-column-gap: 10px;
   grid-row-gap: 10px;
 
   @media screen and (max-width: 450px) {

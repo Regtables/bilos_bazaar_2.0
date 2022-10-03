@@ -41,7 +41,7 @@ const ItemInfo = ({ item } : { item: Item }) => {
         </div>
 
         <div className= {styles.description}>
-          <p>{description}</p>
+          <p>{description.long}</p>
         </div>
       </div>
     </div>

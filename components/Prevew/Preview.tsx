@@ -43,7 +43,7 @@ const Preview = ({
   setActiveVariant: any
   addItemToCart: any
 }) => {
-  const { name, price, images } = item
+  const { name, price, images, description } = item
 
   console.log(item)
 
@@ -76,7 +76,7 @@ const Preview = ({
           <h6>Towel</h6>
           <h3>{name}</h3>
           <h4>R {price}</h4>
-          <p> Mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor. In fermentum et sollicitudin ac orci phasellus egestas tellus.</p>
+          <p>{description.short}</p>
 
           <Button 
             variant = 'text'
