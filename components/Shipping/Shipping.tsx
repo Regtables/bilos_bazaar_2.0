@@ -54,7 +54,6 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
                 onChange = {() =>{}}
                 value = {''}
                 handleShowPassword = {false}
-                size = 'meduim'
               />
               <Grid item sm = {6}>
                 {/* <InputLabel id = 'province'>Province</InputLabel> */}
@@ -83,7 +82,6 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
                 onChange = {() =>{}}
                 value = {''}
                 handleShowPassword = {false}
-                size = 'meduim'
               />
               <Grid item sm = {6} sx = {{display: 'flex', justifyContent: 'space-between'}}>
                 <Input 
@@ -95,7 +93,6 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
                   onChange = {() =>{}}
                   value = {''}
                   handleShowPassword = {false}
-                  size = 'meduim'
                 />
                 <Grid item sm = {6}>
                   <Input 
@@ -107,7 +104,6 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
                     onChange = {() =>{}}
                     value = {''}
                     handleShowPassword = {false}
-                    size = 'meduim'
                   />
                 </Grid>
               </Grid>
@@ -115,7 +111,6 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
             <Button variant = 'contained'>Save</Button>
           </form>
         )}
-
 
         <div className= {styles.confirm}>
           <Button variant = 'contained' sx = {{borderRadius: '20px', backgroundColor: 'var(--color-primary)'}}>Confirm</Button>
