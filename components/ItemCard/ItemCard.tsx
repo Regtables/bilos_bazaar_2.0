@@ -33,9 +33,13 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const [showPreview, setShowPreview] = useState(false);
 	const imageProps: any = useNextSanityImage(client, item?.images[0].image);
 
-	// const itemInBag = cart?.cartItems?.find((item) => item.name === name && item.activeVariant.color === activeVariant.color)
+	const incQty = () => {
+		setQty((prev) => prev+1)
+	}
 
-	// console.log(itemInBag)
+	const decQty = () => {
+		setQty((prev) => prev-1)
+	}
 
 	const addItemToCart = () => {
 		dispatch(addCartItem({
@@ -106,7 +110,8 @@ const ItemCard = ({ item }: { item: Item }) => {
 				<Preview
 					item={item}
 					qty = {qty}
-					setQty = {setQty}
+					incQty = {incQty}
+					decQty = {decQty}
 					activeVariant = {activeVariant}
 					setActiveVariant = {setActiveVariant}
 					showPreview={showPreview}

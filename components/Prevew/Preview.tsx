@@ -29,7 +29,8 @@ const Preview = ({
 	showPreview,
 	setShowPreview,
   qty,
-  setQty,
+  incQty,
+  decQty,
   activeVariant,
   setActiveVariant,
   addItemToCart
@@ -38,7 +39,8 @@ const Preview = ({
 	showPreview: boolean;
 	setShowPreview: any;
   qty: number;
-  setQty: any;
+  incQty: any,
+  decQty: any,
   activeVariant: Variant,
   setActiveVariant: any
   addItemToCart: any
@@ -105,7 +107,11 @@ const Preview = ({
           
           <div className= {styles.cart}>
             <div className = {styles.qty}>
-              <Quantity qty = {qty} setQty = {setQty} />
+              <Quantity 
+                qty = {qty} 
+                incQty = {incQty}
+                decQty = {decQty}
+              />
             </div>
             <div className= {styles.add}>
               <AddToCart
