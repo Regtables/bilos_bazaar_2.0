@@ -30,7 +30,6 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             onChange = {() =>{}}
             value = {''}
             handleShowPassword = {false}
-            size = 'meduim'
           />
           <Input 
             name = 'surname'
@@ -41,7 +40,6 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             onChange = {() =>{}}
             value = {''}
             handleShowPassword = {false}
-            size = 'meduim'
           />
           <Input 
             name = 'phone'
@@ -52,7 +50,6 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             onChange = {() =>{}}
             value = {''}
             handleShowPassword = {false}
-            size = 'meduim'
           />  
           <Input 
             name = 'email'
@@ -63,7 +60,6 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             onChange = {() =>{}}
             value = {''}
             handleShowPassword = {false}
-            size = 'meduim'
           />
           <Input 
             name = 'city'
@@ -74,7 +70,6 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             onChange = {() =>{}}
             value = {''}
             handleShowPassword = {false}
-            size = 'meduim'
           />
           <Grid item sm = {6}>
             {/* <InputLabel id = 'province'>Province</InputLabel> */}
@@ -103,7 +98,6 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             onChange = {() =>{}}
             value = {''}
             handleShowPassword = {false}
-            size = 'meduim'
           />
           <Grid item sm = {6} sx = {{display: 'flex', justifyContent: 'space-between'}}>
             <Input 
@@ -115,7 +109,6 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
               onChange = {() =>{}}
               value = {''}
               handleShowPassword = {false}
-              size = 'meduim'
             />
             <Grid item sm = {6}>
               <Input 
@@ -127,7 +120,6 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
                 onChange = {() =>{}}
                 value = {''}
                 handleShowPassword = {false}
-                size = 'meduim'
               />
             </Grid>
           </Grid>
