@@ -14,8 +14,8 @@ interface itemImage {
   }
 }
 
-const SlideShowImage = ({ image, priority } : { image: itemImage, priority: boolean }) => {
-  const imageProps = useNextSanityImage(client, image.image)
+const SlideShowImage = ({ image, priority } : { image: any, priority: boolean }) => {
+  const imageProps: any = useNextSanityImage(client, image)
 
   return (
     <div className= {styles.image}>

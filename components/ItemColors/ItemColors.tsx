@@ -10,8 +10,9 @@ const ItemColors = ({ colors, activeColor, setActiveColor, size } : { colors: an
       {colors.map((color: any, i: number) => (
         <div 
           className= {styles.color}
-          style = {{backgroundColor: `${color}`, width: `${size}px`, height: `${size}px`}}
+          style = {{backgroundColor: `${color.colorCode}`, width: `${size}px`, height: `${size}px`}}
           key = {i}
+          onClick = {() => setActiveColor(color)}
         >
         </div>
       ))}

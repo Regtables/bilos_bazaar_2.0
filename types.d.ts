@@ -66,10 +66,16 @@ export interface Image{
   }
 }
 
+export interface Color{
+  _type: string,
+  color: string,
+  colorCode: string
+}
+
 export interface Variant{
   _type: string,
   id: string,
-  color: string,
+  color: Color,
   image: Image,
   inStock: boolean,
   itemQuantity: number

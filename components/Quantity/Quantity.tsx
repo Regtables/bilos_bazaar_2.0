@@ -4,13 +4,14 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 
 import styles from './Quantity.module.scss'
 
-const Quantity = ({ qty, setQty } : { qty: number, setQty: any }) => {
+const Quantity = ({ qty, incQty, decQty } : { qty: number, incQty: any, decQty: any }) => {
   return (
     <div className = {styles.container}>
       <Button 
         className= {`${styles.less} ${styles.button}`}
-        onClick = {() => setQty(qty-1)}
+        onClick = {decQty}
         variant = 'outlined'
+        disabled = { qty === 0 && true }
       >
         <AiOutlineMinus />
       </Button>
@@ -19,7 +20,7 @@ const Quantity = ({ qty, setQty } : { qty: number, setQty: any }) => {
       </div>
       <Button 
         className = {`${styles.more} ${styles.button}`}
-        onClick = {() => setQty(qty+1)}
+        onClick = {incQty}
         variant = 'outlined'
       >
         <AiOutlinePlus />

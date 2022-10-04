@@ -8,7 +8,7 @@ import { BsBagX } from 'react-icons/bs'
 import { CartItem } from '../../types'
 import { client } from '../../utils/client'
 import styles from './CartItemTile.module.scss'
-import { removeCartItem  } from '../../redux/cart'
+import { removeCartItem, incQty, decQty  } from '../../redux/cart'
 
 import Quantity from '../Quantity/Quantity'
 
@@ -50,12 +50,16 @@ const CartItemTile = ({ item } : { item: CartItem }) => {
             <h4>{name}</h4>
           </div>
           <div className = {styles.variant}>
-            <p>{color}</p>
+            <p>{color.color}</p>
           </div>
         </div>
 
         <div className = {styles.qty}>
-          <Quantity qty = {qty} setQty = {setQty} />
+          <Quantity 
+            qty = {qty}
+            incQty = {() => dispatch(incQty(item))}
+            decQty = {() => dispatch(decQty(item))}        
+          />
         </div>
 
         <div className = {styles.price}>

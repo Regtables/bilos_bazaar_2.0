@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSelector } from 'react-redux';
 import { BsBagFill, BsSearch, BsChevronCompactDown, BsTelephone } from 'react-icons/bs';
 import { AiOutlineInstagram, AiOutlineMenu, AiOutlineMail, AiOutlineCloseCircle } from 'react-icons/ai';
 import { GoLocation } from 'react-icons/go';
 import { FaFacebookF, FaUser } from 'react-icons/fa';
 
 import styles from './Navbar.module.scss'
-import { toggleCart } from '../../redux/cart';
+import { toggleCart, selectTotalCartItems } from '../../redux/cart';
 import { selectUser } from '../../redux/auth';
 import { Item } from '../../types';
-import Cart from '../Cart/Cart';
 
 const links = [
   {
@@ -27,6 +25,7 @@ const links = [
 
 const Navbar = () => {
   const dispatch = useDispatch()
+  const totalCartItems = useSelector(selectTotalCartItems)
   const user = useSelector(selectUser)
   const [hover, setHover] = useState()
 
@@ -77,6 +76,9 @@ const Navbar = () => {
                 onClick = {() => dispatch(toggleCart(true))}
               >
                 <BsBagFill />
+                <div className= {styles.totalBagItems}>
+                  <p>{totalCartItems}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -85,10 +87,10 @@ const Navbar = () => {
 
           <div className= {styles.links}>
             {links.map((link, i) => (
-              <div className = {styles.link} onMouseLeave = {() => setHover('')}>
+              <div className = {styles.link}>
                 <Link href = {`/products/${link.slug}`} key = {i}>
                   <p 
-                    onMouseEnter={() => toggleHover(link)}
+                    // onMouseEnter={() => toggleHover(link)}
                   >
                     {link.link}
                   </p>

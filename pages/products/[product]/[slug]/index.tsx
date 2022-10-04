@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 
 import { client } from '../../../../utils/client';
+import { itemQuery } from '../../../../utils/queries';
 import styles from './Item.module.scss';
-import { Item } from '../../../../types'
+import { Item, Variant, Color } from '../../../../types'
+import { addCartItem } from '../../../../redux/cart';
 
 import ItemInfo from '../../../../components/ItemInfo/ItemInfo';
 import ImageCarousel from '../../../../components/ImageCarousel/ImageCarousel'
@@ -28,10 +31,38 @@ interface Params {
 }
 
 const Item = ({ item } : {item: Item}) => {
-  const { images } = item
-
+  const { images, variants } = item
+  const dispatch = useDispatch()
   const [activeVariant, setActiveVariant] = useState(item.variants[0])
   const [qty, setQty] = useState(1)
+  const itemColors = item.variants.map((variant) => variant.color)
+
+  console.log(itemColors)
+
+  const handleVariantChange = (color: Color) => {
+    console.log(color)
+    const activeColor = variants.find((variant: Variant) => variant.color === color)
+    setActiveVariant(activeColor)
+
+    console.log(activeVariant)
+  }
+
+  const incQty = () => {
+    setQty((prev) => prev+1)
+  }
+
+  const decQty = () => {
+    setQty((prev) => prev-1)
+  }
+
+  const addItemToCart = () => {
+    dispatch(addCartItem({
+      item,
+      variant: activeVariant,
+      qty
+    }))
+  }
+  
 
   console.log(item)
 
@@ -47,7 +78,10 @@ const Item = ({ item } : {item: Item}) => {
 
       <div className= {styles.itemContent}>
         <div className= {styles.imageCarousel}>
-          <ImageCarousel images={images} activeVariant = {activeVariant}/>
+          <ImageCarousel 
+            images={images} 
+            activeVariant = {activeVariant}
+          />
         </div>
 
         <div className= {styles.itemInfo}>
@@ -55,11 +89,20 @@ const Item = ({ item } : {item: Item}) => {
             <ItemInfo item= {item} />
           </div>
           <div className= {styles.colors}>
-            <ItemColors colors = {colors} size = {25} activeColor = {activeVariant.color} setActiveColor = {setActiveVariant} />
+            <ItemColors 
+              colors = {itemColors} 
+              size = {25} 
+              activeColor = {activeVariant.color} 
+              setActiveColor = {handleVariantChange} 
+            />
           </div>
           <div className= {styles.cart}>
             <div className= {styles.qty}>
-              <Quantity qty={qty} setQty = {setQty} />
+              <Quantity 
+                qty={qty}
+                incQty = {incQty} 
+                decQty = {decQty}  
+              />
             </div>
             <div className= {styles.add}>
               <AddToCart
@@ -81,8 +124,8 @@ const Item = ({ item } : {item: Item}) => {
 export const getStaticProps = async ({ params } : { params: any}) => {
   const { slug } = params
 
-  const itemQuery = `*[_type == "item" && slug.current == "${slug}"]`
-  const itemData = await client.fetch(itemQuery)
+  // const itemQuery = `*[_type == "item" && slug.current == "${slug}"]`
+  const itemData = await client.fetch(itemQuery(slug))
 
   return {
     props: {

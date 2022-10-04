@@ -1,63 +1,87 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const cartSlice = createSlice({
-  name: 'cart',
-  initialState: {
-    toggleCart: false,
-    cartItems: {},
-    totalCartItems: 0,
-    cartTotal: 0
-  },
-  reducers: {
-    toggleCart: (state, action) => {
-      state.toggleCart = action.payload
-    },
-    addCartItem: (state, action ) => {
-      const { id } = action.payload.variant
-      const qty = action.payload.qty
-      const { price } = action.payload.item
+	name: 'cart',
+	initialState: {
+		toggleCart: false,
+		cartItems: {},
+		totalCartItems: 0,
+		cartTotal: 0,
+	},
+	reducers: {
+		toggleCart: (state, action) => {
+			state.toggleCart = action.payload;
+		},
+		addCartItem: (state, action) => {
+			const { sku } = action.payload.variant;
+			const id = sku;
+			const qty = action.payload.qty;
+			const { price } = action.payload.item;
 
-      if(state.cartItems[id]){
-        state.cartItems[id].qty = state.cartItems[id].qty + qty
-        state.cartTotal = state.cartTotal + qty*price
-        state.totalCartItems = state.totalCartItems + qty
+			if (state.cartItems[sku]) {
+				state.cartItems[sku].qty = state.cartItems[sku].qty + qty;
+				state.cartTotal = state.cartTotal + qty * price;
+				state.totalCartItems = state.totalCartItems + qty;
+			} else {
+				state.cartItems[sku] = action.payload;
+				state.cartTotal = state.cartTotal + qty * price;
+				state.totalCartItems = state.totalCartItems + qty;
+			}
+		},
+		removeCartItem: (state, action) => {
+			const { sku } = action.payload.variant;
+			const qty = action.payload.qty;
+			const { price } = action.payload.item;
+			const totalQty = state.cartItems[sku].qty
 
-      } else {
-        state.cartItems[id] = action.payload
-        state.cartTotal = state.cartTotal + qty*price
-        state.totalCartItems = state.totalCartItems + qty
-      }
-  
+			const cartItems = Object.values(state.cartItems).filter(({ variant }) => variant.sku !== sku);
 
-    },
-    removeCartItem: (state, action) => {
-      const { id } = action.payload.variant
-      const qty = action.payload.qty
-      const { price } = action.payload.item
+			const newCartItems = {};
 
-      const cartItems = Object.values(state.cartItems).filter(({ variant }) => variant.id !== id )
+			for (let i = 0; i < cartItems.length; i++) {
+				newCartItems[cartItems[i].variant.sku] = cartItems[i];
+			}
 
-      const newCartItems = {}
+			state.cartItems = newCartItems;
+			state.cartTotal = state.cartTotal - qty * price;
+			state.totalCartItems = state.totalCartItems - totalQty
+		},
+		incQty: (state, action) => {
+			const { sku } = action.payload.variant;
+			const { price } = action.payload.item;
 
-      for(let i = 0; cartItems.length; i ++){
-        newCartItems[cartItems[i].variant.id] = cartItems[i] 
-      }
+			state.cartItems[sku].qty = state.cartItems[sku].qty + 1;
+			state.cartTotal = state.cartTotal + price;
+			state.totalCartItems = state.totalCartItems + 1;
+		},
+		decQty: (state, action) => {
+			const { sku } = action.payload.variant;
+			const { price } = action.payload.item;
 
-      state.cartItems = newCartItems
-      state.cartTotal = state.cartTotal - qty*price
-    },
-    incQty: (state, action) => {
-      const { id } = action.payload.variant
+			state.cartItems[sku].qty = state.cartItems[sku].qty - 1;
+			state.cartTotal = state.cartTotal - price;
+			state.totalCartItems = state.totalCartItems - 1;
 
-      state.cartItems[id].qty = state.cartItems[id].qty + 1
-    }
-  }
-})
+			if (state.cartItems[sku].qty === 0) {
+				const cartItems = Object.values(state.cartItems).filter(({ variant }) => variant.sku !== sku);
 
-export const selectCartItems = (state) => state.cart.cartItems
-export const selectShowCart = (state) => state.cart.toggleCart
-export const selectCartTotal = (state) => state.cart.cartTotal
+				const newCartItems = {};
 
-export const { addCartItem, toggleCart, removeCartItem } = cartSlice.actions
+				for (let i = 0; i < cartItems.length; i++) {
+					newCartItems[cartItems[i].variant.sku] = cartItems[i];
+				}
 
-export default cartSlice.reducer
+				state.cartItems = newCartItems;
+			}
+		},
+	},
+});
+
+export const selectCartItems = (state) => state.cart.cartItems;
+export const selectShowCart = (state) => state.cart.toggleCart;
+export const selectCartTotal = (state) => state.cart.cartTotal;
+export const selectTotalCartItems = (state) => state.cart.totalCartItems;
+
+export const { addCartItem, toggleCart, removeCartItem, incQty, decQty } = cartSlice.actions;
+
+export default cartSlice.reducer;

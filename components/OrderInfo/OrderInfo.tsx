@@ -8,6 +8,7 @@ import styles from './OrderInfo.module.scss'
 import { CartItem } from '../../types'
 import yoco from '../../public/yoco.svg'
 
+
 const Yoco = () => {
   return (
     <div style = {{width: 55, height: 35, position: 'relative'}}>
@@ -41,7 +42,7 @@ const OrderInfo = ({deliveryFee, cartTotal, cartItems} : {deliveryFee: number, c
         {Object.values(cartItems).map((item, i) => (
           <div className= {styles.item} key = {item.variant.id}>
             <div className= {styles.name}>
-              <p>{item.item.name}({item.variant.color})</p>
+              <p>{item.item.name}({item.variant.color.color})</p>
             </div> 
             <div className= {styles.qty}>
               <p>x {item.qty}</p>

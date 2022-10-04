@@ -15,14 +15,14 @@ interface itemImage {
 
 
 const ImageCarousel = ({ images, activeVariant } : { images: [itemImage], activeVariant: Variant }) => {
-  console.log(images)
   const [index, setIndex] = useState(0)
-  const [activeImage, setActiveImage] = useState(images[index])
+  const [activeImage, setActiveImage] = useState(activeVariant.image)
+  console.log(activeImage)
 
   return (
     <div className= {styles.container}>
       <div className= {styles.activeImage}>
-        <SlideShowImage image = {activeImage} priority />
+        <SlideShowImage image = {activeVariant.image} priority />
       </div>
       <div className= {styles.imageSelect}>
         {images.map((image, i) => (
