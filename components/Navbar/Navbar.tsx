@@ -87,8 +87,8 @@ const Navbar = () => {
 
           <div className= {styles.links}>
             {links.map((link, i) => (
-              <div className = {styles.link}>
-                <Link href = {`/products/${link.slug}`} key = {i}>
+              <div className = {styles.link}  key = {i}>
+                <Link href = {`/products/${link.slug}`}>
                   <p 
                     // onMouseEnter={() => toggleHover(link)}
                   >
