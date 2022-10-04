@@ -3,7 +3,7 @@ import React from 'react'
 import { Color } from '../../types'
 import styles from './ItemColors.module.scss'
 
-const ItemColors = ({ colors, activeColor, setActiveColor, size } : { colors: any, activeColor: string, setActiveColor: any, size: number }) => {
+const ItemColors = ({ colors, activeColor, setActiveColor, size } : { colors: any, activeColor: Color, setActiveColor: any, size: number }) => {
 
   return (
     <div className= {styles.colors}>

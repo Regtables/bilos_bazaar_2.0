@@ -33,7 +33,7 @@ interface Params {
 const Item = ({ item } : {item: Item}) => {
   const { images, variants } = item
   const dispatch = useDispatch()
-  const [activeVariant, setActiveVariant] = useState(item.variants[0])
+  const [activeVariant, setActiveVariant] = useState(item?.variants[0])
   const [qty, setQty] = useState(1)
   const itemColors = item.variants.map((variant) => variant.color)
 
@@ -41,9 +41,11 @@ const Item = ({ item } : {item: Item}) => {
 
   const handleVariantChange = (color: Color) => {
     console.log(color)
-    const activeColor = variants.find((variant: Variant) => variant.color === color)
-    setActiveVariant(activeColor)
+    const activeColor = variants?.find((variant: Variant) => variant?.color === color)
 
+    if(activeColor){
+      setActiveVariant(activeColor)
+    }
     console.log(activeVariant)
   }
 
@@ -124,7 +126,6 @@ const Item = ({ item } : {item: Item}) => {
 export const getStaticProps = async ({ params } : { params: any}) => {
   const { slug } = params
 
-  // const itemQuery = `*[_type == "item" && slug.current == "${slug}"]`
   const itemData = await client.fetch(itemQuery(slug))
 
   return {
@@ -136,8 +137,7 @@ export const getStaticProps = async ({ params } : { params: any}) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const itemsQuery =
-		'*[_type == "item"]{slug{current}, product->{slug{current}}}';
+	const itemsQuery ='*[_type == "item"]{slug{current}, product->{slug{current}}}';
 	const itemsData = await client.fetch(itemsQuery);
 
 	const paths = itemsData.map((item: Item) => ({
