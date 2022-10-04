@@ -10,10 +10,16 @@ import { minWidth } from '@mui/system'
 const BillingForm = ({checkout} : {checkout: boolean}) => {
   return (
     <div className= {styles.container}>
-      <div className= {styles.heading} style = {checkout && {backgroundColor: 'rgb(228, 229, 230)', padding: '0.5rem 1rem'}}>
+      <div 
+        className= {styles.heading} 
+        style = {checkout ? {backgroundColor: 'rgb(228, 229, 230)', padding: '0.5rem 1rem'} : {backgroundColor: 'white', padding: '0rem'}}
+      >
         <h3 className='checkout__heading'><AiFillInfoCircle /> Billing Information</h3>
       </div>
-      <form className= {styles.form}>
+      <form 
+        className= {styles.form} 
+        style = {checkout ? {padding: '1rem'} : {padding: '0rem'}}
+      >
         <Grid container spacing = {2}>
           <Input 
             name = 'name'
