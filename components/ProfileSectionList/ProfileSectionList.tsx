@@ -7,7 +7,7 @@ interface Section {
   icon: any
 }
 
-const ProfileSectionList = ({ sections, activeSection, setActiveSection } : { sections: [Section], activeSection: Section, setActiveSection: any }) => {
+const ProfileSectionList = ({ sections, activeSection, setActiveSection } : { sections: any, activeSection: Section, setActiveSection: any }) => {
   console.log(activeSection)
   return (
     <div className = {styles.container}>

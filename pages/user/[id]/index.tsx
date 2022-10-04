@@ -21,7 +21,9 @@ const user = {
   surname: 'Pienaar',
   email: 'reghardt7@gmail.com',
   city: 'cape town',
-  province: 'western cape'
+  province: 'western cape',
+  payments: [],
+  wishlist: []
 }
 
 const sections = [
@@ -46,7 +48,9 @@ const User = () => {
     if(activeSection.section === 'profile'){
       return (
         <>
-          <BillingForm />
+          <BillingForm
+            checkout = {false}
+          />
           <div className= {styles.delete}>
             <Button variant='contained' type = 'submit'>Delete Profile</Button>
           </div>
@@ -55,13 +59,13 @@ const User = () => {
     } else if(activeSection.section === 'payments') {
       return (
         user?.payments?.map((payment, i) => (
-          <p>Payment</p>
+          <p key = {i}>Payment</p>
         ))
       )
     } else if(activeSection.section === 'wishlist') {
       return (
         user?.wishlist?.map((item, i) => (
-          <p>Item</p>
+          <p key = {i}>Item</p>
         ))
       )
     }
