@@ -14,6 +14,7 @@ import { Item, Variant } from '../../types';
 import Quantity from '../Quantity/Quantity';
 import AddToCart from '../AddToCart/AddToCart';
 import BuyNow from '../BuyNow/BuyNow';
+import SlideShowImage from '../SlideShowImage/SlideShowImage';
 
 const colors = [
 	'#33ab9f',
@@ -32,6 +33,7 @@ const Preview = ({
   incQty,
   decQty,
   activeVariant,
+  handleVariantChange,
   setActiveVariant,
   addItemToCart
 }: {
@@ -43,9 +45,10 @@ const Preview = ({
   decQty: any,
   activeVariant: Variant,
   setActiveVariant: any
+  handleVariantChange: any,
   addItemToCart: any
 }) => {
-  const { name, price, images, description } = item
+  const { name, price, images, description, category: { category }, variants } = item
 
   console.log(item)
 
@@ -65,17 +68,21 @@ const Preview = ({
           <IoIosCloseCircleOutline />
         </div>
 				<div className={styles.banner}>
-          <Image 
+          {/* <Image 
             { ...imageProps }
             layout = 'fill'
             objectFit='cover'
             objectPosition= '70%'
             priority
             alt = {item.name}
+          /> */}
+          <SlideShowImage
+            image={activeVariant.image}
+            priority = {true}
           />
         </div>
 				<div className={styles.information}>
-          <h6>Towel</h6>
+          <h6>{category}</h6>
           <h3>{name}</h3>
           <h4>R {price}</h4>
           <p>{description.short}</p>
@@ -96,11 +103,12 @@ const Preview = ({
           </div>
 
           <div className = {styles.colors}>
-            {colors.map((color, i) => (
+            {variants.map((variant, i) => (
               <div 
                 key = {i} 
-                className = {styles.color} 
-                style = {{backgroundColor: `${color}`}}
+                className = {`${styles.color} ${activeVariant.color.color === variant.color.color ? styles.activeColor : ''}`} 
+                style = {{backgroundColor: `${variant.color.colorCode}`}}
+                onClick = {() => handleVariantChange(variant)}
               ></div>
             ))}
           </div>

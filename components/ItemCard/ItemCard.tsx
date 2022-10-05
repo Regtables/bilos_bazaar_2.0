@@ -7,12 +7,14 @@ import { useNextSanityImage } from 'next-sanity-image';
 import { BsEye, BsBagPlus } from 'react-icons/bs';
 
 import styles from './ItemCard.module.scss';
-import { Item } from '../../types';
+import { Item, Variant } from '../../types';
 import { client } from '../../utils/client';
 import { itemSlug } from '../../utils/helpers';
 import { addCartItem, selectCartItems, toggleCart } from '../../redux/cart';
 
 import Preview from '../Prevew/Preview';
+import SlideShowImage from '../SlideShowImage/SlideShowImage';
+
 
 const colors = [
 	'#33ab9f',
@@ -28,12 +30,20 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const dispatch = useDispatch()
 	const cart = useSelector(selectCartItems)
 	const [hover, setHover] = useState(false);
+	const [index, setIndex] = useState(0)
 	const [activeVariant, setActiveVariant] = useState(item?.variants[0])
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
+
+	const images = item.variants.map((variant) => variant.image)
+
 	const imageProps: any = useNextSanityImage(client, item?.images[0].image);
 
-	const incQty = () => {
+	const handleVariantChange = (variant: Variant) => {
+		setActiveVariant(variant)
+	}
+
+	const incQty = () => {	
 		setQty((prev) => prev+1)
 	}
 
@@ -48,7 +58,10 @@ const ItemCard = ({ item }: { item: Item }) => {
 			qty
 		}))
 		dispatch(toggleCart(true))
+		setQty(1)
 	}
+
+	console.log(item)
 
 	return (
 		<>
@@ -63,7 +76,13 @@ const ItemCard = ({ item }: { item: Item }) => {
 				<div className={styles.overlay}></div>
 
 				<div className={styles.image}>
-					<Image {...imageProps} layout='fill' objectFit='cover' />
+					{/* <Image {...imageProps} layout='fill' objectFit='cover' /> */}
+					<div className= {styles.imageContainer}>
+						<SlideShowImage
+							image={activeVariant.image}
+							priority = {false}
+						/>
+					</div>
 					{hover && (
 						<div className={styles.buttons}>
 							<div className={styles.addToCart}>
@@ -86,24 +105,29 @@ const ItemCard = ({ item }: { item: Item }) => {
 						</div>
 					)}
 				</div>
+				
+				<div className={styles.content}>
+					<h5 className={styles.category}>{item.category.category}</h5>
+					<h3 className={styles.name}> {item.name}</h3>
+					<h4 className={styles.price}>R {item.price}</h4>
 
-				<Link href={itemSlug(item)}>
-					<div className={styles.content}>
-						<h5 className={styles.category}>{item.category.category}</h5>
-						<h3 className={styles.name}> {item.name}</h3>
-						<h4 className={styles.price}>R {item.price}</h4>
-
-						<div className={styles.colors}>
-							{colors.map((color, i) => (
-								<div
-									className={styles.color}
-									style={{ backgroundColor: `${color}` }}
-									key={i}
-								></div>
-							))}
-						</div>
+					<div className={styles.colors}>
+						{item.variants.map((variant, i) => (
+							<div
+								style={{ backgroundColor: `${variant.color.colorCode}` }}
+								key={i}
+								className = {`${styles.color} ${activeVariant.color.color === variant.color.color ? styles.activeColor : ''}`} 
+								onClick = {() => handleVariantChange(variant)}
+							></div>
+						))}
 					</div>
-				</Link>
+
+					<div className= {styles.view}>
+						<Link href = {itemSlug(item)}>
+							<Button sx = {{fontSize: '12px'}}>view item</Button>
+						</Link>
+					</div>
+				</div>
 			</Card>
 
 			{showPreview && (
@@ -114,6 +138,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 					decQty = {decQty}
 					activeVariant = {activeVariant}
 					setActiveVariant = {setActiveVariant}
+					handleVariantChange = {handleVariantChange}
 					showPreview={showPreview}
 					setShowPreview={setShowPreview}
 					addItemToCart = {addItemToCart}

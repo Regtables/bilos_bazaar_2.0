@@ -53,7 +53,7 @@ export const itemsQuery = (slug) => {
 }
 
 export const featuredItemsQuery = () => {
-  const query = '*[_type == "popularItems"]{ items[]->{category->, name, images, description, product->, slug, variants, price, _id}}'
+  const query = '*[_type == "popularItems"]{ items[]->{category->, name, images, description, product->, slug, variants[]{color->, sku, image, inStock, itemQuantity}, price, _id}}'
 
   return query
 }
