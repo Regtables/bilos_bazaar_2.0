@@ -14,8 +14,40 @@ export const productItemsQuery = (product) => {
   return query
 }
 
+export const categoryItemsQuery = (category) => {
+  const query = `*[_type == "item" && category.category == "${category}"]{
+    category->, 
+    name, 
+    images, 
+    description, 
+    product->, 
+    slug, 
+    variants, 
+    price, 
+    _id
+  }`
+
+  return query
+}
+
 export const itemsQuery = (slug) => {
-  const query = `*[_type == "item"]`
+  const query = `*[_type == "item"]{
+    category->,
+    name,
+    price,
+    images,
+    description,
+    dimentions,
+    product->,
+    slug,
+    variants[]{
+      color->,
+      sku,
+      image,
+      inStock,
+      itemQty
+    }
+  }`
 
   return query
 }

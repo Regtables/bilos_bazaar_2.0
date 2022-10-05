@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 
 import { client } from '../../../../utils/client';
-import { itemQuery } from '../../../../utils/queries';
+import { itemQuery, itemsQuery } from '../../../../utils/queries';
 import styles from './Item.module.scss';
 import { Item, Variant, Color } from '../../../../types'
 import { addCartItem } from '../../../../redux/cart';
@@ -15,6 +15,7 @@ import Quantity from '../../../../components/Quantity/Quantity';
 import AddToCart from '../../../../components/AddToCart/AddToCart';
 import BuyNow from '../../../../components/BuyNow/BuyNow';
 import Breadcrums from '../../../../components/Breadcrums/Breadcrums';
+import SimilarItems from '../../../../components/SimilarItems/SimilarItems';
 
 const colors = [
 	'#33ab9f',
@@ -30,23 +31,25 @@ interface Params {
   product: string
 }
 
-const Item = ({ item } : {item: Item}) => {
-  const { images, variants } = item
+const Item = ({ item, items } : { item: Item, items: [Item] }) => {
+  const { images, variants, category, name } = item
   const dispatch = useDispatch()
   const [activeVariant, setActiveVariant] = useState(item?.variants[0])
+  const [activeImage, setActiveImage] = useState(item?.images[0].image)
+  const [index, setIndex] = useState(0)
   const [qty, setQty] = useState(1)
+  
   const itemColors = item.variants.map((variant) => variant.color)
-
-  console.log(itemColors)
+  const itemVariants = item.variants.map((variant) => variant)
+  const similarItems = items.filter((item) => item.category.category === category.category && item.name !== name )
 
   const handleVariantChange = (color: Color) => {
-    console.log(color)
     const activeColor = variants?.find((variant: Variant) => variant?.color === color)
 
     if(activeColor){
       setActiveVariant(activeColor)
     }
-    console.log(activeVariant)
+    setActiveImage(activeVariant.image)
   }
 
   const incQty = () => {
@@ -64,9 +67,6 @@ const Item = ({ item } : {item: Item}) => {
       qty
     }))
   }
-  
-
-  console.log(item)
 
   return (
     <div className= {`section__padding ${styles.container}`}>
@@ -81,8 +81,11 @@ const Item = ({ item } : {item: Item}) => {
       <div className= {styles.itemContent}>
         <div className= {styles.imageCarousel}>
           <ImageCarousel 
-            images={images} 
-            activeVariant = {activeVariant}
+            variants={itemVariants} 
+            activeImage = {activeImage}
+            setActiveImage = {setActiveImage}
+            index = {index}
+            setIndex = {setIndex}
           />
         </div>
 
@@ -96,7 +99,9 @@ const Item = ({ item } : {item: Item}) => {
               size = {25} 
               activeColor = {activeVariant.color} 
               setActiveColor = {handleVariantChange} 
+              setIndex = {setIndex}
             />
+            <p>{activeVariant.color.color}</p>
           </div>
           <div className= {styles.cart}>
             <div className= {styles.qty}>
@@ -119,6 +124,14 @@ const Item = ({ item } : {item: Item}) => {
           </div>
         </div>
       </div>
+
+      {similarItems.length > 0 && (
+        <div className = {styles.similarItems}>
+          <SimilarItems 
+            items = {similarItems}
+          />
+        </div>
+      )}
     </div>
   )
 }
@@ -127,18 +140,22 @@ export const getStaticProps = async ({ params } : { params: any}) => {
   const { slug } = params
 
   const itemData = await client.fetch(itemQuery(slug))
+  
+  const itemsData = await client.fetch(itemsQuery())
 
   return {
     props: {
-      item: itemData[0]
+      item: itemData[0],
+      items: itemsData
     },
     revalidate: 1
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const itemsQuery ='*[_type == "item"]{slug{current}, product->{slug{current}}}';
+	const itemsQuery ='*[_type == "item"]{slug{current}, product->{slug{current}}, category->}';
 	const itemsData = await client.fetch(itemsQuery);
+
 
 	const paths = itemsData.map((item: Item) => ({
 		params: {

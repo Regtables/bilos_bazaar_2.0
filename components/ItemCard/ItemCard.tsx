@@ -87,9 +87,9 @@ const ItemCard = ({ item }: { item: Item }) => {
 					)}
 				</div>
 
-				<ButtonBase href={itemSlug(item)}>
+				<Link href={itemSlug(item)}>
 					<div className={styles.content}>
-						<h5 className={styles.category}>Towels</h5>
+						<h5 className={styles.category}>{item.category.category}</h5>
 						<h3 className={styles.name}> {item.name}</h3>
 						<h4 className={styles.price}>R {item.price}</h4>
 
@@ -103,7 +103,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 							))}
 						</div>
 					</div>
-				</ButtonBase>
+				</Link>
 			</Card>
 
 			{showPreview && (

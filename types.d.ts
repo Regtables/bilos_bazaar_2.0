@@ -31,7 +31,8 @@ export interface Item {
   name: string,
   price: number,
   category: {
-
+    category: string,
+    itemType: string
   },
   product: {
     slug: {

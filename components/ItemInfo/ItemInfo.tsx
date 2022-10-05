@@ -18,7 +18,7 @@ const ItemInfo = ({ item } : { item: Item }) => {
     <div className= {styles.container}>
       <div className= {styles.information}>
         <div className= {styles.category}>
-          <h4>Category</h4>
+          <h4>{category.itemType}</h4>
         </div>
 
         <div className= {styles.name}>
