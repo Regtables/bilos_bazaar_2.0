@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import type { AppDispatch } from '../../../redux/store'
 import { useRouter } from 'next/router'
 import { Paper, Button } from '@mui/material'
 import { FaUser } from 'react-icons/fa'
@@ -43,16 +44,19 @@ const sections = [
 ]
 
 const User = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
   const [activeSection, setActiveSection] = useState(sections[0])
   const user = useSelector(selectUser)
   const isLoading = useSelector(isLoadingUser)
 
   const id = router.query.id
+  console.log(id)
 
   useEffect(() => {
-    dispatch(fetchUser(id))
+    if(id){
+      dispatch(fetchUser(id))
+    }
   }, [router])
 
   const renderSection = () => {
