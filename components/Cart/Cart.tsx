@@ -23,8 +23,6 @@ const Cart = () => {
 
   const cartItemsArr = Object.values(cartItems)
 
-  console.log(cartItems)
-
   useEffect(() => {
     if(showCart){
       setAnimateCart({x: ['1000px', '0px']})

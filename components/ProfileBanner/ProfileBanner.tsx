@@ -6,12 +6,15 @@ import { User } from '../../types';
 
 const ProfileBanner = ({ user }: { user: any }) => {
 	console.log(user);
-	const { name, surname, city, province } = user;
+	
+	if(user === undefined){
+		return <p>loading</p>
+	}
 	return (
 		<div className={styles.container}>
 			<div className={styles.details}>
-				<h1>{`${name} ${surname}`}</h1>
-				<p>{`${city}, ${province}`}</p>
+				<h1>{`${user?.billingInfo?.name} ${user?.billingInfo?.surname}`}</h1>
+				<p>{(user?.billingInfo?.city && user?.billingInfo?.province) ? `${user?.billingInfo?.city}, ${user?.billingInfo?.province}` : 'please fill in your billing information'}</p>
 			</div>
 			<div className={styles.logout}>
 				<Button

@@ -25,8 +25,6 @@ const Auth = () => {
 	const [isSignup, setIsSignup] = useState(false);
 	const [formData, setFormData] = useState(initialState || null);
 
-	console.log(user)
-
 	const handleChange = (e) => {
 		setFormData({ ...formData, [e?.target?.name]: e?.target?.value })
 	};

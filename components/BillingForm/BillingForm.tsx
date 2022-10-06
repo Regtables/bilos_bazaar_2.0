@@ -5,7 +5,6 @@ import { AiFillInfoCircle } from 'react-icons/ai';
 import styles from './BillingForm.module.scss'
 
 import Input from '../Input/Input'
-import { minWidth } from '@mui/system'
 
 const BillingForm = ({checkout} : {checkout: boolean}) => {
   return (

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Image from 'next/image';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Card, Typography, Button, ButtonBase } from '@mui/material';
+import { Card, Button } from '@mui/material';
 import { useNextSanityImage } from 'next-sanity-image';
 import { BsEye, BsBagPlus } from 'react-icons/bs';
 
@@ -35,10 +35,6 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
 
-	const images = item.variants.map((variant) => variant.image)
-
-	const imageProps: any = useNextSanityImage(client, item?.images[0].image);
-
 	const handleVariantChange = (variant: Variant) => {
 		setActiveVariant(variant)
 	}
@@ -60,8 +56,6 @@ const ItemCard = ({ item }: { item: Item }) => {
 		dispatch(toggleCart(true))
 		setQty(1)
 	}
-
-	console.log(item)
 
 	return (
 		<>
@@ -85,38 +79,48 @@ const ItemCard = ({ item }: { item: Item }) => {
 					</div>
 					{hover && (
 						<div className={styles.buttons}>
-							<div className={styles.addToCart}>
+							<motion.div 
+								className={styles.addToCart} 
+								whileInView = { { x: ['-50px', '0px'], opacity: [0,1] } }
+								initial = { { x: '-50px', opacity: 0}}
+								transition = { { duration: 0.2 } }
+							>
 								<Button 
 									className={styles.button} 
 									onClick = {addItemToCart}
 								>
 									<BsBagPlus />
 								</Button>
-							</div>
+							</motion.div>
 
-							<div className={styles.preview}>
+							<motion.div 
+								className={styles.preview}
+								whileInView = { { x: ['50px', '0px'], opacity: [0,1] } }
+								initial = { { x: '50px', opacity: 0}}
+								transition = { { duration: 0.2 } }
+							>
 								<Button
 									className={styles.button}
 									onClick={() => setShowPreview(true)}
 								>
 									<BsEye />
 								</Button>
-							</div>
+							</motion.div>
 						</div>
 					)}
 				</div>
-				
+
 				<div className={styles.content}>
 					<h5 className={styles.category}>{item.category.category}</h5>
 					<h3 className={styles.name}> {item.name}</h3>
 					<h4 className={styles.price}>R {item.price}</h4>
 
 					<div className={styles.colors}>
-						{item.variants.map((variant, i) => (
+						{item?.variants?.map((variant, i) => (
 							<div
 								style={{ backgroundColor: `${variant.color.colorCode}` }}
 								key={i}
-								className = {`${styles.color} ${activeVariant.color.color === variant.color.color ? styles.activeColor : ''}`} 
+								className = {`${styles.color} ${activeVariant?.color?.color === variant?.color?.color ? styles.activeColor : ''}`} 
 								onClick = {() => handleVariantChange(variant)}
 							></div>
 						))}
