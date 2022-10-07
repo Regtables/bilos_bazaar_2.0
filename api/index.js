@@ -24,5 +24,6 @@ export const fetchUser = async (id) => {
 
   return response
 }
-// export const signup = (formData) => API.post('/api/auth/signup', formData)
+
+export const signup = (formData) => API.post('/api/auth/signup', formData)
 

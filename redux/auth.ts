@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import * as api from '../api/index'
 
-export const fetchUser = createAsyncThunk('auth/fetchUser', async (id, thunkAPI) => {
+export const fetchUser = createAsyncThunk('auth/fetchUser', async (id: any) => {
   try{
     const response = await api.fetchUser(id)
 
@@ -16,7 +16,7 @@ export const fetchUser = createAsyncThunk('auth/fetchUser', async (id, thunkAPI)
   }
 })
 
-export const signin = createAsyncThunk('auth/signin', async (formData) => {
+export const signin = createAsyncThunk('auth/signin', async (formData: any) => {
   try{
     const response = await api.signin(formData)
     
@@ -25,18 +25,18 @@ export const signin = createAsyncThunk('auth/signin', async (formData) => {
 
     return data
 
-  } catch (error) {
+  } catch (error: any) {
 
     console.log(error)
   }
 })
 
-export const signup = createAsyncThunk('auth/signup', async (formData) => {
+export const signup = createAsyncThunk('auth/signup', async (formData: any) => {
   try{
     const { data } = await api.signup(formData)
 
     return data
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message)
   }
 })
@@ -45,6 +45,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: {},
+    token: '',
     isLoading: false,
     hasError: false
   },
@@ -106,7 +107,7 @@ const authSlice = createSlice({
   }
 })
 
-export const selectUser = (state) => state.user.user
-export const isLoadingUser = (state) => state.user.isLoading
+export const selectUser = (state: any) => state.user.user
+export const isLoadingUser = (state: any) => state.user.isLoading
 
 export default authSlice.reducer

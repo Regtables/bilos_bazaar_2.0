@@ -50,7 +50,7 @@ const User = () => {
   const user = useSelector(selectUser)
   const isLoading = useSelector(isLoadingUser)
 
-  const id = router.query.id
+  const {id} = router.query
   console.log(id)
 
   useEffect(() => {
