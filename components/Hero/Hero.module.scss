@@ -10,6 +10,10 @@
     height: 25px;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 450px) {
+    height: 89.5vh;
+  }
 }
 
 .tile{

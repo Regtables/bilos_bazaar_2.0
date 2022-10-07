@@ -123,6 +123,18 @@ const Auth = () => {
 							fullWidth 
 							variant = 'contained'
 							className = {styles.submit}
+							sx = {{
+								borderRadius: '20px',
+								backgroundColor: 'var(--color-primary)',
+								margin: '1rem 0',
+								padding: '0.5rem 0',
+								fontFamily: 'var(--font-family)',
+
+								"&:hover": {
+									color: 'var(--color-primary',
+									backgroundColor: 'white'
+								}
+							}}
 						>
 								{isSignup ? 'Sign Up': 'Sign In'}
 						</Button>

@@ -12,7 +12,8 @@
 }
 
 .imageCarousel{
-  flex: 0.6;
+  flex: 0.8;
+  height: 100%;
 
   @media screen and (max-width: 450px) {
    
@@ -20,7 +21,7 @@
 }
 
 .itemInfo{
-  flex: 0.4;
+  flex: 0.5;
   padding-left: 2rem;
 
   
@@ -51,15 +52,16 @@
 
   @media screen and (max-width: 450px) {
     padding-left: unset;
+    margin-top: 1rem;
   
     .cart{
       flex-direction: column;
       height: 80px;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.7rem;
   
       .qty{
         height: 200px;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.7rem;
         margin-right: unset;
       }
     }

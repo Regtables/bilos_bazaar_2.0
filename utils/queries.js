@@ -6,9 +6,15 @@ export const productItemsQuery = (product) => {
     description, 
     product->, 
     slug, 
-    variants, 
+    variants[]{
+      color->,
+      sku,
+      image,
+      inStock
+    }, 
     price, 
-    _id
+    _id,
+    
   }`
 
   return query
