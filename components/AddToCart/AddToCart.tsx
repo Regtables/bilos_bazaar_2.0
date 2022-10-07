@@ -23,6 +23,19 @@ const AddToCart = ({ item, activeVariant, qty } : { item: Item, activeVariant: V
       variant='contained'
       className= {styles.button}
       onClick = {addItem}
+      sx = {{
+        backgroundColor: 'var(--color-secondary)',
+        borderRadius: '20px',
+        width: '100%',
+        height: '100%',
+        fontSize: '11px',
+        fontFamily: 'var(--font-family)',
+        transition: 'all 0.3s',
+        
+        "&:hover": {
+          backgroundColor:'var(--color-primary)'
+        }
+      }}
     >
       Add to Bag
     </Button>

@@ -66,6 +66,7 @@
       height: 25px;
       margin-left: 1rem;
     }
+
   }
 
   .close{
@@ -84,6 +85,10 @@
       }
     }
   }
+
+  @media screen and (max-width: 450px) {
+    padding: 0 1rem;
+  }
 }
 
 .content{
@@ -92,6 +97,9 @@
   padding: 1rem 2rem;
   overflow-y: scroll;
   
+  @media screen and (max-width: 450px) {
+    padding: 1rem 1rem;
+  }
 }
 
 .empty{

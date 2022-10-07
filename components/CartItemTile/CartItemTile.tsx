@@ -42,24 +42,26 @@ const CartItemTile = ({ item } : { item: CartItem }) => {
           />
         </div>
 
-        <div className= {styles.itemInfo}>
-          <div className = {styles.category}>
-            <p>category</p>
+        <div className= {styles.infoAndCat}>
+          <div className= {styles.itemInfo}>
+            <div className = {styles.category}>
+              <p>category</p>
+            </div>
+            <div className = {styles.name}>
+              <h4>{name}</h4>
+            </div>
+            <div className = {styles.variant}>
+              <p>{color.color}</p>
+            </div>
           </div>
-          <div className = {styles.name}>
-            <h4>{name}</h4>
-          </div>
-          <div className = {styles.variant}>
-            <p>{color.color}</p>
-          </div>
-        </div>
 
-        <div className = {styles.qty}>
-          <Quantity 
-            qty = {qty}
-            incQty = {() => dispatch(incQty(item))}
-            decQty = {() => dispatch(decQty(item))}        
-          />
+          <div className = {styles.qty}>
+            <Quantity 
+              qty = {qty}
+              incQty = {() => dispatch(incQty(item))}
+              decQty = {() => dispatch(decQty(item))}        
+            />
+          </div>
         </div>
 
         <div className = {styles.price}>

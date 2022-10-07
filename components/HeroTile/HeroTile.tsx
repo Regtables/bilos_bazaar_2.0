@@ -37,7 +37,9 @@ const HeroTile = ({ tile } : { tile: HeroImage }) => {
             sx = {{
               color: 'white',
               backgroundColor: 'var(--color-primary)',
-              hover: {
+              borderRadius: '20px',
+              fontFamily: 'var(--font-family)',
+              "&:hover": {
                 backgroundColor: 'white',
                 color: 'var(--color-primary)'
               }

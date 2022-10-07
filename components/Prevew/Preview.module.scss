@@ -18,6 +18,7 @@
     width: 90%;
     height: 90%;
     border-radius: 20px;
+    padding-bottom: 1rem;
   }
 }
 
@@ -54,7 +55,7 @@
     border-radius: 40px !important;
 
     @media screen and (max-width: 450px) {
-      border-radius: 20px 20px 0 0;
+      border-radius: 20px 20px 0 0 !important;
     }
   }
 }
