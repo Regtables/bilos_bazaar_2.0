@@ -94,7 +94,6 @@ const User = () => {
 
   return (
     <>
-    {isLoading ? 'loading' : (
       <div className= {styles.container}>
         <div className= {styles.banner}>
           <ProfileBanner user = {user} />
@@ -130,7 +129,6 @@ const User = () => {
           </motion.div>
         </Paper>
       </div>
-    )}
     </>
   )
 }
