@@ -26,10 +26,23 @@ export const fetchUser = async (id) => {
   })
 
   const data = await response.json()
-  console.log(data)
 
   return data
 }
 
-export const signup = (formData) => API.post('/api/auth/signup', formData)
+export const signup = async (formData) => {
+  const response = await fetch('/api/auth/signup', {
+    method: 'POST',
+    body: JSON.stringify(formData),
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+
+  const data = await response.json()
+
+  console.log(data)
+
+  return data
+}
 

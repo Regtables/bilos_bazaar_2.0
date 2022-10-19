@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Paper, Grid, Button } from '@mui/material';
 import { FaLock } from 'react-icons/fa';
 import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode'
 
 import styles from './Auth.module.scss';
 import Input from '../../components/Input/Input';
@@ -46,7 +47,7 @@ const Auth = () => {
 			await dispatch(signin(formData))
 				.then((res) => {
 					const { payload } = res
-					const id = payload.existingUser[0]._id
+					const id = payload.user[0]._id
 	
 					if(id){
 						setFormData(initialState)
@@ -55,6 +56,37 @@ const Auth = () => {
 				})
 		}
 	}
+
+	const onGoogleSucess = async (response) => {
+		console.log(response)
+		const decoded = jwt_decode(response.credential)
+		console.log(decoded)
+		const { email, family_name, given_name, sub } = decoded
+
+		const data = {
+			firstName: given_name,
+			lastName: family_name,
+			email: email,
+			sub: sub
+		}
+
+		await dispatch(signup(data))
+			.then((res) => {
+				console.log(res)
+				const { payload } = res
+				const id = payload.user._id
+
+				if(id){
+					router.push(`/user/${id}`)
+				}
+			})
+
+	}
+
+	const onGoogleFailure = (response) => {
+		window.alert('We could not sign you in!')
+	}
+
 
 	const switchMode = () => {
 		setIsSignup((prev) => !prev)
@@ -141,8 +173,8 @@ const Auth = () => {
 						
 						{!isSignup && (
 							<GoogleLogin 
-								onSuccess={() => {}}
-								onFailure={() => {}}
+								onSuccess={onGoogleSucess}
+								onFailure={onGoogelFailure}
 							/> 
 						)}
 				</form>

@@ -11,7 +11,7 @@ import { SanityDocument } from '@sanity/client'
 // }
 
 export default async function handler( req: NextApiRequest, res: NextApiResponse) {
-  const { firstName, lastName, password, confirmPassword, email } = req.body
+  const { firstName, lastName, password, confirmPassword, email, sub } = req.body
 
   if(req.method === "POST"){
     try{
@@ -26,24 +26,45 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
         res.end()
 
       } else {
-        const hashedPassword = await bcrypt.hash(password, 12)
-
-        const newUser = {
-          _type: 'user',
-          username: email,
-          password: hashedPassword,
-          billingInfo: {
-            name: firstName,
-            surname: lastName,
-            email: email
+        console.log('google login')
+        if(sub){
+          const newUser = {
+            _type: 'user',
+            _id: sub,
+            username: email,
+            billingInfo: {
+              name: firstName,
+              surname: lastName,
+              email: email
+            }
           }
+
+          const result: SanityDocument = await client.create(newUser)
+          const token = jwt.sign({ email: email, id:result._id }, 'test', { expiresIn: '1h'})
+
+          res.status(201).json({ user: result, token })
+          res.end()
+
+        } else {
+          const hashedPassword = await bcrypt.hash(password, 12)
+  
+          const newUser = {
+            _type: 'user',
+            username: email,
+            password: hashedPassword,
+            billingInfo: {
+              name: firstName,
+              surname: lastName,
+              email: email
+            }
+          }
+            
+          const result: SanityDocument = await client.create(newUser)
+          const token = jwt.sign({ email: email, id:result._id }, 'test', { expiresIn: '1h'})
+         
+          res.status(201).json({ user: result, token })
+          res.end()
         }
-          
-        const result: SanityDocument = await client.create(newUser)
-        const token = jwt.sign({ email: email, id:result._id }, 'test', { expiresIn: '1h'})
-       
-        res.status(201).json({ result, token })
-        res.end()
       }
       
     } catch (error) {

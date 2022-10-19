@@ -33,7 +33,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
         else{
           const token = jwt.sign({email: email, id: existingUser._id}, 'test', { expiresIn: '1h'})
 
-          res.status(200).json({ existingUser, token })
+          res.status(200).json({ user: existingUser, token })
         }
       }
     } catch (error) {

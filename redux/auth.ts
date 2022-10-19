@@ -5,7 +5,7 @@ import * as api from '../api/index'
 export const fetchUser = createAsyncThunk('auth/fetchUser', async (id: any) => {
   try{
     const response = await api.fetchUser(id)
-    console.log(response)
+
     return response
   } catch (error) {
 
@@ -30,7 +30,8 @@ export const signin = createAsyncThunk('auth/signin', async (formData: any) => {
 
 export const signup = createAsyncThunk('auth/signup', async (formData: any) => {
   try{
-    const { data } = await api.signup(formData)
+    const data = await api.signup(formData)
+    console.log(data)
 
     return data
   } catch (error: any) {
@@ -76,7 +77,8 @@ const authSlice = createSlice({
         state.hasError = false
       })
       .addCase(signup.fulfilled, (state, action) => {
-        const { result: user, token } = action?.payload
+        console.log(action.payload)
+        const { user, token } = action?.payload
         state.user = user
         state.token = token
         state.isLoading = false

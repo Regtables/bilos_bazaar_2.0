@@ -16,7 +16,7 @@ import Cart from '../components/Cart/Cart'
 function MyApp({ Component, pageProps, props }: { Component: any, pageProps: AppProps, props: any }) {
   return (
     <Provider store={store}>
-      <GoogleOAuthProvider clientId=''>
+      <GoogleOAuthProvider clientId='913174638133-an5ld9u033lhe97r155q0eoiisffdu1u.apps.googleusercontent.com'>
         <div>
           <nav>
             <Navbar />
