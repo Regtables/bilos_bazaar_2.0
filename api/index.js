@@ -17,6 +17,7 @@ export const signin =  async (formData) => {
 }
 
 export const fetchUser = async (id) => {
+  console.log(id)
   const response = await fetch(`/api/user/${id}`, {
     method: 'GET',
   })

@@ -134,7 +134,7 @@ const User = () => {
 }
 
 // export const getServerSideProps = async () => {
-  
+//   const userQuery
 // }
 
 export default User
