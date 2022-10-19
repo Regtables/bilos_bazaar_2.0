@@ -53,11 +53,11 @@ const User = () => {
   const {id} = router.query
   console.log(id)
 
-  // useEffect(() => {
-  //   if(id){
-  //     dispatch(fetchUser(id))
-  //   }
-  // }, [router])
+  useEffect(() => {
+    if(id){
+      dispatch(fetchUser(id))
+    }
+  }, [router])
 
   const renderSection = () => {
     if(activeSection.section === 'profile'){
