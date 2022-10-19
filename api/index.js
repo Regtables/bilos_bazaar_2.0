@@ -20,6 +20,8 @@ export const fetchUser = async (id) => {
   console.log(id)
   const response = await fetch(`/api/user/${id}`, {
     method: 'GET',
+  }).then(async (res) => {
+    console.log(res)
   })
 
   const data = await response.json()
