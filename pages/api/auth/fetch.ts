@@ -1,15 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { client } from "../../../../utils/client";
+import { client } from '../../../utils/client';
 
 export default async function handler(req: NextApiRequest, result: NextApiResponse ) {
-  // console.log(req.body)
-  const { id } = req.query
-  console.log(id)
-  if(req.method === 'GET'){
+  console.log(req.body)
+  const id = req.body
+  // console.log(id)
+  if(req.method === 'POST'){
     try{
       await client.fetch(`*[_type == "user" && _id == "${id}"]`)
       .then((res) => {
+        console.log(res)
         if(res[0]._id){
           result.status(200).json(res[0])
         } else {

@@ -17,11 +17,12 @@ export const signin =  async (formData) => {
 }
 
 export const fetchUser = async (id) => {
-  console.log(id)
-  const response = await fetch(`/api/user/${id}`, {
-    method: 'GET',
-  }).then(async (res) => {
-    console.log(res)
+  const response = await fetch(`/api/auth/fetch`, {
+    method: 'POST',
+    body: JSON.stringify(id),
+    headers: {
+      'Content-Type': 'application/json',
+    }
   })
 
   const data = await response.json()
