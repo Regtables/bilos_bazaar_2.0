@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
       // }
     } catch (error) {
       console.log(error)
-      result.status(404).json({ message: 'something went wrong' })
+      result.status(400).json({ message: 'something went wrong' })
       result.end()
     }
   }
