@@ -17,12 +17,14 @@ export const signin =  async (formData) => {
 }
 
 export const fetchUser = async (id) => {
-  console.log(id)
   const response = await fetch(`/api/user/${id}`, {
     method: 'GET',
   })
 
-  return response
+  const data = await response.json()
+  console.log(data)
+
+  return data
 }
 
 export const signup = (formData) => API.post('/api/auth/signup', formData)
