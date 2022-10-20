@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 import { BsArrowLeft } from 'react-icons/bs'
 
 import styles from './Breadcrums.module.scss';
@@ -13,6 +14,8 @@ const Breadcrums = ({
 	category: string;
 	item: string;
 }) => {
+	const router = useRouter()
+
 	return (
 		<div className={styles.container}>
 			<div className = {styles.crums}>
@@ -40,7 +43,7 @@ const Breadcrums = ({
 			</div>
 			
 			<div className= {styles.back}>
-				<p><BsArrowLeft /> back</p>
+				<p onClick = {() => router.back()}><BsArrowLeft /> back</p>
 			</div>
 		</div>
 	);

@@ -59,12 +59,14 @@ const User = () => {
     }
   }, [router])
 
+
   const renderSection = () => {
     if(activeSection.section === 'profile'){
       return (
         <>
           <BillingForm
             checkout = {false}
+            user = {user}
           />
           <div className= {styles.delete}>
             <Button variant='contained' type = 'submit'>Delete Profile</Button>
@@ -86,17 +88,11 @@ const User = () => {
     }
   }
 
-  // if(isLoading){
-  //   return (
-  //     <p>Loading</p>
-  //   )
-  // }
-
   return (
     <>
       <div className= {styles.container}>
         <div className= {styles.banner}>
-          <ProfileBanner user = {user} />
+          <ProfileBanner user = {user?.user} />
         </div>
   
         <Paper className= {`${styles.content} section__margin`}>

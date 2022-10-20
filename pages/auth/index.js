@@ -5,6 +5,7 @@ import { Paper, Grid, Button } from '@mui/material';
 import { FaLock } from 'react-icons/fa';
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode'
+import { motion } from 'framer-motion'
 
 import styles from './Auth.module.scss';
 import Input from '../../components/Input/Input';
@@ -94,7 +95,12 @@ const Auth = () => {
 
 	return (
 		<div className={styles.auth} style = {{backgroundImage: 'url(/item9.jpeg)'}}>
-			<div className={styles.container} style = {isLoading ? {cursor: 'progress'} : {cursor: 'auto'}}>
+			<motion.div 
+				className={styles.container} 
+				style = {isLoading ? {cursor: 'progress'} : {cursor: 'auto'}}
+				whileInView = {{y: [100, 0], opacity: [0, 1]}}
+				initial = {{y: 100, opacity: 0}}
+			>
 				<div className={styles.heading}>
 					<div className = {styles.icon}>
 						<FaLock />
@@ -174,7 +180,7 @@ const Auth = () => {
 						{!isSignup && (
 							<GoogleLogin 
 								onSuccess={onGoogleSucess}
-								onFailure={onGoogelFailure}
+								onFailure={onGoogleFailure}
 							/> 
 						)}
 				</form>
@@ -184,7 +190,7 @@ const Auth = () => {
 				>
 					{isSignup ? 'Allready have an account? Sign In' : 'Dont have an account? Sign Up'}
 				</Button>
-			</div>
+			</motion.div>
 		</div>
 	);
 };

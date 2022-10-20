@@ -46,3 +46,17 @@ export const signup = async (formData) => {
   return data
 }
 
+export const saveBillingInfo = async (data) => {
+  const response = await fetch('/api/user/saveBillingInfo', {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${data.user.token}`
+    }
+  })
+
+  console.log(response)
+
+}
+

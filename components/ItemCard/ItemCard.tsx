@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -35,6 +35,10 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
 
+	// useEffect(() => {
+	// 	item.variants[0]
+	// }, [])
+
 	const handleVariantChange = (variant: Variant) => {
 		setActiveVariant(variant)
 	}
@@ -62,6 +66,9 @@ const ItemCard = ({ item }: { item: Item }) => {
 			<Card
 				elevation={hover ? 8 : 1}
 				className={styles.card}
+				sx = {{
+					borderRadius: '7px'
+				}}
 				raised
 				onMouseEnter={() => setHover(true)}
 				onMouseLeave={() => setHover(false)}

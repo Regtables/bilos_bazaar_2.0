@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { AiFillLeftCircle, AiFillRightCircle } from 'react-icons/ai'
+import { motion } from 'framer-motion'
 
 import styles from './Hero.module.scss'
 import { HeroImage } from '../../types'
@@ -31,7 +32,12 @@ const Hero = ({ data } : { data: [HeroImage] }) => {
   }
 
   return (
-    <div className={styles.container}>
+    <motion.div 
+      className={styles.container}
+      whileInView = {{y: [50, 0], opacity: [0,1]}}
+      transition = {{duration: 0.4}}
+      initial = {{y: 50, opacity: 0}}
+    >
       <div className={styles.tile}>
         <HeroTile 
           tile={activeTile}
@@ -50,7 +56,7 @@ const Hero = ({ data } : { data: [HeroImage] }) => {
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }
 

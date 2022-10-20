@@ -1,12 +1,55 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import type { AppDispatch } from '../../redux/store'
 import { Grid, MenuItem, Select, InputLabel, Button } from '@mui/material'
 import { AiFillInfoCircle } from 'react-icons/ai';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './BillingForm.module.scss'
+import { selectUser, setUserBillingInfo, saveBillingInfo } from '../../redux/auth';
 
 import Input from '../Input/Input'
 
-const BillingForm = ({checkout} : {checkout: boolean}) => {
+const INITIAL_STATE = {
+  name: '',
+  surname: '',
+  email: '',
+  phoneNumber: '',
+  city: '',
+  province: '',
+  streetAddress: '',
+  apt: '',
+  zip: '',
+}
+
+const BillingForm = ({ checkout, user } : {checkout: boolean, user: any }) => {
+  const dispatch = useDispatch<AppDispatch>()
+  const userData = useSelector(selectUser)
+  const [billingInfo, setBillingInfo] = useState(INITIAL_STATE)
+
+  // useEffect(() => {
+  //   if(user.user.billingInfo){
+  //     setBillingInfo(user.user.billingInfo)
+  //   }
+  // })
+
+  const handleChange = (e: any) => {
+    setBillingInfo({ ...billingInfo, [e.target.name]: e.target.value })
+  }
+  const handleSave = (e: any) => {
+    e.preventDefault();
+
+    dispatch(setUserBillingInfo)
+
+    const data = {
+      billingInfo: billingInfo,
+      user: userData
+    }
+    dispatch(saveBillingInfo(data))
+
+    console.log(billingInfo)
+  }
+
+
   return (
     <div className= {styles.container}>
       <div 
@@ -18,6 +61,7 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
       <form 
         className= {styles.form} 
         style = {checkout ? {padding: '1rem'} : {padding: '0rem'}}
+        onSubmit = {handleSave}
       >
         <Grid container spacing = {2}>
           <Input 
@@ -26,8 +70,8 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             half = {true}
             type = 'text'
             autoFocus = {true}
-            onChange = {() =>{}}
-            value = {''}
+            onChange = {handleChange}
+            value = {billingInfo.name}
             handleShowPassword = {false}
           />
           <Input 
@@ -36,18 +80,18 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             half = {true}
             type = 'text'
             autoFocus = {false}
-            onChange = {() =>{}}
-            value = {''}
+            onChange = {handleChange}
+            value = {billingInfo.surname}
             handleShowPassword = {false}
           />
           <Input 
-            name = 'phone'
+            name = 'phoneNumber'
             type = 'text'
             label='Phone Number'
             half = {true}
             autoFocus = {false}
-            onChange = {() =>{}}
-            value = {''}
+            onChange = {handleChange}
+            value = {billingInfo.phoneNumber}
             handleShowPassword = {false}
           />  
           <Input 
@@ -56,18 +100,18 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             type = 'email'
             half = {true}
             autoFocus = {false}
-            onChange = {() =>{}}
-            value = {''}
+            onChange = {handleChange}
+            value = {billingInfo.email}
             handleShowPassword = {false}
           />
           <Input 
             name = 'city'
             label='City'
             type = 'text'
-            half = {true}
             autoFocus = {false}
-            onChange = {() =>{}}
-            value = {''}
+            half = {true}
+            onChange = {handleChange}
+            value = {billingInfo.city}
             handleShowPassword = {false}
           />
           <Grid item sm = {6}>
@@ -76,6 +120,7 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
               label = 'Province'
               fullWidth = {true}
               // labelId = 'province'
+              defaultValue = {billingInfo.province}
               sx = {{
                 width: '100%',
                 minWidth: '100%'
@@ -89,35 +134,35 @@ const BillingForm = ({checkout} : {checkout: boolean}) => {
             </Select>
           </Grid>
           <Input 
-            name = 'address'
+            name = 'streetAddress'
             label='Street Address'
             type = 'text'
             half = {true}
             autoFocus = {false}
-            onChange = {() =>{}}
-            value = {''}
+            onChange = {handleChange}
+            value = {billingInfo.streetAddress}
             handleShowPassword = {false}
           />
           <Grid item sm = {6} sx = {{display: 'flex', justifyContent: 'space-between'}}>
             <Input 
-              name = 'address'
-              label='Street Address'
+              name = 'apt'
+              label='apartment number'
               type = 'text'
               half = {true}
               autoFocus = {false}
-              onChange = {() =>{}}
-              value = {''}
+              onChange = {handleChange}
+              value = {billingInfo.apt}
               handleShowPassword = {false}
             />
             <Grid item sm = {6}>
               <Input 
-                name = 'address'
-                label='Street Address'
+                name = 'zip'
+                label='zip code'
                 type = 'text'
                 half = {true}
                 autoFocus = {false}
-                onChange = {() =>{}}
-                value = {''}
+                onChange = {handleChange}
+                value = {billingInfo.zip}
                 handleShowPassword = {false}
               />
             </Grid>

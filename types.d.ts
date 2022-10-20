@@ -8,10 +8,12 @@ export interface Category{
 export interface BillingInfo{
   name: string,
   surname: string,
+  email: string,
+  phone: number,
   provice: string,
   city: string,
-  phone: number,
-  email: string,
+  zip: string,
+  apt: string,
   address: string
 }
 

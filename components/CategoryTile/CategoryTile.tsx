@@ -9,22 +9,34 @@ import { client } from '../../utils/client'
 import { Category } from '../../types'
 import { selectActiveCategory, setActiveCategory } from '../../redux/items'
 
-const CategoryTile = ({ category } : { category: string }) => {
+const CategoryTile = ({ category, other, handleClick } : { category: string, other: boolean, handleClick: any }) => {
   const dispatch = useDispatch()
   const activeCategory = useSelector(selectActiveCategory)
 
+  const handleChange = () => {
+    dispatch(setActiveCategory(category))
+    handleClick(category)
+  }
+
   return (
-    <Card 
+    <div
       className= { activeCategory === category ? `${styles.container} ${styles.active}` : styles.container} 
-      onClick = {() => {dispatch(setActiveCategory(category))}}
+      onClick = {handleChange}
+      // elevation = {activeCategory === category ? 0 : 4}
+      style = {other ? {backgroundColor: 'var(--color-secondary)', color: 'white'} : {background: 'white'}}
     >
-      <Button 
+      {/* <Button 
         className= {styles.category} 
         centerRipple
-      >
-        <p className= {activeCategory === category ? `${styles.active}` : ''}>{category}</p>
-      </Button>
-    </Card>
+      > */}
+        <p 
+          className= {activeCategory === category ? `${styles.active}` : ''}
+          style = {other ? {color: 'white'} : {color: 'var(--color-offBlack)'}}
+        >
+          {category}
+        </p>
+      {/* </Button> */}
+    </div>
   )
 }
 

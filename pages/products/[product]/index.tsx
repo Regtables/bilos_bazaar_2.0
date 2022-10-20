@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Paper, TextField, InputAdornment } from '@mui/material'
-import { client, urlFor } from '../../../utils/client'
-import { useNextSanityImage } from 'next-sanity-image'
-import { BsSearch } from 'react-icons/bs'
+import { Paper } from '@mui/material'
+import { client } from '../../../utils/client'
+import { motion } from 'framer-motion'
 
 import styles from './Product.module.scss'
 import { Item, Product } from '../../../types'
@@ -13,17 +12,52 @@ import { selectActiveCategory } from '../../../redux/items'
 import CategoryList from '../../../components/CategoryList/CategoryList'
 import Breadcrums from '../../../components/Breadcrums/Breadcrums'
 import ItemCard from '../../../components/ItemCard/ItemCard'
+import Search from '../../../components/Search/Search'
+import Sort from '../../../components/Sort/Sort'
 
-const Product = ({ product, items } : { product: Product, items: [Item] } ) => {
+const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
   const { product: name, productImage: image, categories } = product
   const activeCategory = useSelector(selectActiveCategory)
+  const [animateItems, setAnimateItems] = useState({})
+  const [filteredItems, setFilteredItems] = useState(items)
+  const [searchTerm, setSearchTerm] = useState('')
 
-  const imageProps: any = useNextSanityImage(client, image)
-  console.log(product)
-  console.log(items)
+  useEffect(() => {
+    setFilteredItems(items)
+  }, [product])
+
+  useEffect(() => {
+    setFilteredItems((items.filter((item) => item.name.includes(searchTerm))))
+  }, [searchTerm])
+
+  const handleCategoryChange = (category: string) => {
+    setAnimateItems({opacity: 0})
+
+    setTimeout(() => {
+      setAnimateItems({opacity: 1})
+    }, 400);
+  
+    if(category === 'all'){
+      setTimeout(() => {
+        setFilteredItems(items)
+      }, 300);
+    } else{
+      const filtered = items.filter((item: Item) => item.category.category === category)
+
+      setTimeout(() => {
+        setFilteredItems(filtered);
+      }, 300)
+    }
+  }
+
 
   return (
-    <div className = {`${styles.page} section__padding`}>
+    <motion.div 
+      className = {`${styles.page} section__padding`}
+      whileInView = {{y: [50, 0], opacity: [0,1]}}
+      transition = {{duration: 0.5}}
+      initial = {{y: 50, opacity: 0}}
+    >
       <div className= {styles.breadcrums}>
         <Breadcrums
           product = {name}
@@ -37,6 +71,15 @@ const Product = ({ product, items } : { product: Product, items: [Item] } ) => {
           >
             <div className = {styles.heading}>
               <h1>{name}</h1>
+            </div>
+            <div className = {styles.search}>
+              <Search
+                term = {searchTerm}
+                setTerm = {setSearchTerm}
+              />
+            </div>
+            <div className= {styles.sort}>
+              <Sort />
             </div>
             {/* <div className= {styles.search}>
               <TextField 
@@ -58,16 +101,21 @@ const Product = ({ product, items } : { product: Product, items: [Item] } ) => {
             <div className = {styles.categories}>
               <CategoryList 
                 categories={categories} 
+                handleChange = {handleCategoryChange}
               />
             </div>
-            <div className = {styles.items}>
-              {items.map((item, i) => (
+            <motion.div 
+              className = {styles.items} 
+              animate = {animateItems}
+              transition = {{duration: 0.5}}
+            >
+              {filteredItems.map((item, i) => (
                 <ItemCard item = {item} key = {i} />
               ))}
-            </div>
+            </motion.div>
           </div>
       </Paper>
-    </div>
+    </motion.div>
   )
 }
 
