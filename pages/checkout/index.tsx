@@ -5,6 +5,7 @@ import { BsArrowLeft } from 'react-icons/bs'
 
 import styles from './Checkout.module.scss'
 import { selectCartItems, selectCartTotal } from '../../redux/cart'
+import { selectUser } from '../../redux/auth'
 
 import BillingForm from '../../components/BillingForm/BillingForm'
 import Shipping from '../../components/Shipping/Shipping'
@@ -15,6 +16,7 @@ const Checkout = () => {
   const [deliveryFee, setDeliveryFee] = useState(400)
   const cartTotal = useSelector(selectCartTotal)
   const cartItems = useSelector(selectCartItems)
+  const user = useSelector(selectUser)
 
   return (
     <div className= {`${styles.container} section__padding`}>
@@ -25,7 +27,8 @@ const Checkout = () => {
         <div className = {styles.billing}>
           <Paper className = {styles.billingInfo} elevation = {2}>
             <BillingForm
-              checkout
+              checkout = {true}
+              user = {user}
             />
           </Paper>
           <Paper className= {styles.shipping} elevation = {2}>
