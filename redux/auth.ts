@@ -143,7 +143,7 @@ const authSlice: Slice = createSlice({
       .addCase(saveBillingInfo.fulfilled, (state, action) => {
         state.isLoading = false
         state.hasError = false
-        state.user.billingInfo = action.payload
+        // state.user?.billingInfo = action.payload
       })
       .addCase(saveBillingInfo.rejected, (state) => {
         state.isLoading = false
