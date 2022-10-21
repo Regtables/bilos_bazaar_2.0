@@ -10,6 +10,7 @@ import { motion } from 'framer-motion'
 import styles from './Auth.module.scss';
 import Input from '../../components/Input/Input';
 import { signin, signup, selectUser, isLoadingUser } from '../../redux/auth';
+import Loader from '../../components/Loader/Loader';
 
 const initialState = {
 	firstName: '',
@@ -191,6 +192,9 @@ const Auth = () => {
 					{isSignup ? 'Allready have an account? Sign In' : 'Dont have an account? Sign Up'}
 				</Button>
 			</motion.div>
+			{isLoading && (
+				<Loader isLoading = {isLoading} />
+			)}
 		</div>
 	);
 };

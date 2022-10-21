@@ -14,6 +14,7 @@ import { addCartItem, selectCartItems, toggleCart } from '../../redux/cart';
 
 import Preview from '../Prevew/Preview';
 import SlideShowImage from '../SlideShowImage/SlideShowImage';
+import Wishlist from '../Wishlist/Wishlist';
 
 
 const colors = [
@@ -31,6 +32,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const cart = useSelector(selectCartItems)
 	const [hover, setHover] = useState(false);
 	const [index, setIndex] = useState(0)
+	const [isLoved, setIsLoved] = useState(false)
 	const [activeVariant, setActiveVariant] = useState(item?.variants[0])
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
@@ -82,6 +84,12 @@ const ItemCard = ({ item }: { item: Item }) => {
 						<SlideShowImage
 							image={activeVariant.image}
 							priority = {false}
+						/>
+					</div>
+					<div className= {styles.wishlist}>
+						<Wishlist
+							isLoved = {isLoved}
+							setIsLoved = {setIsLoved}
 						/>
 					</div>
 					{hover && (
@@ -153,6 +161,8 @@ const ItemCard = ({ item }: { item: Item }) => {
 					showPreview={showPreview}
 					setShowPreview={setShowPreview}
 					addItemToCart = {addItemToCart}
+					isLoved = {isLoved}
+					setIsLoved = {setIsLoved}
 				/>
 			)}
 		</>

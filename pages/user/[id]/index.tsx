@@ -15,6 +15,7 @@ import styles from './User.module.scss'
 import ProfileBanner from '../../../components/ProfileBanner/ProfileBanner'
 import ProfileSectionList from '../../../components/ProfileSectionList/ProfileSectionList'
 import BillingForm from '../../../components/BillingForm/BillingForm'
+import Loader from '../../../components/Loader/Loader'
 
 const user = {
   _type: 'user',
@@ -124,6 +125,11 @@ const User = () => {
             </div>
           </motion.div>
         </Paper>
+        {isLoading && (
+          <Loader 
+            isLoading = {isLoading}
+          />
+        )}
       </div>
     </>
   )

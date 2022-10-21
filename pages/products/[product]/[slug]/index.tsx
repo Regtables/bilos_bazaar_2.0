@@ -16,6 +16,7 @@ import AddToCart from '../../../../components/AddToCart/AddToCart';
 import BuyNow from '../../../../components/BuyNow/BuyNow';
 import Breadcrums from '../../../../components/Breadcrums/Breadcrums';
 import SimilarItems from '../../../../components/SimilarItems/SimilarItems';
+import Wishlist from '../../../../components/Wishlist/Wishlist';
 
 const colors = [
 	'#33ab9f',
@@ -38,6 +39,7 @@ const Item = ({ item, items } : { item: Item, items: [Item] }) => {
   const [activeImage, setActiveImage] = useState(item?.images[0].image)
   const [index, setIndex] = useState(0)
   const [qty, setQty] = useState(1)
+  const [isLoved, setIsLoved] = useState(false)
   
   const itemColors = item.variants.map((variant) => variant.color)
   const itemVariants = item.variants.map((variant) => variant)
@@ -87,6 +89,12 @@ const Item = ({ item, items } : { item: Item, items: [Item] }) => {
             index = {index}
             setIndex = {setIndex}
           />
+          <div className= {styles.wishlist}>
+            <Wishlist
+              isLoved = {isLoved}
+              setIsLoved = {setIsLoved}
+            />
+          </div>
         </div>
 
         <div className= {styles.itemInfo}>

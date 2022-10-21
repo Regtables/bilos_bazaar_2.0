@@ -5,7 +5,12 @@
   border-radius: 10px 10px 0 0;
   // background-color: aliceblue;
   // background: linear-gradient(360deg, #d1dbe250, #eef6f8);
-  background-color: rgb(246, 248, 250);
+  background-color: rgb(230, 238, 246);
+
+  @media screen and (max-width: 450px) {
+   min-height: 100vh;
+    
+  }
 }
 
 .banner{
@@ -41,10 +46,24 @@
       font-size: 42px;
     }
   }
-
+  
   .search{
     // margin-top: 12px;
     width: 50%;
+  }
+
+  @media screen and (max-width: 450px) {
+    .heading{
+      flex: 0.2;
+      padding: 0.5rem 0;
+      h1{
+        font-size: 32px;
+      }
+    }
+
+    .search{
+      width: 30%;
+    }
   }
 }
 
@@ -52,6 +71,11 @@
   margin-top: 0.5rem;
   display: flex;
   padding: 1rem;
+
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
 }
 
 .categories{
@@ -74,9 +98,10 @@
   grid-row-gap: 10px;
   
   @media screen and (max-width: 450px) {
+    margin-left: unset;
     height: 100vh;
-    overflow-y: scroll;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    // overflow-y: scroll;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 2fr));
     grid-column-gap: 10px;
     grid-row-gap: 20px;
     flex: 0.6;

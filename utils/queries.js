@@ -20,6 +20,12 @@ export const productItemsQuery = (product) => {
   return query
 }
 
+export const productsQuery = () => {
+  const query = '*[_type =="product"]{categories[]->, slug, product}';
+
+  return query
+}
+
 export const categoryItemsQuery = (category) => {
   const query = `*[_type == "item" && category.category == "${category}"]{
     category->, 

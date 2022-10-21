@@ -15,6 +15,7 @@ import Quantity from '../Quantity/Quantity';
 import AddToCart from '../AddToCart/AddToCart';
 import BuyNow from '../BuyNow/BuyNow';
 import SlideShowImage from '../SlideShowImage/SlideShowImage';
+import Wishlist from '../Wishlist/Wishlist';
 
 const colors = [
 	'#33ab9f',
@@ -35,7 +36,9 @@ const Preview = ({
   activeVariant,
   handleVariantChange,
   setActiveVariant,
-  addItemToCart
+  addItemToCart,
+  isLoved,
+  setIsLoved
 }: {
 	item: Item;
 	showPreview: boolean;
@@ -46,7 +49,9 @@ const Preview = ({
   activeVariant: Variant,
   setActiveVariant: any
   handleVariantChange: any,
-  addItemToCart: any
+  addItemToCart: any,
+  isLoved: boolean,
+  setIsLoved: any
 }) => {
   const { name, price, images, description, category: { category }, variants } = item
 
@@ -83,7 +88,13 @@ const Preview = ({
         </div>
 				<div className={styles.information}>
           <h6>{category}</h6>
-          <h3>{name}</h3>
+          <div className = {styles.name_wrapper}>
+            <h3>{name}</h3>
+            <Wishlist 
+              isLoved = {isLoved}
+              setIsLoved = {setIsLoved}
+            />
+          </div>
           <h4>R {price}</h4>
           <p>{description.short}</p>
 

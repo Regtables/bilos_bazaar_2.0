@@ -2,15 +2,17 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image'
 import Link from 'next/link'
-import { BsBagFill, BsSearch, BsChevronCompactDown, BsTelephone } from 'react-icons/bs';
+import { BsBagFill, BsSearch, BsChevronCompactDown, BsChevronCompactUp } from 'react-icons/bs';
 import { AiOutlineInstagram, AiOutlineMenu, AiOutlineMail, AiOutlineCloseCircle } from 'react-icons/ai';
 import { GoLocation } from 'react-icons/go';
 import { FaFacebookF, FaUser } from 'react-icons/fa';
+import { motion } from 'framer-motion'
 
 import styles from './Navbar.module.scss'
 import { toggleCart, selectTotalCartItems } from '../../redux/cart';
+import { selectProducts, setActiveCategory } from '../../redux/items'
 import { selectUser } from '../../redux/auth';
-import { Item } from '../../types';
+import { Item, Product, Category } from '../../types';
 
 const links = [
   {
@@ -26,18 +28,27 @@ const links = [
 const Navbar = () => {
   const dispatch = useDispatch()
   const totalCartItems = useSelector(selectTotalCartItems)
+  const products = useSelector(selectProducts)
   const user = useSelector(selectUser)
+  console.log(user)
   const [hover, setHover] = useState()
+  const [animateArrow, setAnimateArrow] = useState({})
+  const [animateDropDown, setAnimateDropDown] = useState({})
 
   const toggleHover = (link: any) => {
-    setTimeout(() => {
-      setHover(link.link)
-    }, 300);
+    setHover(link)
+    setAnimateArrow({rotate: '180deg'})
+
+    if(link){
+      setAnimateArrow({rotate: '180deg'})
+    } else if(link === '') {
+      setAnimateArrow({rotate: '-180deg'})
+    }
   }
 
   return (
     <>
-      <div className= {`${styles.container}`}>
+      <div className= {`${styles.container}`} onMouseLeave = {() => toggleHover('')}>
         <div className= {styles.logo_container}>
           <Link href={'/'}>
             <div className = {styles.logo}>
@@ -58,7 +69,7 @@ const Navbar = () => {
         </div>
 
         <div className= {styles.links_container}>
-          <div className = {styles.icons}>
+          <div className = {styles.icons} onMouseEnter = {() => toggleHover('')}>
             <div className= {styles.socials}>
               <a><AiOutlineInstagram /></a>
               <a><FaFacebookF /></a>
@@ -67,7 +78,7 @@ const Navbar = () => {
               <BsSearch />
 
               <div className= {styles.user}>
-                <Link href = {user?._id ? `/user/${user._id}` : '/auth'}>
+                <Link href = {user?.user._id ? `/user/${user.user._id}` : '/auth'}>
                   <FaUser />
                 </Link>
               </div>
@@ -85,24 +96,43 @@ const Navbar = () => {
 
           <div className= {styles.partition}></div>
 
-          <div className= {styles.links}>
-            {links.map((link, i) => (
-              <div className = {styles.link}  key = {i}>
-                <Link href = {`/products/${link.slug}`}>
-                  <p 
-                    // onMouseEnter={() => toggleHover(link)}
-                  >
-                    {link.link}
-                  </p>
-                </Link>
+          <div className= {styles.links} >
+            <div className= {styles.links_wrapper}>
+              {products.map((product: Product, i: number) => (
+                <div className = {styles.link}  key = {i}>
+                  <Link href = {`/products/${product.slug.current}`}>
+                    <div onClick={() => dispatch(setActiveCategory('all'))}>
+                      {/* <motion.div animate = {animateArrow}><BsChevronCompactUp /></motion.div> */}
+                      <p 
+                        onMouseEnter={() => toggleHover(product.product)}
+                      >
+                        {product.product} <BsChevronCompactDown />
+                      </p>
+                    </div>
+                  </Link>
 
-                {hover === link.link && (
-                  <div className= {styles.dropdown}>
-                    <p>categories</p>
-                  </div>
-                )}
-              </div>
-            ))}
+                  {hover === product.product && (
+                    <motion.div 
+                      className= {styles.dropdown}
+                      whileInView = {{opacity: [0,1]}}
+                      initial = {{opacity: 0}}
+                      transition = {{duration: 0.3}}
+                    >
+                      <>
+                        <h3>{product.product}</h3>
+                          <div className = {styles.categories}>
+                            {product.categories.map((category: Category, i) => (
+                              <Link href = {`/products/${product.slug.current}`}>
+                                <p onClick = {() => dispatch(setActiveCategory(category.category))}>{category.category}</p> 
+                              </Link>
+                            ))}
+                          </div>
+                      </>
+                    </motion.div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

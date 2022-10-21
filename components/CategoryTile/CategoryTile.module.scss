@@ -13,6 +13,7 @@
   transition: all 0.3s;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   transition: all 0.5s;
+  text-align: center;
 
 
   
@@ -26,11 +27,21 @@
     &.active{
       color: white !important;
     }
-  }
 
+  }
+  
   &.active{
     background-color: var(--color-primary) !important;
     box-shadow: none !important;
+  }
+
+  @media screen and (max-width:450px) {
+    min-width: 100px;
+    margin-right: 0.5rem;
+    
+    p{
+      font-size: 10px;
+    }
   }
 }
 

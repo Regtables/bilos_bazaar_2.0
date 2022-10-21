@@ -15,10 +15,19 @@
 .imageCarousel{
   flex: 0.6;
   height: 100%;
+  position: relative;
+
+  .wishlist{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+  }
 
   @media screen and (max-width: 450px) {
    
   }
+
+
 }
 
 .itemInfo{

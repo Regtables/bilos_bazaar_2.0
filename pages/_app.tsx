@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps, props }: { Component: any, pageProps: App
             <Component { ...pageProps } />
           </main>
           <footer>
-            {/* <Footer /> */}
+            <Footer />
           </footer>
         </div>
       </GoogleOAuthProvider>

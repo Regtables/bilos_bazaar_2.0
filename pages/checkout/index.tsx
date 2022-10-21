@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import { Paper, Card } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { BsArrowLeft } from 'react-icons/bs'
@@ -12,6 +13,7 @@ import Shipping from '../../components/Shipping/Shipping'
 import OrderInfo from '../../components/OrderInfo/OrderInfo'
 
 const Checkout = () => {
+  const router = useRouter()
   const [activeAddress, setActiveAddress] = useState('5 wexford mansions, bellair road, vredehoek')
   const [deliveryFee, setDeliveryFee] = useState(400)
   const cartTotal = useSelector(selectCartTotal)
@@ -21,7 +23,7 @@ const Checkout = () => {
   return (
     <div className= {`${styles.container} section__padding`}>
       <div className= {styles.continue}>
-        <p><BsArrowLeft />conitnue shopping</p>
+        <p onClick = {() => router.back()}><BsArrowLeft />conitnue shopping</p>
       </div>
       <div className= {`${styles.content}`}>
         <div className = {styles.billing}>

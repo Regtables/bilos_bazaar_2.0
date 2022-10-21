@@ -1,10 +1,13 @@
+import React, { useEffect} from 'react'
+import { useDispatch } from 'react-redux'
 import type { GetStaticProps } from 'next'
 import Head from 'next/head'
 
 import styles from '../styles/Home.module.scss'
 import { client } from '../utils/client'
-import { HeroImage, Category, Item } from '../types'
-import { featuredItemsQuery } from '../utils/queries'
+import { HeroImage, Category, Item, Product } from '../types'
+import { featuredItemsQuery, productsQuery } from '../utils/queries'
+import { setProducts } from '../redux/items'
 
 import Hero from '../components/Hero/Hero'
 import About from '../components/About/About'
@@ -14,8 +17,13 @@ import WithProps from '../components/WithProps/WithProps'
 import { AppProps } from 'next/app'
 
 
-const Home = ({ hero, categories, featuredItems } : { hero: [HeroImage], categories: [Category], featuredItems: [Item] }) => {
-  console.log(featuredItems)
+const Home = ({ hero, categories, featuredItems, products } : { hero: [HeroImage], categories: [Category], featuredItems: [Item], products: Product[] }) => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setProducts(products))
+  }, [products])
+
   return (
     <div className={`${styles.container}`}>
       <Hero data = { hero } />
@@ -33,6 +41,9 @@ export const getStaticProps: GetStaticProps = async () => {
   const categoriesQuery = '*[_type == "category"]{category, image, product->}'
   const categoriesData = await client.fetch(categoriesQuery)
 
+  // const productsQuery = '*[_type =="product"]{categories[]->, slug, product}'
+  const productsData = await client.fetch(productsQuery())
+
   // const popularItemsQuery = '*[_type == "popularItems"]{items[]->}'
   const popularItemsData = await client.fetch(featuredItemsQuery())
 
@@ -42,7 +53,8 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       hero: heroData,
       categories: categoriesData,
-      featuredItems: popularItemsData[0].items
+      featuredItems: popularItemsData[0].items,
+      products: productsData
     },
     revalidate: 1
   }
