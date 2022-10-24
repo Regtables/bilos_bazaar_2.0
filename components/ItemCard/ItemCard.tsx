@@ -150,10 +150,8 @@ const ItemCard = ({ item }: { item: Item }) => {
 					<div className= {styles.view}>
 						<Link href = {itemSlug(item)}>
 							<Button sx = {{fontSize: '12px'}}>
-						
-									<p>view item</p>
-									<BsEyeFill />
-					
+								<p>view item</p>
+								<BsEyeFill />
 							</Button>
 						</Link>
 					</div>
