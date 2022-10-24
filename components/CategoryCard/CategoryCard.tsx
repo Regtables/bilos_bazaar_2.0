@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { useDispatch } from 'react-redux'
 import { ButtonBase } from '@mui/material'
 import { useNextSanityImage } from 'next-sanity-image'
+import Link from 'next/link'
+
 
 import styles from './CategoryCard.module.scss'
 import { Category } from '../../types'
@@ -15,16 +17,18 @@ const CategoryCard = ( { category } : {category: Category}) => {
   const imageProps: any = useNextSanityImage(client, image )
 
   return (
-    <ButtonBase className= {styles.container} href = {`products/${product.slug.current}`} onClick = {() => dispatch(setActiveCategory(name))}>
-      <div className= {styles.overlay}></div>
-      <Image 
-        { ...imageProps }
-        layout = 'fill'
-        objectFit = 'cover'
-        className= {styles.image}
-      />
-      <h3 className= {styles.name}>{name}</h3>
-    </ButtonBase>
+    <Link href = {`products/${product.slug.current}`} className= {styles.container}>
+      <div className= {styles.container}  onClick = {() => dispatch(setActiveCategory(name))}>
+        <div className= {styles.overlay}></div>
+        <Image 
+          { ...imageProps }
+          layout = 'fill'
+          objectFit = 'cover'
+          className= {styles.image}
+        />
+        <h3 className= {styles.name}>{name}</h3>
+      </div>
+    </Link>
   )
 }
 

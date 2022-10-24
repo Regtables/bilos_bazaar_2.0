@@ -85,7 +85,7 @@ const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
           item = {''}
         />
       </div>
-      <Paper className= {styles.container} elevation = {1}>
+      <Paper className= {styles.container} elevation = {1} sx = {{ backgroundColor: 'rgb(230, 238, 246)' }}>
           <div 
             className= {styles.banner}
           >

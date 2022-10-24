@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Card, Button } from '@mui/material';
 import { useNextSanityImage } from 'next-sanity-image';
-import { BsEye, BsBagPlus } from 'react-icons/bs';
+import { BsEye, BsBagPlus, BsEyeFill } from 'react-icons/bs';
 
 import styles from './ItemCard.module.scss';
 import { Item, Variant } from '../../types';
@@ -70,7 +70,12 @@ const ItemCard = ({ item }: { item: Item }) => {
 				className={styles.card}
 				sx = {{
 					borderRadius: '20px',
-					outline: '1px solid #e3e3e3'
+					outline: '1px solid #e3e3e3',
+
+					"&:hover": {
+						boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.10)'
+					}
+					// boxShadow: '0 4px 6px rgb(0 0 0 / 4%)'
 				}}
 				raised
 				onMouseEnter={() => setHover(true)}
@@ -144,7 +149,12 @@ const ItemCard = ({ item }: { item: Item }) => {
 
 					<div className= {styles.view}>
 						<Link href = {itemSlug(item)}>
-							<Button sx = {{fontSize: '12px'}}>view item</Button>
+							<Button sx = {{fontSize: '12px'}}>
+						
+									<p>view item</p>
+									<BsEyeFill />
+					
+							</Button>
 						</Link>
 					</div>
 				</div>

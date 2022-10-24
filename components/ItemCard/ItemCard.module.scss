@@ -7,6 +7,7 @@
   transition: all 0.3s;
   // outline: 1px solid #e3e3e3;
   // box-shadow: 1px 0px 1px var(--color-secondary);
+  box-shadow: 0 4px 6px rgb(0 0 0 / 4%);
 
 
   &:hover{
@@ -64,8 +65,8 @@
   // width: 100%;
   // text-align: center;
   flex: 0.2;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
   color: var(--color-secondary);
   text-transform: capitalize;
   font-family: var(--font-family);
