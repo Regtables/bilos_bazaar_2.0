@@ -72,6 +72,7 @@ const Section = ({ section, links }: { section: string; links: any[] }) => {
 			<div className={styles.links}>
 				{links.map((link, i) => (
           <div 
+						key = {i}
 						className = {styles.link}
 						style = { link.icon ? { display: 'flex', alignItems: 'center'} : {display: 'block'}}
 					>

@@ -85,7 +85,7 @@ const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
           item = {''}
         />
       </div>
-      <Paper className= {styles.container} elevation = {8}>
+      <Paper className= {styles.container} elevation = {1}>
           <div 
             className= {styles.banner}
           >

@@ -3,6 +3,7 @@
   height: 180px;
   position: relative;
   transition: transform 0.3s;
+  border-radius: 14px;
 
   &:hover{
     transform: scale(1.03);
@@ -54,4 +55,9 @@
   transition: 0.3s;
   width: 100%;
   height: 100%;
+  border-radius: 15px;
+
+  img{
+    border-radius: 14px;
+  }
 }

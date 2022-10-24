@@ -35,6 +35,8 @@ const Navbar = () => {
   const [animateArrow, setAnimateArrow] = useState({})
   const [animateDropDown, setAnimateDropDown] = useState({})
 
+  console.log(products)
+
   const toggleHover = (link: any) => {
     setHover(link)
     setAnimateArrow({rotate: '180deg'})
@@ -122,7 +124,7 @@ const Navbar = () => {
                         <h3>{product.product}</h3>
                           <div className = {styles.categories}>
                             {product.categories.map((category: Category, i) => (
-                              <Link href = {`/products/${product.slug.current}`}>
+                              <Link href = {`/products/${product.slug.current}`} key = {category._id}>
                                 <p onClick = {() => dispatch(setActiveCategory(category.category))}>{category.category}</p> 
                               </Link>
                             ))}

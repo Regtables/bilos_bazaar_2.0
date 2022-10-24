@@ -66,10 +66,11 @@ const ItemCard = ({ item }: { item: Item }) => {
 	return (
 		<>
 			<Card
-				elevation={hover ? 8 : 1}
+				elevation={hover ? 8 : 0}
 				className={styles.card}
 				sx = {{
-					borderRadius: '7px'
+					borderRadius: '20px',
+					outline: '1px solid #e3e3e3'
 				}}
 				raised
 				onMouseEnter={() => setHover(true)}

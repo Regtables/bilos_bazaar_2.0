@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
 import { Backdrop, Button } from '@mui/material';
-import { useNextSanityImage } from 'next-sanity-image';
 import { IoIosCloseCircleOutline} from 'react-icons/io'
 import { TiWeatherWindy } from 'react-icons/ti'
 
 import styles from './Preview.module.scss';
-import { client } from '../../utils/client';
 import { itemSlug } from '../../utils/helpers';
 import { Item, Variant } from '../../types';
 
@@ -54,10 +51,6 @@ const Preview = ({
   setIsLoved: any
 }) => {
   const { name, price, images, description, category: { category }, variants } = item
-
-  console.log(item)
-
-  const imageProps: any = useNextSanityImage(client, images[0].image)
  
 	return (
 		<Backdrop
@@ -73,19 +66,12 @@ const Preview = ({
           <IoIosCloseCircleOutline />
         </div>
 				<div className={styles.banner}>
-          {/* <Image 
-            { ...imageProps }
-            layout = 'fill'
-            objectFit='cover'
-            objectPosition= '70%'
-            priority
-            alt = {item.name}
-          /> */}
           <SlideShowImage
             image={activeVariant.image}
             priority = {true}
           />
         </div>
+
 				<div className={styles.information}>
           <h6>{category}</h6>
           <div className = {styles.name_wrapper}>

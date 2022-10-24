@@ -89,7 +89,6 @@ const Auth = () => {
 		window.alert('We could not sign you in!')
 	}
 
-
 	const switchMode = () => {
 		setIsSignup((prev) => !prev)
 	}
