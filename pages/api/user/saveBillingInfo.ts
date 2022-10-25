@@ -1,17 +1,30 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { client } from '../../../utils/client';
+import { verify } from '../../../utils/auth';
 
 export default async function handler(req: NextApiRequest, result: NextApiResponse ) {
-  console.log('test')
-  const { billingInfo, user } = req.body
-  console.log(req.body)
+  const { billingInfo } = req.body
+
   if(req.method === 'POST'){
     try{
-     await client.patch(user.user._id).set({ billingInfo: billingInfo}).commit()
-      .then((res) => {
-        console.log(res)
-      })
+      let token;
+      let id;
+
+      if(req.headers.authorization){
+        token = req.headers.authorization?.split(' ')[1]
+        id = verify(token)
+
+        if(id){
+          const response = await client.patch(id).set({ billingInfo: billingInfo}).commit()
+
+          result.status(200).json(response)
+          result.end()
+        } else {
+          result.status(401).json({ message: 'Unauthorised action'})
+          result.end()
+        }
+      }
       
     } catch (error) {
       console.log(error)

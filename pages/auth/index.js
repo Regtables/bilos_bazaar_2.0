@@ -4,12 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Paper, Grid, Button } from '@mui/material';
 import { FaLock } from 'react-icons/fa';
 import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode'
 import { motion } from 'framer-motion'
 
 import styles from './Auth.module.scss';
 import Input from '../../components/Input/Input';
-import { signin, signup, selectUser, isLoadingUser } from '../../redux/auth';
+import { signin, signup, selectUser, isLoadingUser, googleAuth } from '../../redux/auth';
 import Loader from '../../components/Loader/Loader';
 
 const initialState = {
@@ -38,10 +37,13 @@ const Auth = () => {
 		if(isSignup){
 			await dispatch(signup(formData))
 				.then((res) => {
-					console.log(res)
-					if(user._id){
+					const { payload } = res
+					const id = payload.user._id
+					console.log(id)
+		
+					if(id){
 						setFormData(initialState)
-						router.push(`/user/${user._id}`)
+						router.push(`/user/${id}`)
 					}
 				})
 			
@@ -49,7 +51,7 @@ const Auth = () => {
 			await dispatch(signin(formData))
 				.then((res) => {
 					const { payload } = res
-					const id = payload.user[0]._id
+					const id = payload.user._id
 	
 					if(id){
 						setFormData(initialState)
@@ -60,29 +62,16 @@ const Auth = () => {
 	}
 
 	const onGoogleSucess = async (response) => {
-		console.log(response)
-		const decoded = jwt_decode(response.credential)
-		console.log(decoded)
-		const { email, family_name, given_name, sub } = decoded
-
-		const data = {
-			firstName: given_name,
-			lastName: family_name,
-			email: email,
-			sub: sub
-		}
-
-		await dispatch(signup(data))
+		await dispatch(googleAuth(response))
 			.then((res) => {
-				console.log(res)
 				const { payload } = res
 				const id = payload.user._id
 
 				if(id){
+					setFormData(initialState)
 					router.push(`/user/${id}`)
 				}
 			})
-
 	}
 
 	const onGoogleFailure = (response) => {
@@ -98,8 +87,8 @@ const Auth = () => {
 			<motion.div 
 				className={styles.container} 
 				style = {isLoading ? {cursor: 'progress'} : {cursor: 'auto'}}
-				whileInView = {{y: [100, 0], opacity: [0, 1]}}
-				initial = {{y: 100, opacity: 0}}
+				whileInView = {{y: [50, 0], opacity: [0, 1]}}
+				initial = {{y: 50, opacity: 0}}
 			>
 				<div className={styles.heading}>
 					<div className = {styles.icon}>
@@ -119,6 +108,7 @@ const Auth = () => {
 									autoFocus
 									value = {formData.firstName}
 									type='text'
+									required = {true}
 								/>
 								<Input
 									name='lastName'
@@ -127,6 +117,7 @@ const Auth = () => {
 									value = {formData.lastName}
 									onChange={handleChange}
 									type='text'
+									required = {true}
 								/>
 							</>
 						)}
@@ -137,6 +128,7 @@ const Auth = () => {
 							value = {formData.email}
 							autoFocus
 							type='email'
+							required = {true}
 						/>
 						<Input
 							name='password' 
@@ -144,6 +136,7 @@ const Auth = () => {
 							onChange={handleChange}
 							value = {formData.password}
 							type='password'
+							required = {true}
 						/>
 						{isSignup && (
 							<Input
@@ -152,6 +145,7 @@ const Auth = () => {
 								onChange={handleChange}
 								value = {formData.confirmPassword}
 								type='password'
+								required = {true}
 							/>
 						)}
 					</Grid>

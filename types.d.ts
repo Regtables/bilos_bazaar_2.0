@@ -5,27 +5,6 @@ export interface Category{
   
 }
 
-export interface BillingInfo{
-  name: string,
-  surname: string,
-  email: string,
-  phone: number,
-  provice: string,
-  city: string,
-  zip: string,
-  apt: string,
-  address: string
-}
-
-export interface User{
-  _type: string,
-  _id: string,
-  _createdAt: string
-  billingInfo: BillingInfo,
-  wishlist: string,
-  payments: string
-}
-
 export interface Item {
   _type: string,
   _id: string,
@@ -134,3 +113,39 @@ export interface CartItem{
   qty: number,
   subTotal: number
 }
+
+export interface TokenData {
+  email: string,
+  id: string,
+  iat: number,
+  exp: number
+}
+
+export interface BillingInfo{
+  name: string,
+  surname: string,
+  email: string,
+  phone: number,
+  province: string,
+  city: string,
+  zip: string,
+  apt: string,
+  address: string
+}
+
+export interface Payment{
+
+}
+
+export interface User{
+  _type: string,
+  _id: string,
+  _createdAt: string,
+  username: string,
+  password: string,
+  billingInfo: BillingInfo,
+  payments: Payment[]
+  wishlist: Item[]
+}
+
+

@@ -9,7 +9,8 @@ const Input = ({
 	label,
 	onChange,
 	handleShowPassword,
-	value,
+	value,	
+	required
 
 }: {
 	name: string;
@@ -20,6 +21,7 @@ const Input = ({
 	onChange: any;
 	handleShowPassword: any;
 	value: string;
+	required: boolean
 	// size: string
 }) => {
 	return (
@@ -33,7 +35,7 @@ const Input = ({
 				variant='outlined'
 				fullWidth
 				value={value}
-				required
+				required = {required}
 				// size= {size}
 			/>
 		</Grid>
