@@ -152,6 +152,7 @@ const BillingForm = ({ checkout, userData } : {checkout: boolean, userData: any 
                 >
                   {PROVINCES.map((province, i) => (
                     <MenuItem 
+                      key = {i}
                       value = {province} 
                       selected = {billingInfo?.province === province}
                     >
