@@ -33,7 +33,6 @@ export const signin = createAsyncThunk('auth/signin', async (formData: any) => {
 export const signup = createAsyncThunk('auth/signup', async (formData: any) => {
   try{
     const data = await api.signup(formData)
-    console.log(data)
 
     return data
   } catch (error: any) {
@@ -42,11 +41,8 @@ export const signup = createAsyncThunk('auth/signup', async (formData: any) => {
 })
 
 export const saveBillingInfo = createAsyncThunk('auth/saveBillingInfo', async (data: any) => {
-  console.log(data)
   try{
-    console.log('test')
     const response = await api.saveBillingInfo(data)
-    console.log(response)
 
     return response
   } catch (error) {
@@ -54,11 +50,25 @@ export const saveBillingInfo = createAsyncThunk('auth/saveBillingInfo', async (d
   }
 })
 
+export const googleAuth = createAsyncThunk('auth/googleAuth', async (data: any) => {
+  try{
+    const response  = await api.googleAuth(data)
+    console.log(response)
+
+    return response
+
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+
 const authSlice: Slice = createSlice({
   name: 'auth',
   initialState: {
     user: {
       _id: '',
+      username: '',
       billingInfo: {
         name: '',
         surname: '',
@@ -70,7 +80,8 @@ const authSlice: Slice = createSlice({
         apt: '',
         streetAddress: ''
       },
-
+      wishlist: [],
+      payments: []
     },
     token: '',
     isLoading: false,
@@ -79,6 +90,9 @@ const authSlice: Slice = createSlice({
   reducers: {
     setUserBillingInfo: (state, action) => {
       state.user.billingInfo = action.payload
+    },
+    setUser: (state, action) => {
+      state.user = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -89,37 +103,58 @@ const authSlice: Slice = createSlice({
         state.hasError = false
       })
       .addCase(signin.fulfilled, (state, action) => {
-        console.log('signing in')
-        const { user, token } = action?.payload
-        state.user = user[0]
-        state.token = token
+        const { user, token } = action.payload
+        
+        state.user = user
         state.isLoading = false
         state.hasError = false
+        
+        localStorage.setItem('biloToken', JSON.stringify(token))
       })
       .addCase(signin.rejected, (state, action) => {
-        console.log(action.payload)
         state.isLoading = false
         state.hasError = true
       })
-
+    
       //sign up
       .addCase(signup.pending, (state) => {
-        state.isLoading = true
-        state.hasError = false
-      })
+          state.isLoading = true
+          state.hasError = false
+        })
       .addCase(signup.fulfilled, (state, action) => {
         console.log(action.payload)
-        const { user, token } = action?.payload
+        const { user, token } = action.payload
+        
         state.user = user
-        state.token = token
         state.isLoading = false
         state.hasError = false
+
+        localStorage.setItem('biloToken', JSON.stringify(token))
       })
       .addCase(signup.rejected, (state) => {
         state.isLoading = false
         state.hasError = false
       })
 
+      //google
+      .addCase(googleAuth.pending, (state) => {
+        state.isLoading = true
+        state.hasError = false
+      })
+      .addCase(googleAuth.fulfilled, (state, action) => {
+        const { user, token } = action.payload
+
+        state.user = user
+        state.isLoading = false
+        state.hasError = false
+
+        localStorage.setItem('biloToken', JSON.stringify(token))
+      })
+      .addCase(googleAuth.rejected, (state) => {
+        state.isLoading = false,
+        state.hasError = true
+      })
+      
       //fetch
       .addCase(fetchUser.pending, (state) => {
         state.isLoading = true
@@ -134,7 +169,7 @@ const authSlice: Slice = createSlice({
         state.isLoading = false
         state.hasError = true
       })
-
+      
       //saveBillingInfo
       .addCase(saveBillingInfo.pending, (state) => {
         state.isLoading = true
@@ -143,18 +178,24 @@ const authSlice: Slice = createSlice({
       .addCase(saveBillingInfo.fulfilled, (state, action) => {
         state.isLoading = false
         state.hasError = false
-        // state.user?.billingInfo = action.payload
+        state.user = action.payload 
       })
       .addCase(saveBillingInfo.rejected, (state) => {
         state.isLoading = false
         state.hasError = true
       })
+    }
+  })
+
+  
+  export const { setUserBillingInfo, setUser } = authSlice.actions
+  
+  export const logout = (dispatch: any) => {
+    localStorage.clear()
+    authSlice.actions.setUser('')
   }
-})
 
-export const { setUserBillingInfo } = authSlice.actions
-
-export const selectUser = (state: any) => state.user
-export const isLoadingUser = (state: any) => state.user.isLoading
-
-export default authSlice.reducer
+  export const selectUser = (state: any) => state.user.user
+  export const isLoadingUser = (state: any) => state.user.isLoading
+  
+  export default authSlice.reducer

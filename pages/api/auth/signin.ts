@@ -18,6 +18,8 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
     try{
       const existingUser = await client.fetch(`*[_type == "user" && username == "${email}"]`)
 
+      console.log(existingUser[0])
+
       if(!(existingUser.length > 0)) {
    
         res.status(404).json({ message: 'Your account was not found in our system' })
@@ -31,9 +33,9 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
           res.end()
         } 
         else{
-          const token = jwt.sign({email: email, id: existingUser._id}, 'test', { expiresIn: '1h'})
+          const token = jwt.sign({email: email, id: existingUser[0]._id}, 'test', { expiresIn: '1h'})
 
-          res.status(200).json({ user: existingUser, token })
+          res.status(200).json({ user: existingUser[0], token })
         }
       }
     } catch (error) {

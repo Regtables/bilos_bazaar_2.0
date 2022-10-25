@@ -8,8 +8,7 @@ import { MdPayment } from 'react-icons/md'
 import { AiFillHeart } from 'react-icons/ai'
 import { motion } from 'framer-motion'
 
-import { fetchUser, selectUser, isLoadingUser } from '../../../redux/auth'
-import { client } from '../../../utils/client'
+import { fetchUser, selectUser, isLoadingUser, logout, setUser } from '../../../redux/auth'
 import styles from './User.module.scss'
 
 import ProfileBanner from '../../../components/ProfileBanner/ProfileBanner'
@@ -48,17 +47,22 @@ const User = () => {
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
   const [activeSection, setActiveSection] = useState(sections[0])
-  const user = useSelector(selectUser)
+  const userInfo = useSelector(selectUser)
   const isLoading = useSelector(isLoadingUser)
 
-  const {id} = router.query
-  console.log(id)
+  const { id } = router.query
 
   useEffect(() => {
     if(id){
       dispatch(fetchUser(id))
     }
   }, [router])
+
+  const handleLogout = () => {
+    dispatch(setUser({}))
+    logout(dispatch)
+    router.push('/auth')
+  }
 
 
   const renderSection = () => {
@@ -67,7 +71,7 @@ const User = () => {
         <>
           <BillingForm
             checkout = {false}
-            user = {user}
+            userData = {userInfo}
           />
           <div className= {styles.delete}>
             <Button variant='contained' type = 'submit'>Delete Profile</Button>
@@ -93,7 +97,10 @@ const User = () => {
     <>
       <div className= {styles.container}>
         <div className= {styles.banner}>
-          <ProfileBanner user = {user?.user} />
+          <ProfileBanner 
+            user = {userInfo} 
+            handleLogout = {handleLogout}  
+          />
         </div>
   
         <Paper className= {`${styles.content} section__margin`}>
@@ -125,6 +132,7 @@ const User = () => {
             </div>
           </motion.div>
         </Paper>
+
         {isLoading && (
           <Loader 
             isLoading = {isLoading}
@@ -134,9 +142,5 @@ const User = () => {
     </>
   )
 }
-
-// export const getServerSideProps = async () => {
-//   const userQuery
-// }
 
 export default User

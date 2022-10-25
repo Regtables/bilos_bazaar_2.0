@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import type { AppDispatch } from '../../redux/store'
-import { Grid, MenuItem, Select, InputLabel, Button } from '@mui/material'
+import { Grid, MenuItem, Select, InputLabel, Button, FormControl } from '@mui/material'
 import { AiFillInfoCircle } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -21,32 +21,43 @@ const INITIAL_STATE = {
   zip: '',
 }
 
-const BillingForm = ({ checkout, user } : {checkout: boolean, user: any }) => {
-  const dispatch = useDispatch<AppDispatch>()
-  const userData = useSelector(selectUser)
-  const [billingInfo, setBillingInfo] = useState(INITIAL_STATE)
+const PROVINCES = [
+  'Western Cape',
+  'Eastern Cape',
+  'Northen Cape',
+  'Free State',
+  'Gauteng',
+  'KwaZulu-Natal',
+  'Limpopo',
+  'Mpumalanga',
+  'North West'
+]
 
-  // useEffect(() => {
-  //   if(user.user.billingInfo){
-  //     setBillingInfo(user.user.billingInfo)
-  //   }
-  // })
+const BillingForm = ({ checkout, userData } : {checkout: boolean, userData: any }) => {
+  const dispatch = useDispatch<AppDispatch>()
+  const [billingInfo, setBillingInfo] = useState<any>(userData.billingInfo)
+
+  useEffect(() => {
+    setBillingInfo(userData.billingInfo)
+  },[userData])
 
   const handleChange = (e: any) => {
     setBillingInfo({ ...billingInfo, [e.target.name]: e.target.value })
   }
+
   const handleSave = (e: any) => {
     e.preventDefault();
-
-    dispatch(setUserBillingInfo)
-
-    const data = {
-      billingInfo: billingInfo,
-      user: userData
+    dispatch(setUserBillingInfo(billingInfo))
+    
+    if(localStorage.getItem('biloToken')){
+      const data = {
+        billingInfo: billingInfo,
+      }
+  
+      dispatch(saveBillingInfo(data))
+    } else {
+      window.alert('Unauthorized')
     }
-    dispatch(saveBillingInfo(data))
-
-    console.log(billingInfo)
   }
 
 
@@ -71,9 +82,11 @@ const BillingForm = ({ checkout, user } : {checkout: boolean, user: any }) => {
             type = 'text'
             autoFocus = {true}
             onChange = {handleChange}
-            value = {billingInfo.name}
+            value = {billingInfo?.name}
             handleShowPassword = {false}
+            required = {true}
           />
+
           <Input 
             name = 'surname'
             label='Surname'
@@ -81,9 +94,11 @@ const BillingForm = ({ checkout, user } : {checkout: boolean, user: any }) => {
             type = 'text'
             autoFocus = {false}
             onChange = {handleChange}
-            value = {billingInfo.surname}
+            value = {billingInfo?.surname}
             handleShowPassword = {false}
+            required = {true}
           />
+
           <Input 
             name = 'phoneNumber'
             type = 'text'
@@ -91,9 +106,11 @@ const BillingForm = ({ checkout, user } : {checkout: boolean, user: any }) => {
             half = {true}
             autoFocus = {false}
             onChange = {handleChange}
-            value = {billingInfo.phoneNumber}
+            value = {billingInfo?.phoneNumber}
             handleShowPassword = {false}
+            required = {true}
           />  
+
           <Input 
             name = 'email'
             label='Email'
@@ -101,9 +118,11 @@ const BillingForm = ({ checkout, user } : {checkout: boolean, user: any }) => {
             half = {true}
             autoFocus = {false}
             onChange = {handleChange}
-            value = {billingInfo.email}
+            value = {billingInfo?.email}
             handleShowPassword = {false}
+            required = {true}
           />
+
           <Input 
             name = 'city'
             label='City'
@@ -111,28 +130,38 @@ const BillingForm = ({ checkout, user } : {checkout: boolean, user: any }) => {
             autoFocus = {false}
             half = {true}
             onChange = {handleChange}
-            value = {billingInfo.city}
+            value = {billingInfo?.city}
             handleShowPassword = {false}
+            required = {true}
           />
+
           <Grid item sm = {6}>
-            {/* <InputLabel id = 'province'>Province</InputLabel> */}
-            <Select
-              label = 'Province'
-              fullWidth = {true}
-              // labelId = 'province'
-              defaultValue = {billingInfo.province}
-              sx = {{
-                width: '100%',
-                minWidth: '100%'
-              }}
-              >
-                <MenuItem value = 'Western Cape'>Western Cape</MenuItem>
-                <MenuItem value = 'Eastern Cape'>Eastern Cape</MenuItem>
-                <MenuItem value = 'test'>Northen Cape</MenuItem>
-                <MenuItem value = 'test'>Kwazulu Natal</MenuItem>
-                <MenuItem value = 'test'>Gauteng</MenuItem>
-            </Select>
+            <FormControl fullWidth>
+              <InputLabel id = 'province'>Province</InputLabel>
+              <Select
+                label = 'Province'
+                fullWidth = {true}
+                name = 'province'
+                required
+                onChange = {handleChange}
+                value = {billingInfo?.province}
+                sx = {{
+                  width: '100%',
+                  minWidth: '100%'
+                }}
+                >
+                  {PROVINCES.map((province, i) => (
+                    <MenuItem 
+                      value = {province} 
+                      selected = {billingInfo?.province === province}
+                    >
+                      {province}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Grid>
+
           <Input 
             name = 'streetAddress'
             label='Street Address'
@@ -140,36 +169,56 @@ const BillingForm = ({ checkout, user } : {checkout: boolean, user: any }) => {
             half = {true}
             autoFocus = {false}
             onChange = {handleChange}
-            value = {billingInfo.streetAddress}
+            value = {billingInfo?.streetAddress}
             handleShowPassword = {false}
+            required = {true}
           />
-          <Grid item sm = {6} sx = {{display: 'flex', justifyContent: 'space-between'}}>
-            <Input 
-              name = 'apt'
-              label='apartment number'
-              type = 'text'
-              half = {true}
-              autoFocus = {false}
-              onChange = {handleChange}
-              value = {billingInfo.apt}
-              handleShowPassword = {false}
-            />
-            <Grid item sm = {6}>
-              <Input 
-                name = 'zip'
-                label='zip code'
-                type = 'text'
-                half = {true}
-                autoFocus = {false}
-                onChange = {handleChange}
-                value = {billingInfo.zip}
-                handleShowPassword = {false}
-              />
+          <Grid item sm = {6}>
+            <Grid container spacing={2} >
+              <Grid item sm = {6}>
+                <Input 
+                  name = 'apt'
+                  label='Apartment Number'
+                  type = 'text'
+                  half = {false}
+                  required = {false}
+                  autoFocus = {false}
+                  onChange = {handleChange}
+                  value = {billingInfo?.apt}
+                  handleShowPassword = {false}
+                />
+              </Grid>
+              <Grid item sm = {6}>
+                <Input 
+                  name = 'zip'
+                  label='zip code'
+                  type = 'text'
+                  half = {false}
+                  autoFocus = {false}
+                  required = {true}
+                  onChange = {handleChange}
+                  value = {billingInfo?.zip}
+                  handleShowPassword = {false}
+                />
+              </Grid>
             </Grid>
           </Grid>
           <Grid item>
             <div className= {styles.save}>
-              <Button variant='contained' type = 'submit' sx = {{borderRadius: '20px', backgroundColor: 'var(--color-primary)'}}>Save</Button>
+              <Button 
+                variant='contained' 
+                type = 'submit' 
+                sx = {{
+                  borderRadius: '20px', 
+                  backgroundColor: 'var(--color-primary)',
+                  width: '150px',
+                  fontSize: '14px',
+                  // fontFamily: 'var(--font-family)',
+                  fontWeight: '300'
+                }}
+              >
+                Save
+              </Button>
             </div>
           </Grid>
         </Grid>

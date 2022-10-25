@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,28 +14,14 @@ import { selectProducts, setActiveCategory } from '../../redux/items'
 import { selectUser } from '../../redux/auth';
 import { Item, Product, Category } from '../../types';
 
-const links = [
-  {
-    link: 'Home Decor',
-    slug: 'home-decor'
-  },
-  {
-    link: 'Beach',
-    slug: 'beach'
-  }
-]
-
 const Navbar = () => {
   const dispatch = useDispatch()
   const totalCartItems = useSelector(selectTotalCartItems)
   const products = useSelector(selectProducts)
   const user = useSelector(selectUser)
-  console.log(user)
   const [hover, setHover] = useState()
   const [animateArrow, setAnimateArrow] = useState({})
   const [animateDropDown, setAnimateDropDown] = useState({})
-
-  console.log(products)
 
   const toggleHover = (link: any) => {
     setHover(link)
@@ -80,7 +66,7 @@ const Navbar = () => {
               <BsSearch />
 
               <div className= {styles.user}>
-                <Link href = {user?.user._id ? `/user/${user.user._id}` : '/auth'}>
+                <Link href = {user?._id ? `/user/${user._id}` : '/auth'}>
                   <FaUser />
                 </Link>
               </div>
