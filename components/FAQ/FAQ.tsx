@@ -20,7 +20,7 @@ const FAQ = ({ questions } : { questions: Question[] }) => {
         spacing = {2}
       >
         {questions.map((question: Question, i) => (
-          <Grid item sm = {6} xs = {12}>
+          <Grid item sm = {6} xs = {12} key = {i}>
             <FAQItem question = {question} key = {i}/>
           </Grid>
         ))}
