@@ -79,6 +79,7 @@ const Preview = ({
             <Wishlist 
               isLoved = {isLoved}
               setIsLoved = {setIsLoved}
+              handleToggle = {() => {}}
             />
           </div>
           <h4>R {price}</h4>
