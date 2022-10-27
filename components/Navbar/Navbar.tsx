@@ -13,6 +13,7 @@ import { toggleCart, selectTotalCartItems } from '../../redux/cart';
 import { selectProducts, setActiveCategory } from '../../redux/items'
 import { selectUser } from '../../redux/auth';
 import { Item, Product, Category } from '../../types';
+import GlobalSearch from '../GlobalSearch/GlobalSearch';
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -20,6 +21,8 @@ const Navbar = () => {
   const products = useSelector(selectProducts)
   const user = useSelector(selectUser)
   const [hover, setHover] = useState()
+  const [searchTerm, setSearchTerm] = useState('')
+  const [toggleSearch, setToggleSearch] = useState(false)
   const [animateArrow, setAnimateArrow] = useState({})
   const [animateDropDown, setAnimateDropDown] = useState({})
 
@@ -32,6 +35,10 @@ const Navbar = () => {
     } else if(link === '') {
       setAnimateArrow({rotate: '-180deg'})
     }
+  }
+
+  const handleToggleSearch = () => {
+    setToggleSearch((prev) => !prev)
   }
 
   return (
@@ -63,13 +70,30 @@ const Navbar = () => {
               <a><FaFacebookF /></a>
             </div>
             <div className= {styles.website}>
-              <BsSearch />
-
-              <div className= {styles.user}>
-                <Link href = {user?._id ? `/user/${user._id}` : '/auth'}>
-                  <FaUser />
-                </Link>
+              <div className= {styles.search}>
+                <div className = {styles.bar}>
+                  <div className= {styles.icon} onClick = {handleToggleSearch}>
+                    <BsSearch />
+                  </div>
+                  <div className= {styles.searchbar}>
+                    {toggleSearch && (
+                      <GlobalSearch 
+                        term = {searchTerm}
+                        setTerm = {setSearchTerm}
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
+
+              <Link href = {user?._id ? `/user/${user._id}` : '/auth'}>
+                <div className= {styles.user}>  
+                  <FaUser />
+                  {user._id && (
+                    <div className= {styles.online}></div>
+                  )}
+                </div>
+              </Link>
               <div 
                 className= {styles.bag}
                 onClick = {() => dispatch(toggleCart(true))}
@@ -85,6 +109,11 @@ const Navbar = () => {
           <div className= {styles.partition}></div>
 
           <div className= {styles.links} >
+            <div className = {styles.contact}>
+              <Link href = '/contact'>
+                <p>contact</p>
+              </Link>
+            </div>
             <div className= {styles.links_wrapper}>
               {products.map((product: Product, i: number) => (
                 <div className = {styles.link}  key = {i}>

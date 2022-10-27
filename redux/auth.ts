@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, Slice } from "@reduxjs/toolkit";
 
-import { BillingInfo } from "../types";
+import { BillingInfo, Item } from "../types";
 
 import * as api from '../api/index'
 
@@ -40,16 +40,6 @@ export const signup = createAsyncThunk('auth/signup', async (formData: any) => {
   }
 })
 
-export const saveBillingInfo = createAsyncThunk('auth/saveBillingInfo', async (data: any) => {
-  try{
-    const response = await api.saveBillingInfo(data)
-
-    return response
-  } catch (error) {
-    console.log(error)
-  }
-})
-
 export const googleAuth = createAsyncThunk('auth/googleAuth', async (data: any) => {
   try{
     const response  = await api.googleAuth(data)
@@ -61,6 +51,27 @@ export const googleAuth = createAsyncThunk('auth/googleAuth', async (data: any) 
     console.log(error)
   }
 })
+
+export const saveBillingInfo = createAsyncThunk('auth/saveBillingInfo', async (data: any) => {
+  try{
+    const response = await api.saveBillingInfo(data)
+
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+export const addToWishlist = createAsyncThunk('auth/addToWishlist', async (item: Item) => {
+  try{
+    const response = await api.addToWishlist(item)
+
+  } catch{
+
+  }
+})
+
+
 
 
 const authSlice: Slice = createSlice({
@@ -93,6 +104,9 @@ const authSlice: Slice = createSlice({
     },
     setUser: (state, action) => {
       state.user = action.payload
+    },
+    addToWishlist: (state, action) => {
+      state.user.wishlist
     }
   },
   extraReducers: (builder) => {

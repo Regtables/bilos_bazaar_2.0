@@ -53,6 +53,7 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
                 autoFocus = {false}
                 onChange = {() =>{}}
                 value = {''}
+                required = {true}
                 handleShowPassword = {false}
               />
               <Grid item sm = {6}>
@@ -82,6 +83,7 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
                 onChange = {() =>{}}
                 value = {''}
                 handleShowPassword = {false}
+                required = {true}
               />
               <Grid item sm = {6} sx = {{display: 'flex', justifyContent: 'space-between'}}>
                 <Input 
@@ -93,6 +95,7 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
                   onChange = {() =>{}}
                   value = {''}
                   handleShowPassword = {false}
+                  required = {true}
                 />
                 <Grid item sm = {6}>
                   <Input 
@@ -104,6 +107,7 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
                     onChange = {() =>{}}
                     value = {''}
                     handleShowPassword = {false}
+                    required = {true}
                   />
                 </Grid>
               </Grid>

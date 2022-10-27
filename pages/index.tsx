@@ -15,6 +15,7 @@ import FeaturedCategories from '../components/FeaturedCategories/FeaturedCategor
 import FeaturedItems from '../components/FeaturedItems/FeaturedItems'
 import WithProps from '../components/WithProps/WithProps'
 import { AppProps } from 'next/app'
+import MotionWrapper from '../wrappers/MotionWrapper'
 
 
 const Home = ({ hero, categories, featuredItems, products } : { hero: [HeroImage], categories: [Category], featuredItems: [Item], products: Product[] }) => {
@@ -26,10 +27,16 @@ const Home = ({ hero, categories, featuredItems, products } : { hero: [HeroImage
 
   return (
     <div className={`${styles.container}`}>
-      <Hero data = { hero } />
-      <About />
-      <FeaturedCategories categories = {categories} />
-      <FeaturedItems items= {featuredItems} />
+      <MotionWrapper>
+        <Hero data = { hero } />
+      </MotionWrapper>
+      {/* <About /> */}
+      <MotionWrapper>
+        <FeaturedCategories categories={categories} />
+      </MotionWrapper>
+      <MotionWrapper>
+        <FeaturedItems items= {featuredItems} />
+      </MotionWrapper>
     </div>
   )
 }

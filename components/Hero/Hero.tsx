@@ -32,12 +32,7 @@ const Hero = ({ data } : { data: [HeroImage] }) => {
   }
 
   return (
-    <motion.div 
-      className={styles.container}
-      whileInView = {{y: [50, 0], opacity: [0,1]}}
-      transition = {{duration: 0.4}}
-      initial = {{y: 50, opacity: 0}}
-    >
+    <div className={styles.container}>
       <div className={styles.tile}>
         <HeroTile 
           tile={activeTile}
@@ -56,7 +51,7 @@ const Hero = ({ data } : { data: [HeroImage] }) => {
           </div>
         ))}
       </div>
-    </motion.div>
+    </div>
   )
 }
 

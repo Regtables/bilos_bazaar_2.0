@@ -18,6 +18,8 @@ import Breadcrums from '../../../../components/Breadcrums/Breadcrums';
 import SimilarItems from '../../../../components/SimilarItems/SimilarItems';
 import Wishlist from '../../../../components/Wishlist/Wishlist';
 
+import MotionWrapper from '../../../../wrappers/MotionWrapper';
+
 const colors = [
 	'#33ab9f',
 	'#0276aa',
@@ -79,59 +81,61 @@ const Item = ({ item, items } : { item: Item, items: [Item] }) => {
           item = {item.name}
         />
       </div>
-
-      <div className= {styles.itemContent}>
-        <div className= {styles.imageCarousel}>
-          <ImageCarousel 
-            variants={itemVariants} 
-            activeImage = {activeImage}
-            setActiveImage = {setActiveImage}
-            index = {index}
-            setIndex = {setIndex}
-          />
-          <div className= {styles.wishlist}>
-            <Wishlist
-              isLoved = {isLoved}
-              setIsLoved = {setIsLoved}
-            />
-          </div>
-        </div>
-
-        <div className= {styles.itemInfo}>
-          <div className= {styles.information}>
-            <ItemInfo item= {item} />
-          </div>
-          <div className= {styles.colors}>
-            <ItemColors 
-              colors = {itemColors} 
-              size = {25} 
-              activeColor = {activeVariant.color} 
-              setActiveColor = {handleVariantChange} 
+      <MotionWrapper>
+        <div className= {styles.itemContent}>
+          <div className= {styles.imageCarousel}>
+            <ImageCarousel 
+              variants={itemVariants} 
+              activeImage = {activeImage}
+              setActiveImage = {setActiveImage}
+              index = {index}
               setIndex = {setIndex}
             />
-            <p>{activeVariant.color.color}</p>
-          </div>
-          <div className= {styles.cart}>
-            <div className= {styles.qty}>
-              <Quantity 
-                qty={qty}
-                incQty = {incQty} 
-                decQty = {decQty}  
-              />
-            </div>
-            <div className= {styles.add}>
-              <AddToCart
-                item={item}
-                activeVariant = {activeVariant}
-                qty = {qty}
+            <div className= {styles.wishlist}>
+              <Wishlist
+                isLoved = {isLoved}
+                setIsLoved = {setIsLoved}
+                handleToggle = {() => {}}
               />
             </div>
           </div>
-          <div className= {styles.buy}>
-            <BuyNow />
+
+          <div className= {styles.itemInfo}>
+            <div className= {styles.information}>
+              <ItemInfo item= {item} />
+            </div>
+            <div className= {styles.colors}>
+              <ItemColors 
+                colors = {itemColors} 
+                size = {25} 
+                activeColor = {activeVariant.color} 
+                setActiveColor = {handleVariantChange} 
+                setIndex = {setIndex}
+              />
+              <p>{activeVariant.color.color}</p>
+            </div>
+            <div className= {styles.cart}>
+              <div className= {styles.qty}>
+                <Quantity 
+                  qty={qty}
+                  incQty = {incQty} 
+                  decQty = {decQty}  
+                />
+              </div>
+              <div className= {styles.add}>
+                <AddToCart
+                  item={item}
+                  activeVariant = {activeVariant}
+                  qty = {qty}
+                />
+              </div>
+            </div>
+            <div className= {styles.buy}>
+              <BuyNow />
+            </div>
           </div>
         </div>
-      </div>
+      </MotionWrapper>
 
       {similarItems.length > 0 && (
         <div className = {styles.similarItems}>

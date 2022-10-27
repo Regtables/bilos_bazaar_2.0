@@ -4,17 +4,18 @@ import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
 
 import styles from './Wishlist.module.scss'
 
-const Wishlist = ({ isLoved, setIsLoved } : { isLoved: boolean, setIsLoved: any}) => {
+const Wishlist = ({ isLoved, setIsLoved, handleToggle } : { isLoved: boolean, setIsLoved: any, handleToggle: any}) => {
 
-  const handleToggle = () => {
-    setIsLoved((prev: any) => !prev)
-  }
+  // const handleToggle = () => {
+  //   setIsLoved((prev: any) => !prev)
+  // }
 
   return (
     <div className= {styles.container}>
       <Checkbox 
         icon = {<MdFavoriteBorder />} 
-        checkedIcon = {<MdFavorite />} 
+        checkedIcon = {<MdFavorite />}
+        checked = {isLoved}
         sx = {{
           "&:checked": {
             backgroundColor: 'red'

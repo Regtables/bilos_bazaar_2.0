@@ -1,10 +1,13 @@
 .items{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-column-gap: 20px;
-  grid-row-gap: 30px;
+  grid-column-gap: 10px;
+  grid-row-gap: 20px;
   width: 100%;
   overflow-x: scroll;
+  // background-color: rgb(230, 238, 246);
+  // padding: 1rem;
+  // border-radius: 10px;
   
   @media screen and (max-width: 450px) {
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

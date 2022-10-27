@@ -91,3 +91,9 @@ export const itemQuery = (slug) => {
 
   return query
 }
+
+export const contactQuery = () => {
+  const query = '*[_type == "info"]'
+
+  return query
+}

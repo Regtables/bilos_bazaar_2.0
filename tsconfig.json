@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "api/index.js", "pages/api/auth/signin.js", "pages/auth/index.js", "redux/auth.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "api/index.js", "pages/api/auth/signin.js", "pages/auth/index.js", "redux/auth.ts", "wrappers/MotionWrapper.jsx"],
   "exclude": ["node_modules"]
 }

@@ -8,6 +8,7 @@ export interface Category{
 export interface Item {
   _type: string,
   _id: string,
+  _ref: string
   _createdAt: Date
   name: string,
   price: number,
@@ -137,6 +138,12 @@ export interface Payment{
 
 }
 
+export interface WishlistItem{
+  _type: string,
+  _ref: string,
+  _key: string
+}
+
 export interface User{
   _type: string,
   _id: string,
@@ -145,7 +152,24 @@ export interface User{
   password: string,
   billingInfo: BillingInfo,
   payments: Payment[]
-  wishlist: Item[]
+  wishlist: WishlistItem[]
+}
+
+export interface Contact{
+  _type: string,
+  _id: string,
+  _createdAt: string,
+  address: string,
+  email: string,
+  phoneNumber: string
+}
+
+export interface Question{
+  _type: string,
+  _id: string,
+  _createdAt: string,
+  question: string,
+  answer: string
 }
 
 

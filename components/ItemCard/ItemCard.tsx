@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Card, Button } from '@mui/material';
@@ -11,6 +12,7 @@ import { Item, Variant } from '../../types';
 import { client } from '../../utils/client';
 import { itemSlug } from '../../utils/helpers';
 import { addCartItem, selectCartItems, toggleCart } from '../../redux/cart';
+import { addToWishlist, selectUser } from '../../redux/auth'
 
 import Preview from '../Prevew/Preview';
 import SlideShowImage from '../SlideShowImage/SlideShowImage';
@@ -28,8 +30,9 @@ const colors = [
 
 const ItemCard = ({ item }: { item: Item }) => {
 	const { name, variants } = item
-	const dispatch = useDispatch()
+	const dispatch = useDispatch<AppDispatch>()
 	const cart = useSelector(selectCartItems)
+	const user = useSelector(selectUser)
 	const [hover, setHover] = useState(false);
 	const [index, setIndex] = useState(0)
 	const [isLoved, setIsLoved] = useState(false)
@@ -40,6 +43,15 @@ const ItemCard = ({ item }: { item: Item }) => {
 	// useEffect(() => {
 	// 	item.variants[0]
 	// }, [])
+
+	const handleWishlistToggle = () => {
+		if(user._id){
+			setIsLoved((prev: any) => !prev)
+			dispatch(addToWishlist(item))
+		} else {
+			window.alert('Please sign in')
+		}
+	}
 
 	const handleVariantChange = (variant: Variant) => {
 		setActiveVariant(variant)
@@ -96,6 +108,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 						<Wishlist
 							isLoved = {isLoved}
 							setIsLoved = {setIsLoved}
+							handleToggle = {handleWishlistToggle}
 						/>
 					</div>
 					{hover && (
@@ -149,9 +162,9 @@ const ItemCard = ({ item }: { item: Item }) => {
 
 					<div className= {styles.view}>
 						<Link href = {itemSlug(item)}>
-							<Button sx = {{fontSize: '12px'}}>
-								<p>view item</p>
-								<BsEyeFill />
+							<Button sx = {{fontSize: '12px', display: 'flex', flexDirection: 'column', padding: '1rem', color: 'var(--color-primary)'}}>
+								view item
+								{/* <p id = 'eye'><BsEyeFill /></p> */}
 							</Button>
 						</Link>
 					</div>

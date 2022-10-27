@@ -4,11 +4,6 @@ import jwt from 'jsonwebtoken'
 
 import { client } from '../../../utils/client'
 
-// type Data = {
-//   name: string,
-//   message: string
-// }
-
 export default async function handler( req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body
 

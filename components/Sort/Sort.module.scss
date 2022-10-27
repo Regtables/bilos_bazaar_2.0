@@ -1,5 +1,6 @@
 .container{
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   background: linear-gradient(0deg, rgb(35, 84, 126), rgb(46, 101, 152));
@@ -9,4 +10,28 @@
   font-family: var(--font-family);
   font-weight: 200;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.options{
+  position: absolute;
+  bottom: -170%;
+  background-color: rgb(255, 253, 253);
+  z-index: 12;
+  width: 100%;
+
+  .option{
+    // border: 1px solid white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p{
+      color: var(--color-primary);
+    }
+
+    // &:hover{
+    //   background-color: rgba(32, 32, 32, 0.211);
+    // }
+  }
 }

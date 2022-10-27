@@ -15,12 +15,15 @@ import ItemCard from '../../../components/ItemCard/ItemCard'
 import Search from '../../../components/Search/Search'
 import Sort from '../../../components/Sort/Sort'
 
+import MotionWrapper from '../../../wrappers/MotionWrapper'
+
 const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
   const { product: name, productImage: image, categories } = product
   const activeCategory = useSelector(selectActiveCategory)
   const [animateItems, setAnimateItems] = useState({})
   const [filteredItems, setFilteredItems] = useState(items)
   const [searchTerm, setSearchTerm] = useState('')
+  const [sortOrder, setSortOrder] = useState('')
 
   useEffect(() => {
     setFilteredItems(items)
@@ -50,6 +53,14 @@ const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
     setFilteredItems((items.filter((item) => item.name.includes(searchTerm))))
   }, [searchTerm])
 
+  useEffect(() => {
+    if(sortOrder === 'acc'){
+      setFilteredItems(filteredItems.sort((a,b) => a.price - b.price))
+    } else if(sortOrder === 'dec'){
+      setFilteredItems(filteredItems.sort((a,b) => b.price - a.price))
+    }
+  }, [sortOrder])
+
   const handleCategoryChange = (category: string) => {
     // setAnimateItems({opacity: 0})
 
@@ -72,70 +83,70 @@ const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
 
 
   return (
-    <motion.div 
-      className = {`${styles.page} section__padding`}
-      whileInView = {{y: [50, 0], opacity: [0,1]}}
-      transition = {{duration: 0.5}}
-      initial = {{y: 50, opacity: 0}}
-    >
-      <div className= {styles.breadcrums}>
-        <Breadcrums
-          product = {name}
-          category = {activeCategory}
-          item = {''}
-        />
-      </div>
-      <Paper className= {styles.container} elevation = {1} sx = {{ backgroundColor: 'rgb(230, 238, 246)' }}>
-          <div 
-            className= {styles.banner}
-          >
-            <div className = {styles.heading}>
-              <h1>{name}</h1>
-            </div>
-            <div className = {styles.search}>
-              <Search
-                term = {searchTerm}
-                setTerm = {setSearchTerm}
-              />
-            </div>
-            <div className= {styles.sort}>
-              <Sort />
-            </div>
-            {/* <div className= {styles.search}>
-              <TextField 
-                size='small' 
-                label = 'Search'
-                variant='filled'
-                inputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <BsSearch />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </div> */}
-          </div>
-
-          <div className= {styles.content}>
-            <div className = {styles.categories}>
-              <CategoryList 
-                categories={categories} 
-                handleChange = {handleCategoryChange}
-              />
-            </div>
-            <motion.div 
-              className = {styles.items} 
-              animate = {animateItems}
-              transition = {{duration: 0.5}}
+    <MotionWrapper>
+      <div className = {`${styles.page} section__padding`}>
+        <div className= {styles.breadcrums}>
+          <Breadcrums
+            product = {name}
+            category = {activeCategory}
+            item = {''}
+          />
+        </div>
+        <Paper className= {styles.container} elevation = {1} sx = {{ backgroundColor: 'rgb(230, 238, 246)' }}>
+            <div 
+              className= {styles.banner}
             >
-              {filteredItems.map((item, i) => (
-                <ItemCard item = {item} key = {i} />
-              ))}
-            </motion.div>
-          </div>
-      </Paper>
-    </motion.div>
+              <div className = {styles.heading}>
+                <h1>{name}</h1>
+              </div>
+              <div className = {styles.search}>
+                <Search
+                  term = {searchTerm}
+                  setTerm = {setSearchTerm}
+                />
+              </div>
+              <div className= {styles.sort}>
+                <Sort
+                  sortOrder= {sortOrder}
+                  setSortOrder = {setSortOrder}
+                />
+              </div>
+              {/* <div className= {styles.search}>
+                <TextField 
+                  size='small' 
+                  label = 'Search'
+                  variant='filled'
+                  inputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <BsSearch />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+              </div> */}
+            </div>
+
+            <div className= {styles.content}>
+              <div className = {styles.categories}>
+                <CategoryList 
+                  categories={categories} 
+                  handleChange = {handleCategoryChange}
+                />
+              </div>
+              <motion.div 
+                className = {styles.items} 
+                animate = {animateItems}
+                transition = {{duration: 0.5}}
+              >
+                {filteredItems.map((item, i) => (
+                  <ItemCard item = {item} key = {i} />
+                ))}
+              </motion.div>
+            </div>
+        </Paper>
+      </div>
+    </MotionWrapper>
   )
 }
 
