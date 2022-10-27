@@ -35,9 +35,9 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
 
           console.log('------')
 
-          console.log(user[0].wishlist.filter((wishlistItem) => wishlistItem._ref === itemToAdd._ref)[0]._ref)
+          console.log(user[0].wishlist.filter((wishlistItem: WishlistItem) => wishlistItem._ref === itemToAdd._ref)[0]._ref)
 
-          if(user[0].wishlist.filter((wishlistItem) => wishlistItem._ref === itemToAdd._ref)[0]){
+          if(user[0].wishlist.filter((wishlistItem: WishlistItem) => wishlistItem._ref === itemToAdd._ref)[0]){
             await client.patch(id).unset(itemToRemove).commit()
           }
 
