@@ -56,7 +56,7 @@ const User = () => {
     if(id){
       dispatch(fetchUser(id))
     }
-  }, [router])
+  }, [router, dispatch, id])
 
   const handleLogout = () => {
     dispatch(setUser({}))

@@ -25,7 +25,7 @@ const Checkout = () => {
   console.log(user)
 
   return (
-    <MotionWrapper>
+    // <MotionWrapper>
       <div className= {`${styles.container} section__padding`}>
         <div className= {styles.continue}>
           <p onClick = {() => router.back()}><BsArrowLeft />conitnue shopping</p>
@@ -55,7 +55,7 @@ const Checkout = () => {
         </div>
       </div>
 
-    </MotionWrapper>
+    // </MotionWrapper>
   )
 }
 

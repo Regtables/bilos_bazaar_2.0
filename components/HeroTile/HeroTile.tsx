@@ -20,6 +20,7 @@ const HeroTile = ({ tile } : { tile: HeroImage }) => {
           layout = 'fill'
           objectFit='cover'
           priority
+          alt = {title}
         />
       </div>
       <div className={styles.title}>

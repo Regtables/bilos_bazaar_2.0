@@ -24,6 +24,7 @@ const SlideShowImage = ({ image, priority } : { image: any, priority: boolean })
         layout = 'fill'
         objectFit='cover'
         priority = {priority}
+        alt = 'item image'
       />
     </div>
   )

@@ -27,7 +27,7 @@ const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
 
   useEffect(() => {
     setFilteredItems(items)
-  }, [product])
+  }, [product, items])
 
   useEffect(() => {
     setAnimateItems({opacity: 0})
@@ -47,11 +47,11 @@ const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
         setFilteredItems(filtered);
       }, 500)
     }
-  }, [activeCategory])
+  }, [activeCategory, items])
 
   useEffect(() => {
     setFilteredItems((items.filter((item) => item.name.includes(searchTerm))))
-  }, [searchTerm])
+  }, [searchTerm, items])
 
   useEffect(() => {
     if(sortOrder === 'acc'){
@@ -59,25 +59,25 @@ const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
     } else if(sortOrder === 'dec'){
       setFilteredItems(filteredItems.sort((a,b) => b.price - a.price))
     }
-  }, [sortOrder])
+  }, [sortOrder, filteredItems])
 
   const handleCategoryChange = (category: string) => {
     // setAnimateItems({opacity: 0})
 
     // setTimeout(() => {
     //   setAnimateItems({opacity: 1})
-    // }, 400);
+    // }, 500);
   
     // if(category === 'all'){
     //   setTimeout(() => {
     //     setFilteredItems(items)
-    //   }, 300);
+    //   }, 500);
     // } else{
     //   const filtered = items.filter((item: Item) => item.category.category === category)
 
     //   setTimeout(() => {
     //     setFilteredItems(filtered);
-    //   }, 300)
+    //   }, 500)
     // }
   }
 

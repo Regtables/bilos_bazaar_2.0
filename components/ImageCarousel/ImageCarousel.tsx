@@ -16,11 +16,15 @@ interface itemImage {
 }
 
 
-const ImageCarousel = ({ variants, activeImage, setActiveImage, index, setIndex } : { variants: Variant[], activeImage: any, setActiveImage: any, index: number, setIndex: any }) => {
+const ImageCarousel = ({ variants, activeVariant, activeImage, setActiveImage, index, setIndex } : { variants: Variant[], activeImage: any, setActiveImage: any, index: number, setIndex: any, activeVariant: Variant }) => {
 
   useEffect(() => {
     setActiveImage(variants[index].image)
   }, [index])
+
+  useEffect(() => {
+    setActiveImage(activeVariant.image)
+  }, [activeVariant])
 
   const handleBack = () => {
     if(index !== 0){

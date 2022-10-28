@@ -101,6 +101,7 @@ const Footer = () => {
 									src='/logo-no-border.png'
 									height={80}
 									width={80}
+									alt = 'bilos bazaar logo'
 								/>
 								<div className={styles.logo_text}>
 									<h3>Bilos Bazaar</h3>
@@ -145,6 +146,7 @@ const Footer = () => {
               src = {'/yoco.svg'}
               height = {30}
               width = {100}
+							alt = 'yoco logo'
             />
           </div>
 				</div>

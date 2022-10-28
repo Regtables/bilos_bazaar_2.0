@@ -18,6 +18,7 @@ const Yoco = () => {
         width = {yoco.width}
         layout = 'fill'
         objectFit='cover'
+        alt = 'yoco logo'
       />
     </div>
   )
@@ -77,6 +78,7 @@ const OrderInfo = ({deliveryFee, cartTotal, cartItems} : {deliveryFee: number, c
           width = {100}
           objectFit = 'cover'
           src = '/visa-logo.png'
+          alt = 'visa logo'
         />
         <p className= {styles.questions}>Any Questions?</p>
       </div>

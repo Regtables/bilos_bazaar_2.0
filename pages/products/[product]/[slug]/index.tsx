@@ -86,6 +86,7 @@ const Item = ({ item, items } : { item: Item, items: [Item] }) => {
           <div className= {styles.imageCarousel}>
             <ImageCarousel 
               variants={itemVariants} 
+              activeVariant = {activeVariant}
               activeImage = {activeImage}
               setActiveImage = {setActiveImage}
               index = {index}

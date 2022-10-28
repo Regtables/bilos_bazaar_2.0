@@ -23,7 +23,7 @@ const Home = ({ hero, categories, featuredItems, products } : { hero: [HeroImage
 
   useEffect(() => {
     dispatch(setProducts(products))
-  }, [products])
+  }, [products, dispatch])
 
   return (
     <div className={`${styles.container}`}>

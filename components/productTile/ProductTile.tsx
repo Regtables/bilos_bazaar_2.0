@@ -20,6 +20,7 @@ const ProductTile = ({ product } : { product: Product }) => {
             { ...imageProps }
             layout = 'fill'
             objectFit='cover'
+            alt = {name}
             // className= {styles.image}
           />
         </div>

@@ -51,6 +51,7 @@ const Navbar = () => {
                 <Image 
                   src = '/logo-no-border.png'
                   layout='fill'
+                  alt = 'bilos bazaar logo'
                 />
               </div>
 
