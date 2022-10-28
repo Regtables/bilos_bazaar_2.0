@@ -34,18 +34,18 @@ const Product = ({ product, items } : { product: Product, items: Item[] } ) => {
 
     setTimeout(() => {
       setAnimateItems({opacity: 1})
-    }, 400);
+    }, 500);
   
     if(activeCategory === 'all'){
       setTimeout(() => {
         setFilteredItems(items)
-      }, 300);
+      }, 500);
     } else{
       const filtered = items.filter((item: Item) => item.category.category === activeCategory)
 
       setTimeout(() => {
         setFilteredItems(filtered);
-      }, 300)
+      }, 500)
     }
   }, [activeCategory])
 

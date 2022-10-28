@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Backdrop, Button } from '@mui/material';
 import { IoIosCloseCircleOutline} from 'react-icons/io'
 import { TiWeatherWindy } from 'react-icons/ti'
+import { motion } from 'framer-motion'
 
 import styles from './Preview.module.scss';
 import { itemSlug } from '../../utils/helpers';
@@ -13,6 +14,8 @@ import AddToCart from '../AddToCart/AddToCart';
 import BuyNow from '../BuyNow/BuyNow';
 import SlideShowImage from '../SlideShowImage/SlideShowImage';
 import Wishlist from '../Wishlist/Wishlist';
+
+import MotionWrapper from '../../wrappers/MotionWrapper';
 
 const colors = [
 	'#33ab9f',
@@ -58,21 +61,26 @@ const Preview = ({
 			open={showPreview}
 			className={styles.container}
 		>
-			<div className={styles.preview}>
+      <motion.div 
+        className={styles.preview}
+        whileInView = {{opacity: [0,1]}}
+        initial = {{opacity: 0}}
+        transition = {{duration: 0.5}}
+      >
         <div 
           className= {styles.close}
           onClick={() => setShowPreview(false)}
         >
           <IoIosCloseCircleOutline />
         </div>
-				<div className={styles.banner}>
+        <div className={styles.banner}>
           <SlideShowImage
             image={activeVariant.image}
             priority = {true}
           />
         </div>
 
-				<div className={styles.information}>
+        <div className={styles.information}>
           <h6>{category}</h6>
           <div className = {styles.name_wrapper}>
             <h3>{name}</h3>
@@ -132,8 +140,7 @@ const Preview = ({
             <BuyNow />
           </div>
         </div>
-
-			</div>
+      </motion.div>
 		</Backdrop>
 	);
 };

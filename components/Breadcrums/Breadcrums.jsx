@@ -9,12 +9,8 @@ const Breadcrums = ({
 	product,
 	category,
 	item,
-}: {
-	product: string;
-	category: string;
-	item: string;
 }) => {
-	const router = useRouter()
+	const router = useRouter({scroll: false})
 
 	return (
 		<div className={styles.container}>

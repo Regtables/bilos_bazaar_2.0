@@ -27,16 +27,22 @@ const Home = ({ hero, categories, featuredItems, products } : { hero: [HeroImage
 
   return (
     <div className={`${styles.container}`}>
-      <MotionWrapper>
-        <Hero data = { hero } />
-      </MotionWrapper>
+      <header className= {styles.hero}>
+        <MotionWrapper>
+          <Hero data = { hero } />
+        </MotionWrapper>
+      </header>
       {/* <About /> */}
-      <MotionWrapper>
-        <FeaturedCategories categories={categories} />
-      </MotionWrapper>
-      <MotionWrapper>
-        <FeaturedItems items= {featuredItems} />
-      </MotionWrapper>
+      <section className= {styles.categories}>
+        <MotionWrapper>
+          <FeaturedCategories categories={categories} />
+        </MotionWrapper>
+      </section>
+      <section className= {styles.items}>
+        <MotionWrapper>
+          <FeaturedItems items= {featuredItems} />
+        </MotionWrapper>
+      </section>
     </div>
   )
 }
