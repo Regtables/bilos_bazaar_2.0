@@ -25,6 +25,7 @@ const CategoryCard = ( { category } : {category: Category}) => {
           layout = 'fill'
           objectFit = 'cover'
           className= {styles.image}
+          alt = {name}
         />
         <h3 className= {styles.name}>{name}</h3>
       </div>

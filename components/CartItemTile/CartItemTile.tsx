@@ -39,6 +39,7 @@ const CartItemTile = ({ item } : { item: CartItem }) => {
             // width = {130}
             layout = 'fill'
             objectFit='cover'
+            alt = {name}
           />
         </div>
 
