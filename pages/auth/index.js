@@ -105,7 +105,7 @@ const Auth = () => {
 									label='First Name'
 									half
 									onChange={handleChange}
-									autoFocus
+									autoFocus = {false}
 									value = {formData.firstName}
 									type='text'
 									required = {true}
@@ -126,7 +126,7 @@ const Auth = () => {
 							label='Email'
 							onChange={handleChange}
 							value = {formData.email}
-							autoFocus
+							autoFocus = {false}
 							type='email'
 							required = {true}
 						/>

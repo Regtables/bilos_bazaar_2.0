@@ -38,9 +38,9 @@ const Breadcrums = ({
 				)}
 			</div>
 			
-			<div className= {styles.back}>
+			{/* <div className= {styles.back}>
 				<p onClick = {() => router.back()}><BsArrowLeft /> back</p>
-			</div>
+			</div> */}
 		</div>
 	);
 };

@@ -133,6 +133,10 @@
     // flex: 0.2;
     display: flex;
     margin-left: 2rem;
+
+    @media screen and (max-width: 450px) {
+      margin-left: 1rem;
+    }
   }
 
   .dropdown{
