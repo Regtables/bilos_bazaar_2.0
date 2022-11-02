@@ -18,9 +18,9 @@ const Contact = ({ contact, faq } : { contact: Contact, faq: Question[]}) => {
           <h1 className='page__heading'>Contact Us</h1>
         </header>
         <main>
-          <section className= {styles.faq}>
+          {/* <section className= {styles.faq}>
             <FAQ questions ={faq} />
-          </section>
+          </section> */}
           <section className= {styles.contactDetails}>
             <ContactDetails contact={contact} />
           </section>

@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 import styles from '../styles/Home.module.scss'
 import { client } from '../utils/client'
-import { HeroImage, Category, Item, Product } from '../types'
+import { HeroImage, Category, Item, Product, Question } from '../types'
 import { featuredItemsQuery, productsQuery } from '../utils/queries'
 import { setProducts } from '../redux/items'
 
@@ -13,12 +13,12 @@ import Hero from '../components/Hero/Hero'
 import About from '../components/About/About'
 import FeaturedCategories from '../components/FeaturedCategories/FeaturedCategories'
 import FeaturedItems from '../components/FeaturedItems/FeaturedItems'
-import WithProps from '../components/WithProps/WithProps'
-import { AppProps } from 'next/app'
+import FAQ from '../components/FAQ/FAQ'
+
 import MotionWrapper from '../wrappers/MotionWrapper'
 
 
-const Home = ({ hero, categories, featuredItems, products } : { hero: [HeroImage], categories: [Category], featuredItems: [Item], products: Product[] }) => {
+const Home = ({ hero, categories, featuredItems, products, faq } : { hero: [HeroImage], categories: [Category], featuredItems: [Item], products: Product[], faq: Question[] }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -43,6 +43,11 @@ const Home = ({ hero, categories, featuredItems, products } : { hero: [HeroImage
           <FeaturedItems items= {featuredItems} />
         </MotionWrapper>
       </section>
+      <section>
+        <FAQ 
+          questions={faq}
+        />
+      </section>
     </div>
   )
 }
@@ -60,6 +65,8 @@ export const getStaticProps: GetStaticProps = async () => {
   // const popularItemsQuery = '*[_type == "popularItems"]{items[]->}'
   const popularItemsData = await client.fetch(featuredItemsQuery())
 
+  const faqData = await client.fetch('*[_type == "faq"]')
+
   console.log(popularItemsData)
 
   return {
@@ -67,7 +74,8 @@ export const getStaticProps: GetStaticProps = async () => {
       hero: heroData,
       categories: categoriesData,
       featuredItems: popularItemsData[0].items,
-      products: productsData
+      products: productsData,
+      faq: faqData
     },
     revalidate: 1
   }

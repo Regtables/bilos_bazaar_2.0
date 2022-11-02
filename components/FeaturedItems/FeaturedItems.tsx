@@ -10,7 +10,9 @@ const FeaturedItems = ({ items } : { items: [Item] }) => {
       <h2 className='section__heading'>Our Best Selling Items</h2>
       <div className = {styles.items}>
         {items.map((item, i) => (
-          <ItemCard item = {item} key = {i}/>
+          <div className= {styles.item}>
+            <ItemCard item = {item} key = {i}/>
+          </div>
         ))}
       </div>
     </div>
