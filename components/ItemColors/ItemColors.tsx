@@ -8,10 +8,12 @@ const ItemColors = ({ colors, activeColor, setActiveColor, size, setIndex } : { 
   const handleColorChange = (color: Color, i: number) => {
     setActiveColor(color)
 
-    if(i === 0){
-      setIndex(1)
-    } else {
-      setIndex(i)
+    if(setIndex){
+      if(i === 0){
+        setIndex(1)
+      } else {
+        setIndex(i)
+      }
     }
   } 
 

@@ -16,6 +16,7 @@ import SlideShowImage from '../SlideShowImage/SlideShowImage';
 import Wishlist from '../Wishlist/Wishlist';
 
 import MotionWrapper from '../../wrappers/MotionWrapper';
+import ColorSelect from '../ColorSelect/ColorSelect';
 
 const colors = [
 	'#33ab9f',
@@ -109,14 +110,21 @@ const Preview = ({
           </div>
 
           <div className = {styles.colors}>
-            {variants.map((variant, i) => (
+            {/* {variants.map((variant, i) => (
               <div 
                 key = {i} 
                 className = {`${styles.color} ${activeVariant.color.color === variant.color.color ? styles.activeColor : ''}`} 
                 style = {{backgroundColor: `${variant.color.colorCode}`}}
                 onClick = {() => handleVariantChange(variant)}
               ></div>
-            ))}
+            ))} */}
+            <ColorSelect 
+              activeVariant={activeVariant}
+              setActiveVariant = {setActiveVariant}
+              variants = {item.variants}
+              size = {28}
+              setIndex = {false}
+            />
           </div>
           
           <div className= {styles.cart}>

@@ -19,6 +19,7 @@ import SimilarItems from '../../../../components/SimilarItems/SimilarItems';
 import Wishlist from '../../../../components/Wishlist/Wishlist';
 
 import MotionWrapper from '../../../../wrappers/MotionWrapper';
+import ColorSelect from '../../../../components/ColorSelect/ColorSelect';
 
 const colors = [
 	'#33ab9f',
@@ -106,11 +107,18 @@ const Item = ({ item, items } : { item: Item, items: [Item] }) => {
               <ItemInfo item= {item} />
             </div>
             <div className= {styles.colors}>
-              <ItemColors 
+              {/* <ItemColors 
                 colors = {itemColors} 
                 size = {25} 
                 activeColor = {activeVariant.color} 
                 setActiveColor = {handleVariantChange} 
+                setIndex = {setIndex}
+              /> */}
+              <ColorSelect 
+                variants={item.variants}
+                activeVariant = {activeVariant}
+                setActiveVariant = {setActiveVariant}
+                size = {30}
                 setIndex = {setIndex}
               />
               <p>{activeVariant.color.color}</p>

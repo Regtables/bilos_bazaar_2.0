@@ -17,6 +17,8 @@ import { addToWishlist, selectUser } from '../../redux/auth'
 import Preview from '../Prevew/Preview';
 import SlideShowImage from '../SlideShowImage/SlideShowImage';
 import Wishlist from '../Wishlist/Wishlist';
+import ColorSelect from '../ColorSelect/ColorSelect';
+import ItemColors from '../ItemColors/ItemColors';
 
 
 const colors = [
@@ -150,14 +152,21 @@ const ItemCard = ({ item }: { item: Item }) => {
 					<h4 className={styles.price}>R {item.price}</h4>
 
 					<div className={styles.colors}>
-						{item?.variants?.map((variant, i) => (
+						{/* {item?.variants?.map((variant, i) => (
 							<div
 								style={{ backgroundColor: `${variant.color.colorCode}` }}
 								key={i}
 								className = {`${styles.color} ${activeVariant?.color?.color === variant?.color?.color ? styles.activeColor : ''}`} 
 								onClick = {() => handleVariantChange(variant)}
 							></div>
-						))}
+						))} */}
+						<ColorSelect 
+							variants={item.variants}
+							activeVariant = {activeVariant}
+							setActiveVariant = {setActiveVariant}
+							size = {22}
+							setIndex = {false}
+						/>
 					</div>
 
 					<div className= {styles.view}>
