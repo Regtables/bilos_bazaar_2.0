@@ -27,14 +27,14 @@ const Navbar = () => {
   const [animateDropDown, setAnimateDropDown] = useState({})
 
   const toggleHover = (link: any) => {
-    // setHover(link)
-    // setAnimateArrow({rotate: '180deg'})
+    setHover(link)
+    setAnimateArrow({rotate: '180deg'})
 
-    // if(link){
-    //   setAnimateArrow({rotate: '180deg'})
-    // } else if(link === '') {
-    //   setAnimateArrow({rotate: '-180deg'})
-    // }
+    if(link){
+      setAnimateArrow({rotate: '180deg'})
+    } else if(link === '') {
+      setAnimateArrow({rotate: '-180deg'})
+    }
   }
 
   const handleToggleSearch = () => {
@@ -124,7 +124,7 @@ const Navbar = () => {
                       <p 
                         onMouseEnter={() => toggleHover(product.product)}
                       >
-                        {product.product}
+                        {product.product}<BsChevronCompactDown />
                       </p>
                     </div>
                   </Link>
