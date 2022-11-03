@@ -1,68 +1,47 @@
 import React from 'react'
-import { Paper } from '@mui/material';
 import { BsTelephoneFill } from 'react-icons/bs';
 import { MdEmail } from 'react-icons/md'
 import { AiFillInstagram } from 'react-icons/ai'
 import { FaFacebookF } from 'react-icons/fa'
-import { IoLocationSharp } from 'react-icons/io5'
 import { AiFillMessage } from 'react-icons/ai'
 
 import styles from './ContactDetails.module.scss'
 import { Contact } from '../../types';
+import { Grid } from '@mui/material';
 
-const ContactDetails = ({ contact } : { contact: Contact}) => {
-  const { phoneNumber, email, address } = contact
+const Details = ({ contact } : { contact: Contact}) => {
+  const { email, phoneNumber } = contact
+
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.information}>
-        <div className= 'contact__heading'>
-          <p><AiFillMessage /></p>
-          <h3>Get in Touch</h3>
-        </div>
-        <div className={styles.content}>
-          <div className={styles.item}>
-            <p><BsTelephoneFill /></p>
-            <p>{phoneNumber}</p>
-          </div>
-          <div className={styles.item}>
-            <p><MdEmail /></p>
-            <p>{email}</p>
-          </div>
-          <div className={styles.item}>
-            <a href='https://www.facebook.com/profile.php?id=100063704474726' target={'_blank'} rel = 'noreferrer'>
-              <p><FaFacebookF /></p>
-              <p>facebook/bilosbazaar</p>
-            </a>
-          </div>
-          <div className={styles.item}>
-            <a href='https://www.instagram.com/bilosbazaar/' target= '_blank' rel = 'noreferrer'>
-              <p><AiFillInstagram /></p>
-              <p>instagram/bilosbazaar</p>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className={styles.location}>
-        <div className= 'contact__heading'>
-          <p><IoLocationSharp /></p>
-          <h3>Find Us</h3>
-        </div>
-        <div>
-          <div className={styles.item}>
-            <a href = 'https://www.google.com/maps/place/24+Hoof+St,+Bushmans+River,+Boesmansriviermond,+6190/@-33.6845265,26.6513501,17z/data=!3m1!4b1!4m6!3m5!1s0x1e65b19fb48db8cf:0x3a0766206cc66125!8m2!3d-33.684531!4d26.6535388!16s%2Fg%2F11c25h033m' target = '_blank' rel = 'noreferrer'>
-              <p>{address}</p>
-            </a>
-          </div>
-          <Paper className={styles.map} elevation = {3}>
-            <iframe
-              src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d982.7269886548889!2d26.653271934737155!3d-33.68462888277086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e65b19fb48db8cf%3A0x3a0766206cc66125!2s24%20Hoof%20St%2C%20Bushmans%20River%2C%20Boesmansriviermond%2C%206190!5e0!3m2!1sen!2sza!4v1666863248509!5m2!1sen!2sza'
-              loading='lazy'
-            ></iframe>
-          </Paper>
-        </div>
-      </div>
+    <div className={styles.information}>
+    {/* <div className= 'contact__heading'>
+      <p><AiFillMessage /></p>
+      <h3>Get in Touch</h3>
+    </div> */}
+      <Grid container className={styles.content}>
+        <Grid item sm = {6} className={styles.item}>
+          <p><BsTelephoneFill /></p>
+          <p>{phoneNumber}</p>
+        </Grid>
+        <Grid item sm = {6} className={styles.item}>
+          <p><MdEmail /></p>
+          <p>{email}</p>
+        </Grid>
+        <Grid item sm = {6} className={styles.item}>
+          <a href='https://www.facebook.com/profile.php?id=100063704474726' target={'_blank'} rel = 'noreferrer'>
+            <p><FaFacebookF /></p>
+            <p>facebook/bilosbazaar</p>
+          </a>
+        </Grid>
+        <Grid item sm = {6} className={styles.item}>
+          <a href='https://www.instagram.com/bilosbazaar/' target= '_blank' rel = 'noreferrer'>
+            <p><AiFillInstagram /></p>
+            <p>instagram/bilosbazaar</p>
+          </a>
+        </Grid>
+      </Grid>
     </div>
   )
 }
 
-export default ContactDetails
+export default Details

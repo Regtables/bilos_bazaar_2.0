@@ -1,0 +1,19 @@
+.container{
+  input{
+    padding: 0.7rem 1rem;
+    outline: none;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    font-family: var(--font-family);
+  }
+
+  textarea{
+    width: 100%;
+    padding: 1rem;
+    font-family: var(--font-family);
+    border-radius: 5px;
+    outline: none;
+    border: none;
+  }
+}

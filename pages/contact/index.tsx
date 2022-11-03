@@ -1,30 +1,36 @@
 import React from 'react';
 
-import { Contact } from '../../types';
+import { Contact, Question } from '../../types';
 import { client } from '../../utils/client';
 import { contactQuery } from '../../utils/queries';
 import styles from './Contact.module.scss';
 
+import ContactLocation from '../../components/ContactLocation/ContactLocation';
 import ContactDetails from '../../components/ContactDetails/ContactDetails';
-import { Question }from '../../types'
-import FAQ from '../../components/FAQ/FAQ';
+import ContactForm from '../../components/ContactForm/ContactForm'
+
 import MotionWrapper from '../../wrappers/MotionWrapper';
 
 const Contact = ({ contact, faq } : { contact: Contact, faq: Question[]}) => {
 	return (
     <MotionWrapper>
-      <div className={`${styles.container} section__margin`}>
-        <header>
-          <h1 className='page__heading'>Contact Us</h1>
-        </header>
-        <main>
-          {/* <section className= {styles.faq}>
-            <FAQ questions ={faq} />
-          </section> */}
-          <section className= {styles.contactDetails}>
-            <ContactDetails contact={contact} />
-          </section>
-        </main>
+      <div className={`${styles.container} section__padding`}>
+        <div className = {styles.content}>
+          <div className= {styles.left}>
+            <div className = {styles.heading}>
+              <h1>We would <span>love</span> to hear from you</h1>
+            </div>
+            <div className= {styles.details}>
+              <ContactDetails contact = {contact} />
+            </div>
+            <div className= {styles.form}>
+              <ContactForm />
+            </div>
+          </div>
+          <div className= {styles.contactDetails}>
+            <ContactLocation contact={contact} />
+          </div>
+        </div>
       </div>
     </MotionWrapper>
 	);

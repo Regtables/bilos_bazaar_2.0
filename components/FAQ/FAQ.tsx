@@ -10,7 +10,7 @@ import FAQItem from './FAQItem/FAQItem'
 const FAQ = ({ questions } : { questions: Question[] }) => {
   return (
     <div className= {`${styles.container} section__margin`}>
-      <header className= 'contact__heading'>
+      <header className= {styles.heading}>
         <p><FaQuestion /></p>
         <h3>Frequently Asked Questions</h3>
       </header>
