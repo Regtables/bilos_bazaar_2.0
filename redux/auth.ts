@@ -43,7 +43,6 @@ export const signup = createAsyncThunk('auth/signup', async (formData: any) => {
 export const googleAuth = createAsyncThunk('auth/googleAuth', async (data: any) => {
   try{
     const response  = await api.googleAuth(data)
-    console.log(response)
 
     return response
 
@@ -65,14 +64,14 @@ export const saveBillingInfo = createAsyncThunk('auth/saveBillingInfo', async (d
 export const addToWishlist = createAsyncThunk('auth/addToWishlist', async (item: Item) => {
   try{
     const response = await api.addToWishlist(item)
+    console.log(response)
+    
+    return response
 
   } catch{
 
   }
 })
-
-
-
 
 const authSlice: Slice = createSlice({
   name: 'auth',
@@ -105,8 +104,22 @@ const authSlice: Slice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload
     },
-    addToWishlist: (state, action) => {
-      state.user.wishlist
+    addItemToWishlist: (state, action) => {
+      const wishlist = state.user.wishlist
+
+      if(wishlist === null){
+        state.user.wishlist = [action.payload]
+      } else if(wishlist !== null){
+        const containsItem = wishlist.filter((item: Item) => item._ref === action.payload._ref)[0]
+
+        if(containsItem){
+          const newWishlist = wishlist.filter((item: Item) => item._ref !== action.payload._ref)
+          state.user.wishlist = newWishlist
+
+        } else{
+          state.user.wishlist.push(action.payload)
+        }
+      }
     }
   },
   extraReducers: (builder) => {
@@ -198,11 +211,26 @@ const authSlice: Slice = createSlice({
         state.isLoading = false
         state.hasError = true
       })
+
+      //wishlist
+      .addCase(addToWishlist.pending, (state) => {
+        state.isLoading = true
+        state.hasError = false
+      })
+      .addCase(addToWishlist.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.hasError = false
+        state.user = action.payload 
+      })
+      .addCase(addToWishlist.rejected, (state) => {
+        state.isLoading = false
+        state.hasError = true
+      })
     }
   })
 
   
-  export const { setUserBillingInfo, setUser } = authSlice.actions
+  export const { setUserBillingInfo, setUser, addItemToWishlist } = authSlice.actions
   
   export const logout = (dispatch: any) => {
     localStorage.clear()

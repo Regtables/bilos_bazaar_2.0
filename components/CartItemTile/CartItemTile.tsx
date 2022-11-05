@@ -31,7 +31,14 @@ const CartItemTile = ({ item } : { item: CartItem }) => {
   console.log(item)
   return (
     <ButtonBase className = {styles.container}>
-      <Card className = {styles.card} elevation = {2}>
+      <Card 
+        className = {styles.card} 
+        elevation = {0} 
+        sx = {{
+          outline: '1px solid #e3e3e3',
+          boxShadow: '0 4px 6px rgb(0 0 0 / 4%)',
+        }}
+      >
         <div className = {styles.image}>
           <Image 
             { ...imageProps }

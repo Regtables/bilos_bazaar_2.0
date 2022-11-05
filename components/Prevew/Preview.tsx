@@ -110,14 +110,6 @@ const Preview = ({
           </div>
 
           <div className = {styles.colors}>
-            {/* {variants.map((variant, i) => (
-              <div 
-                key = {i} 
-                className = {`${styles.color} ${activeVariant.color.color === variant.color.color ? styles.activeColor : ''}`} 
-                style = {{backgroundColor: `${variant.color.colorCode}`}}
-                onClick = {() => handleVariantChange(variant)}
-              ></div>
-            ))} */}
             <ColorSelect 
               activeVariant={activeVariant}
               setActiveVariant = {setActiveVariant}
@@ -129,7 +121,7 @@ const Preview = ({
           
           <div className= {styles.cart}>
             <div className = {styles.qty}>
-              <Quantity 
+              <Quantity
                 qty = {qty} 
                 incQty = {incQty}
                 decQty = {decQty}

@@ -97,3 +97,15 @@ export const contactQuery = () => {
 
   return query
 }
+
+export const userQuery = (id) => {
+  const query = `*[_type == "user" && _id == "${id}"]{
+    _id,
+    username,
+    billingInfo,
+    payments[],
+    wishlist[]
+  }`
+
+  return query
+}

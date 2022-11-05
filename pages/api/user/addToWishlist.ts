@@ -7,7 +7,7 @@ import { Item, WishlistItem } from '../../../types';
 export default async function handler(req: NextApiRequest, result: NextApiResponse ) {
   const item: Item = req.body
 
-  console.log(item)
+  console.log(item._id)
 
   if(req.method === 'POST'){
     try{
@@ -19,27 +19,53 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
         id = verify(token)
 
         if(id){
-          const user = await client.fetch(`*[_type == "user" && _id == "${id}"]{wishlist[]->}`)
-        
-          const itemToAdd = {
-            _type: 'reference',
-            _ref: item._id,
-            name: item.name
+          // console.log('still printing')
+          const user = await client.fetch(`*[_type == "user" && _id == "${id}"]`)
+
+          if(user.length > 0 ){
+            // console.log(user[0])
+  
+            const itemToAdd = {
+              _type: 'reference',
+              _ref: item._ref,
+            }
+
+            const itemToRemove = [`wishlist[_ref == "${item._id}"]`]
+  
+            console.log(itemToAdd)
+
+            if(!user[0].wishlist){
+              const response = await client.patch(id).setIfMissing({ wishlist: []}).append('wishlist', [itemToAdd]).commit({ autoGenerateArrayKeys: true})
+
+              console.log(response)
+
+              result.status(200).json(response)
+              result.end()
+            } else if(user[0].wishlist){
+              console.log('wishlist')
+              console.log(user[0].wishlist)
+              console.log('same item')
+              const containsItem = user[0].wishlist.filter((wi: any) => wi._ref === itemToAdd._ref)
+              console.log(containsItem)
+
+              if(containsItem.length > 0){
+                console.log('contains')
+                await client.patch(id).unset(itemToRemove).commit() 
+                  .then((res) => {
+                    result.status(200).json(res)
+                    result.end()
+                  })
+              } else {
+                await client.patch(id).setIfMissing({ wishlist: []}).append('wishlist', [itemToAdd]).commit({ autoGenerateArrayKeys: true})
+                  .then((res) => {
+                    result.status(200).json(res)
+                    result.end()
+                  })
+              }
+            }
           }
 
-          // console.log(itemToAdd)
 
-          const itemToRemove = [`wishlist[_ref == "${item._id}"]`]
-
-          console.log(user[0].wishlist)
-
-          console.log('------')
-
-          console.log(user[0].wishlist.filter((wishlistItem: WishlistItem) => wishlistItem._ref === itemToAdd._ref)[0]._ref)
-
-          if(user[0].wishlist.filter((wishlistItem: WishlistItem) => wishlistItem._ref === itemToAdd._ref)[0]){
-            await client.patch(id).unset(itemToRemove).commit()
-          }
 
           // if(user.length > 0){
           //   if(!user[0].wishlist){

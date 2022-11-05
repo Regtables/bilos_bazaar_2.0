@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Card, Button } from '@mui/material';
-import { useNextSanityImage } from 'next-sanity-image';
-import { BsEye, BsBagPlus, BsEyeFill } from 'react-icons/bs';
+import { BsEye, BsBagPlus } from 'react-icons/bs';
 
 import styles from './ItemCard.module.scss';
 import { Item, Variant } from '../../types';
-import { client } from '../../utils/client';
 import { itemSlug } from '../../utils/helpers';
 import { addCartItem, selectCartItems, toggleCart } from '../../redux/cart';
-import { addToWishlist, selectUser } from '../../redux/auth'
+import { addItemToWishlist, addToWishlist, selectUser } from '../../redux/auth'
+import { setToggleAlert } from '../../redux/altert';
 
 import Preview from '../Prevew/Preview';
 import SlideShowImage from '../SlideShowImage/SlideShowImage';
 import Wishlist from '../Wishlist/Wishlist';
 import ColorSelect from '../ColorSelect/ColorSelect';
-import ItemColors from '../ItemColors/ItemColors';
 
 
 const colors = [
@@ -31,27 +29,33 @@ const colors = [
 ];
 
 const ItemCard = ({ item }: { item: Item }) => {
-	const { name, variants } = item
+	const { name, price, variants, category: { category } } = item
 	const dispatch = useDispatch<AppDispatch>()
 	const cart = useSelector(selectCartItems)
 	const user = useSelector(selectUser)
 	const [hover, setHover] = useState(false);
 	const [index, setIndex] = useState(0)
-	const [isLoved, setIsLoved] = useState(false)
+	const [isLoved, setIsLoved] = useState(user?.wishlist?.filter((wishListedItem: Item) => wishListedItem._ref === item._id).length > 0 ? true : false)
 	const [activeVariant, setActiveVariant] = useState(item?.variants[0])
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
 
-	// useEffect(() => {
-	// 	item.variants[0]
-	// }, [])
 
 	const handleWishlistToggle = () => {
 		if(user._id){
+			const itemToWishList = {
+				_ref: item._id
+			}
 			setIsLoved((prev: any) => !prev)
-			dispatch(addToWishlist(item))
+			dispatch(addItemToWishlist(itemToWishList))
+			dispatch(addToWishlist(itemToWishList))
+
 		} else {
-			window.alert('Please sign in')
+			dispatch(setToggleAlert({
+				toggle: true,
+				title: 'Please login',
+				content: 'Please login to use the wishlist feature. Would you like to taken to the login page?'
+			}))
 		}
 	}
 
@@ -83,23 +87,21 @@ const ItemCard = ({ item }: { item: Item }) => {
 				elevation={hover ? 8 : 0}
 				className={styles.card}
 				sx = {{
-					borderRadius: '20px',
+					borderRadius: '10px',
 					outline: '1px solid #e3e3e3',
 
 					"&:hover": {
 						boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.10)'
 					}
-					// boxShadow: '0 4px 6px rgb(0 0 0 / 4%)'
 				}}
 				raised
 				onMouseEnter={() => setHover(true)}
 				onMouseLeave={() => setHover(false)}
 			>
 				<div className={styles.addToWishlist}></div>
-				<div className={styles.overlay}></div>
+				<div className={styles.overlay} />
 
 				<div className={styles.image}>
-					{/* <Image {...imageProps} layout='fill' objectFit='cover' /> */}
 					<div className= {styles.imageContainer}>
 						<SlideShowImage
 							image={activeVariant.image}
@@ -147,21 +149,13 @@ const ItemCard = ({ item }: { item: Item }) => {
 				</div>
 
 				<div className={styles.content}>
-					<h5 className={styles.category}>{item.category.category}</h5>
-					<h3 className={styles.name}> {item.name}</h3>
-					<h4 className={styles.price}>R {item.price}</h4>
+					<h5 className={styles.category}>{category}</h5>
+					<h3 className={styles.name}> {name}</h3>
+					<h4 className={styles.price}>R {price}</h4>
 
 					<div className={styles.colors}>
-						{/* {item?.variants?.map((variant, i) => (
-							<div
-								style={{ backgroundColor: `${variant.color.colorCode}` }}
-								key={i}
-								className = {`${styles.color} ${activeVariant?.color?.color === variant?.color?.color ? styles.activeColor : ''}`} 
-								onClick = {() => handleVariantChange(variant)}
-							></div>
-						))} */}
 						<ColorSelect 
-							variants={item.variants}
+							variants={variants}
 							activeVariant = {activeVariant}
 							setActiveVariant = {setActiveVariant}
 							size = {22}
@@ -173,7 +167,6 @@ const ItemCard = ({ item }: { item: Item }) => {
 						<Link href = {itemSlug(item)}>
 							<Button sx = {{fontSize: '12px', display: 'flex', flexDirection: 'column', padding: '1rem', color: 'var(--color-primary)'}}>
 								view item
-								{/* <p id = 'eye'><BsEyeFill /></p> */}
 							</Button>
 						</Link>
 					</div>
