@@ -9,6 +9,7 @@ import { store } from '../redux/store'
 import Navbar from '../components/Navbar/Navbar'
 import Footer from '../components/Footer/Footer'
 import Cart from '../components/Cart/Cart'
+import DetailedCart from '../components/DetailedCart/DetailedCart'
 import Alert from '../components/Alert/Alert'
 
 function MyApp({ Component, pageProps, }: { Component: any, pageProps: AppProps, props: any }) {
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps, }: { Component: any, pageProps: AppProps,
         <div>
         <Alert />
         <Cart />
+        {/* <DetailedCart /> */}
           <nav>
             <Navbar />
           </nav>

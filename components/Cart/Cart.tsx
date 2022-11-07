@@ -9,7 +9,7 @@ import { IoIosCloseCircleOutline} from 'react-icons/io'
 
 import styles from './Cart.module.scss'
 import { CartItem } from '../../types'
-import { selectCartItems, selectShowCart, toggleCart, selectCartTotal } from '../../redux/cart'
+import { selectCartItems, selectShowCart, toggleCart, selectCartTotal, toggleDetailedCart, selectShowDetailedCart } from '../../redux/cart'
 
 import CartItemTile from '../CartItemTile/CartItemTile'
 
@@ -18,10 +18,12 @@ const Cart = () => {
   const router = useRouter()
   const [animateCart, setAnimateCart] = useState({})
   const showCart = useSelector(selectShowCart)
+  const showDetailedCart = useSelector(selectShowDetailedCart)
   const cartTotal = useSelector(selectCartTotal)
   const cartItems = useSelector(selectCartItems)
 
   const cartItemsArr = Object.values(cartItems)
+  console.log(showDetailedCart)
 
   useEffect(() => {
     if(showCart){
@@ -39,6 +41,12 @@ const Cart = () => {
     setTimeout(() => {
      dispatch(toggleCart(false))
     }, 300);
+  }
+
+  const handleViewClick = () => {
+    handleClose()
+    dispatch(toggleDetailedCart(true))
+    console.log(showDetailedCart)
   }
   
   return (
@@ -112,6 +120,18 @@ const Cart = () => {
                     <Link href = '/checkout'>
                       <Button variant = 'contained' className= {styles.btn}>
                         Checkout
+                      </Button>
+                    </Link>
+                  </div>
+                  <div className= {styles.viewDetailed}>
+                    <Link href = '/bag'>
+                      <Button
+                        sx = {{
+                          fontSize: '12px'
+                        }}
+                        onClick = {handleViewClick}
+                      >
+                        view detailed cart
                       </Button>
                     </Link>
                   </div>

@@ -19,51 +19,52 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
         id = verify(token)
 
         if(id){
+          result.status(400).json({message:'error'})
           // console.log('still printing')
-          const user = await client.fetch(`*[_type == "user" && _id == "${id}"]`)
+          // const user = await client.fetch(`*[_type == "user" && _id == "${id}"]`)
 
-          if(user.length > 0 ){
-            // console.log(user[0])
+          // if(user.length > 0 ){
+          //   // console.log(user[0])
   
-            const itemToAdd = {
-              _type: 'reference',
-              _ref: item._ref,
-            }
+          //   const itemToAdd = {
+          //     _type: 'reference',
+          //     _ref: item._ref,
+          //   }
 
-            const itemToRemove = [`wishlist[_ref == "${item._id}"]`]
+          //   const itemToRemove = [`wishlist[_ref == "${item._id}"]`]
   
-            console.log(itemToAdd)
+          //   console.log(itemToAdd)
 
-            if(!user[0].wishlist){
-              const response = await client.patch(id).setIfMissing({ wishlist: []}).append('wishlist', [itemToAdd]).commit({ autoGenerateArrayKeys: true})
+          //   if(!user[0].wishlist){
+          //     const response = await client.patch(id).setIfMissing({ wishlist: []}).append('wishlist', [itemToAdd]).commit({ autoGenerateArrayKeys: true})
 
-              console.log(response)
+          //     console.log(response)
 
-              result.status(200).json(response)
-              result.end()
-            } else if(user[0].wishlist){
-              console.log('wishlist')
-              console.log(user[0].wishlist)
-              console.log('same item')
-              const containsItem = user[0].wishlist.filter((wi: any) => wi._ref === itemToAdd._ref)
-              console.log(containsItem)
+          //     result.status(200).json(response)
+          //     result.end()
+          //   } else if(user[0].wishlist){
+          //     console.log('wishlist')
+          //     console.log(user[0].wishlist)
+          //     console.log('same item')
+          //     const containsItem = user[0].wishlist.filter((wi: any) => wi._ref === itemToAdd._ref)
+          //     console.log(containsItem)
 
-              if(containsItem.length > 0){
-                console.log('contains')
-                await client.patch(id).unset(itemToRemove).commit() 
-                  .then((res) => {
-                    result.status(200).json(res)
-                    result.end()
-                  })
-              } else {
-                await client.patch(id).setIfMissing({ wishlist: []}).append('wishlist', [itemToAdd]).commit({ autoGenerateArrayKeys: true})
-                  .then((res) => {
-                    result.status(200).json(res)
-                    result.end()
-                  })
-              }
-            }
-          }
+          //     if(containsItem.length > 0){
+          //       console.log('contains')
+          //       await client.patch(id).unset(itemToRemove).commit() 
+          //         .then((res) => {
+          //           result.status(200).json(res)
+          //           result.end()
+          //         })
+          //     } else {
+          //       await client.patch(id).setIfMissing({ wishlist: []}).append('wishlist', [itemToAdd]).commit({ autoGenerateArrayKeys: true})
+          //         .then((res) => {
+          //           result.status(200).json(res)
+          //           result.end()
+          //         })
+          //     }
+          //   }
+          // }
 
 
 

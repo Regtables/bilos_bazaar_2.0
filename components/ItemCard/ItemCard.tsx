@@ -41,14 +41,17 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const [showPreview, setShowPreview] = useState(false);
 
 
-	const handleWishlistToggle = () => {
+	const handleWishlistToggle = async () => {
 		if(user._id){
 			const itemToWishList = {
 				_ref: item._id
 			}
 			setIsLoved((prev: any) => !prev)
-			dispatch(addItemToWishlist(itemToWishList))
-			dispatch(addToWishlist(itemToWishList))
+			const fResponse = dispatch(addItemToWishlist(itemToWishList))
+			const response = await dispatch(addToWishlist(itemToWishList))
+			// console.log(payload)
+
+
 
 		} else {
 			dispatch(setToggleAlert({
