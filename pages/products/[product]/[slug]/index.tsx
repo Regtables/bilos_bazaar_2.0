@@ -107,13 +107,6 @@ const Item = ({ item, items } : { item: Item, items: [Item] }) => {
               <ItemInfo item= {item} />
             </div>
             <div className= {styles.colors}>
-              {/* <ItemColors 
-                colors = {itemColors} 
-                size = {25} 
-                activeColor = {activeVariant.color} 
-                setActiveColor = {handleVariantChange} 
-                setIndex = {setIndex}
-              /> */}
               <ColorSelect 
                 variants={item.variants}
                 activeVariant = {activeVariant}

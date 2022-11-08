@@ -10,6 +10,7 @@ import styles from './Auth.module.scss';
 import Input from '../../components/Input/Input';
 import { signin, signup, selectUser, isLoadingUser, googleAuth } from '../../redux/auth';
 import Loader from '../../components/Loader/Loader';
+import { setToggleAlert } from '../../redux/altert';
 
 const initialState = {
 	firstName: '',
@@ -35,27 +36,49 @@ const Auth = () => {
 		e.preventDefault();
 
 		if(isSignup){
-			await dispatch(signup(formData))
+			const response = await dispatch(signup(formData))
 				.then((res) => {
-					const { payload } = res
-					const id = payload.user._id
-					console.log(id)
-		
-					if(id){
-						setFormData(initialState)
-						router.push(`/user/${id}`)
+					if(!res.payload.error){
+						const { payload } = res
+						const id = payload.user._id
+			
+						if(id){
+							setFormData(initialState)
+							router.push(`/user/${id}`)
+						}
+					} else {
+						const { error: { title, content } } = res.payload
+
+						dispatch(setToggleAlert({
+							toggle: true,
+							title: title,
+							content: content,
+							option: 'okay'
+						}))
 					}
 				})
 			
 		} else {
 			await dispatch(signin(formData))
 				.then((res) => {
-					const { payload } = res
-					const id = payload.user._id
-	
-					if(id){
-						setFormData(initialState)
-						router.push(`/user/${id}`)
+					if(!res.payload.error){
+						const { payload } = res
+						const id = payload.user._id
+						
+						if(id){
+							setFormData(initialState)
+							router.push(`/user/${id}`)
+						}
+						
+					} else {
+						const { error: { title, content } } = res.payload
+
+						dispatch(setToggleAlert({
+							toggle: true,
+							title: title,
+							content: content,
+							option: 'okay'
+						}))
 					}
 				})
 		}

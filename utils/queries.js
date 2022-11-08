@@ -104,7 +104,7 @@ export const userQuery = (id) => {
     username,
     billingInfo,
     payments[],
-    wishlist[]
+    wishlist[]->
   }`
 
   return query

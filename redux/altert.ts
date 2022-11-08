@@ -5,14 +5,18 @@ const alertSlice = createSlice({
   initialState: {
     toggleAlert: false,
     title: '',
-    content: ''
+    content: '',
+    option: {},
+    secondOption: {}
   },
   reducers: {
     setToggleAlert: (state, action) => {
-      const { toggle, title, content } = action.payload
+      const { toggle, title, content, option, secondOption } = action.payload
       state.toggleAlert = toggle
       state.title = title
       state.content = content
+      state.option = option 
+      state.secondOption = secondOption
     }
   }
 })

@@ -10,14 +10,13 @@ import styles from './ItemCard.module.scss';
 import { Item, Variant } from '../../types';
 import { itemSlug } from '../../utils/helpers';
 import { addCartItem, selectCartItems, toggleCart } from '../../redux/cart';
-import { addItemToWishlist, addToWishlist, selectUser } from '../../redux/auth'
+import { addItemToWishlist, addToWishlist, removeFromWishlist, selectUser } from '../../redux/auth'
 import { setToggleAlert } from '../../redux/altert';
 
 import Preview from '../Prevew/Preview';
 import SlideShowImage from '../SlideShowImage/SlideShowImage';
 import Wishlist from '../Wishlist/Wishlist';
 import ColorSelect from '../ColorSelect/ColorSelect';
-
 
 const colors = [
 	'#33ab9f',
@@ -35,7 +34,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const user = useSelector(selectUser)
 	const [hover, setHover] = useState(false);
 	const [index, setIndex] = useState(0)
-	const [isLoved, setIsLoved] = useState(user?.wishlist?.filter((wishListedItem: Item) => wishListedItem._ref === item._id).length > 0 ? true : false)
+	const [isLoved, setIsLoved] = useState(user?.wishlist?.filter((wishListedItem: Item) => wishListedItem._id === item._id).length > 0 ? true : false)
 	const [activeVariant, setActiveVariant] = useState(item?.variants[0])
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
@@ -43,21 +42,31 @@ const ItemCard = ({ item }: { item: Item }) => {
 
 	const handleWishlistToggle = async () => {
 		if(user._id){
-			const itemToWishList = {
-				_ref: item._id
+			const wishlist = user?.wishlist
+		
+			const itemToRemove = [`wishlist[_ref == "${item._id}"]`]
+
+			if(wishlist?.filter((wishlistItem: any) => wishlistItem.name === name)[0]){
+				setIsLoved(false)
+				dispatch(addItemToWishlist(item))
+				const bResponse = await dispatch(removeFromWishlist(item))
+
+			} else{
+				setIsLoved(true)
+				dispatch(addItemToWishlist(item))
+				const response = await dispatch(addToWishlist(item))
 			}
-			setIsLoved((prev: any) => !prev)
-			const fResponse = dispatch(addItemToWishlist(itemToWishList))
-			const response = await dispatch(addToWishlist(itemToWishList))
-			// console.log(payload)
-
-
 
 		} else {
 			dispatch(setToggleAlert({
 				toggle: true,
 				title: 'Please login',
-				content: 'Please login to use the wishlist feature. Would you like to taken to the login page?'
+				content: 'Please login to use the wishlist feature. Would you like to taken to the login page?',
+				option: 'no',
+				secondOption: {
+					href: '/auth',
+					option: 'Log in'
+				}
 			}))
 		}
 	}

@@ -7,24 +7,20 @@ import { client } from '../../../utils/client'
 export default async function handler( req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body
 
-  console.log(req.body)
-
   if(req.method === "POST"){
     try{
       const existingUser = await client.fetch(`*[_type == "user" && username == "${email}"]`)
 
-      console.log(existingUser[0])
-
       if(!(existingUser.length > 0)) {
    
-        res.status(404).json({ message: 'Your account was not found in our system' })
+        res.status(404).json({error: {title: 'Account not found', content: 'We could not find your account on our system, please check your username or sign up.'}})
         res.end()
-        // return Promise.reject()
+
       } else {
         const isPasswordCorrect: boolean = await bcrypt.compare(password, existingUser[0].password)
 
         if(!isPasswordCorrect){
-          res.status(401).json({ message: 'Invalid password'})
+          res.status(401).json({error: {title: 'Incorrect Password', content: 'The password you entered is incorrect, please check it and try again.'}})
           res.end()
         } 
         else{

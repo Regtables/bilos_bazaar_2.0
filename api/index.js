@@ -91,3 +91,23 @@ export const addToWishlist = async (item) => {
   }
 }
 
+export const removeFromWishlist = async (item) => {
+  console.log(item)
+  if(localStorage.getItem('biloToken')){
+    const token = JSON.parse(localStorage.getItem('biloToken'))
+
+    const response = await fetch('/api/user/removeFromWishlist', {
+      method: 'POST',
+      body: JSON.stringify(item),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+    const data = await response.json()
+    
+    return data
+  }
+}
+

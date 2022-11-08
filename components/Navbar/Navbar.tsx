@@ -90,7 +90,7 @@ const Navbar = () => {
               <Link href = {user?._id ? `/user/${user._id}` : '/auth'}>
                 <div className= {styles.user}>  
                   <FaUser />
-                  {user._id && (
+                  {user?._id && (
                     <div className= {styles.online}></div>
                   )}
                 </div>

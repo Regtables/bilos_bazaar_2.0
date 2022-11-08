@@ -18,11 +18,14 @@ export default async function handler(
 			);
 
 			if (existingUser.length > 0) {
-				res.status(400).json({ message: 'User already exists' });
+				res.status(400).json({ error: {title: 'User already exists', content: 'The email address is already in use with an existing account. Please login with that account or use a different email address'} });
 				res.end();
 			} else if (password !== confirmPassword) {
 				res.status(400).json({
-					message: 'Your passwords do not match',
+					error: {
+						title: 'Passwords do not match',
+						content: 'The passwords you entered do not match. Please check them and confirm that they are the same and then try again'
+					}
 				});
 				res.end();
 
@@ -53,7 +56,7 @@ export default async function handler(
 			}
       
 		} catch (error) {
-			res.status(500).json({ error });
+			res.status(500).json({ error: { title: 'Something went wrong', content: 'Something went wrong while we were trying to create your account. Please try again'} });
 			res.end();
 		}
 	}

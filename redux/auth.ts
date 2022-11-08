@@ -68,8 +68,19 @@ export const addToWishlist = createAsyncThunk('auth/addToWishlist', async (item:
     
     return response
 
-  } catch{
+  } catch (error){
+    console.log(error)
+  }
+})
 
+export const removeFromWishlist = createAsyncThunk('auth/removeFromWishlist', async (item: Item) => {
+  try{
+    const response = await api.removeFromWishlist(item)
+
+    return response
+
+  } catch (error) {
+    console.log(error)
   }
 })
 
@@ -110,10 +121,10 @@ const authSlice: Slice = createSlice({
       if(wishlist === null){
         state.user.wishlist = [action.payload]
       } else if(wishlist !== null){
-        const containsItem = wishlist.filter((item: Item) => item._ref === action.payload._ref)[0]
+        const containsItem = wishlist.filter((item: Item) => item._id === action.payload._id)[0]
 
         if(containsItem){
-          const newWishlist = wishlist.filter((item: Item) => item._ref !== action.payload._ref)
+          const newWishlist = wishlist.filter((item: Item) => item._id !== action.payload._id)
           state.user.wishlist = newWishlist
 
         } else{
@@ -213,19 +224,19 @@ const authSlice: Slice = createSlice({
       })
 
       //wishlist
-      .addCase(addToWishlist.pending, (state) => {
-        state.isLoading = true
-        state.hasError = false
-      })
-      .addCase(addToWishlist.fulfilled, (state, action) => {
-        state.isLoading = false
-        state.hasError = false
-        state.user = action.payload 
-      })
-      .addCase(addToWishlist.rejected, (state) => {
-        state.isLoading = false
-        state.hasError = true
-      })
+      // .addCase(addToWishlist.pending, (state) => {
+      //   state.isLoading = true
+      //   state.hasError = false
+      // })
+      // .addCase(addToWishlist.fulfilled, (state, action) => {
+      //   state.isLoading = false
+      //   state.hasError = false
+      //   state.user = action.payload 
+      // })
+      // .addCase(addToWishlist.rejected, (state) => {
+      //   state.isLoading = false
+      //   state.hasError = true
+      // })
     }
   })
 
