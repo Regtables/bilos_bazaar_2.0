@@ -87,7 +87,7 @@ const GlobalSearch = () => {
             </div>
             <div className= {styles.categories}>
               {categoryResults.map((category: Category, i) => (
-                <div className= {styles.category} onClick = {() => handleCategoryClick(category)}>
+                <div className= {styles.category} onClick = {() => handleCategoryClick(category)} key = {i}>
                   <p>{category.category}</p>
                 </div>  
               ))}

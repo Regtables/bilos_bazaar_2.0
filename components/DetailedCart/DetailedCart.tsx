@@ -69,7 +69,7 @@ const DetailedCart = () => {
             ) : (
               <Grid container spacing = {2} className= {styles.items}>
                 {cartItems.map((item, i) => (
-                  <Grid item sm = {12}>
+                  <Grid item sm = {12} key = {i}>
                     <DetailedCartItem bagItem = {item}/>
                   </Grid>
                 ))}

@@ -36,7 +36,7 @@ const CartPreview = ({ items, showPreview, setShowPreview, date, amount, deliver
           <div className = {styles.items}>
             <Grid container spacing = {1}>
               {items.map((cartItem, i) => (
-                <Grid item sm = {12}>
+                <Grid item sm = {12} key = {i}>
                   <CartPreviewItemTile cartItem = {cartItem} />
                 </Grid>
               ))}

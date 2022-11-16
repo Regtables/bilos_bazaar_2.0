@@ -14,7 +14,7 @@ const FeaturedCategories = ({ categories } : { categories: [Category]}) => {
       <div className= {styles.categories}>
         <Grid container spacing = {1}>
           {categories.map((category, i) => (
-            <Grid item sm = {3}>
+            <Grid item sm = {3} key = {i}>
               <CategoryCard category = {category} key = {i}/>
             </Grid>
           ))}
