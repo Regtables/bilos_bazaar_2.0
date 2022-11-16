@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { BsBagFill, BsSearch, BsChevronCompactDown, BsChevronCompactUp } from 'react-icons/bs';
 import { AiOutlineInstagram, AiOutlineMenu, AiOutlineMail, AiOutlineCloseCircle } from 'react-icons/ai';
 import { GoLocation } from 'react-icons/go';
@@ -20,7 +21,8 @@ const Navbar = () => {
   const totalCartItems = useSelector(selectTotalCartItems)
   const products = useSelector(selectProducts)
   const user = useSelector(selectUser)
-  const [hover, setHover] = useState()
+  const router = useRouter();
+  const [hover, setHover] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [toggleSearch, setToggleSearch] = useState(false)
   const [animateArrow, setAnimateArrow] = useState({})
@@ -39,6 +41,12 @@ const Navbar = () => {
 
   const handleToggleSearch = () => {
     setToggleSearch((prev) => !prev)
+  }
+
+  const handleLinkClick = (link: Product) => {
+    setHover('')
+    dispatch(setActiveCategory('all'))
+    router.push(`/products/${link.slug.current}`)
   }
 
   return (
@@ -71,18 +79,15 @@ const Navbar = () => {
               <a><FaFacebookF /></a>
             </div>
             <div className= {styles.website}>
+              <div className= {styles.searchbar}>
+                {toggleSearch && (
+                  <GlobalSearch />
+                )}
+              </div>
               <div className= {styles.search}>
                 <div className = {styles.bar}>
                   <div className= {styles.icon} onClick = {handleToggleSearch}>
                     <BsSearch />
-                  </div>
-                  <div className= {styles.searchbar}>
-                    {toggleSearch && (
-                      <GlobalSearch 
-                        term = {searchTerm}
-                        setTerm = {setSearchTerm}
-                      />
-                    )}
                   </div>
                 </div>
               </div>
@@ -110,7 +115,7 @@ const Navbar = () => {
           <div className= {styles.partition}></div>
 
           <div className= {styles.links} >
-            <div className = {styles.contact}>
+            <div className = {styles.contact} onMouseEnter = {() => setHover('')}>
               <Link href = '/contact'>
                 <p>contact</p>
               </Link>
@@ -118,17 +123,15 @@ const Navbar = () => {
             <div className= {styles.links_wrapper}>
               {products.map((product: Product, i: number) => (
                 <div className = {styles.link}  key = {i}>
-                  <Link href = {`/products/${product.slug.current}`}>
-                    <div onClick={() => dispatch(setActiveCategory('all'))}>
-                      {/* <motion.div animate = {animateArrow}><BsChevronCompactUp /></motion.div> */}
-                      <p 
-                        onMouseEnter={() => toggleHover(product.product)}
-                      >
-                        {product.product}<BsChevronCompactDown />
-                      </p>
-                    </div>
-                  </Link>
-
+                  <div onClick={() => handleLinkClick(product)}>
+                    {/* <motion.div animate = {animateArrow}><BsChevronCompactUp /></motion.div> */}
+                    <p 
+                      onMouseEnter={() => toggleHover(product.product)}
+                    >
+                      {product.product}<BsChevronCompactDown />
+                    </p>
+                  </div>
+           
                   {hover === product.product && (
                     <motion.div 
                       className= {styles.dropdown}

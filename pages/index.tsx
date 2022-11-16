@@ -6,8 +6,8 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.scss'
 import { client } from '../utils/client'
 import { HeroImage, Category, Item, Product, Question } from '../types'
-import { featuredItemsQuery, productsQuery } from '../utils/queries'
-import { setProducts } from '../redux/items'
+import { contactQuery, featuredItemsQuery, headQuery, itemsQuery, productsQuery } from '../utils/queries'
+import { setAllItems, setProducts } from '../redux/items'
 
 import Hero from '../components/Hero/Hero'
 import About from '../components/About/About'
@@ -18,37 +18,46 @@ import FAQ from '../components/FAQ/FAQ'
 import MotionWrapper from '../wrappers/MotionWrapper'
 
 
-const Home = ({ hero, categories, featuredItems, products, faq } : { hero: [HeroImage], categories: [Category], featuredItems: [Item], products: Product[], faq: Question[] }) => {
+const Home = ({ hero, categories, featuredItems, products, faq, items, head } : { hero: [HeroImage], categories: [Category], featuredItems: Item[], items: Item[], products: Product[], faq: Question[], head: any }) => {
   const dispatch = useDispatch()
+
+  console.log(products)
 
   useEffect(() => {
     dispatch(setProducts(products))
-  }, [products, dispatch])
+    dispatch(setAllItems(items))
+  }, [products, dispatch, items])
 
   return (
-    <div className={`${styles.container}`}>
-      <header className= {styles.hero}>
-        <MotionWrapper>
-          <Hero data = { hero } />
-        </MotionWrapper>
-      </header>
-      {/* <About /> */}
-      <section className= {styles.categories}>
-        <MotionWrapper>
-          <FeaturedCategories categories={categories} />
-        </MotionWrapper>
-      </section>
-      <section className= {styles.items}>
-        <MotionWrapper>
-          <FeaturedItems items= {featuredItems} />
-        </MotionWrapper>
-      </section>
-      <section>
-        <FAQ 
-          questions={faq}
-        />
-      </section>
-    </div>
+    <>
+      <Head>
+        <title>{head.title}</title>
+        <meta name = 'description' content = {head.description} />
+      </Head>
+      <div className={`${styles.container}`}>
+        <header className= {styles.hero}>
+          <MotionWrapper>
+            <Hero data = { hero } />
+          </MotionWrapper>
+        </header>
+        {/* <About /> */}
+        <section className= {styles.categories}>
+          <MotionWrapper>
+            <FeaturedCategories categories={categories} />
+          </MotionWrapper>
+        </section>
+        <section className= {styles.items}>
+          <MotionWrapper>
+            <FeaturedItems items= {featuredItems} />
+          </MotionWrapper>
+        </section>
+        <section>
+          <FAQ 
+            questions={faq}
+          />
+        </section>
+      </div>
+    </>
   )
 }
 
@@ -62,10 +71,16 @@ export const getStaticProps: GetStaticProps = async () => {
   // const productsQuery = '*[_type =="product"]{categories[]->, slug, product}'
   const productsData = await client.fetch(productsQuery())
 
+  const itemsData = await client.fetch(itemsQuery())
+
   // const popularItemsQuery = '*[_type == "popularItems"]{items[]->}'
   const popularItemsData = await client.fetch(featuredItemsQuery())
 
   const faqData = await client.fetch('*[_type == "faq"]')
+
+  const contactData = await client.fetch(contactQuery())
+
+  const headData = await client.fetch(headQuery('home'))
 
   console.log(popularItemsData)
 
@@ -75,7 +90,9 @@ export const getStaticProps: GetStaticProps = async () => {
       categories: categoriesData,
       featuredItems: popularItemsData[0].items,
       products: productsData,
-      faq: faqData
+      faq: faqData,
+      items: itemsData,
+      head: headData[0]
     },
     revalidate: 1
   }

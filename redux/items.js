@@ -22,6 +22,7 @@ const itemsSlice = createSlice({
 
 export const selectActiveCategory = (state) => state.items.activeCategory
 export const selectProducts = (state) => state.items.products
+export const selectAllItems = (state) => state.items.allItems
 
 export const { setActiveCategory, setAllItems, setProducts } = itemsSlice.actions
 

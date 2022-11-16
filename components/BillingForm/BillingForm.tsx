@@ -8,6 +8,7 @@ import styles from './BillingForm.module.scss'
 import { selectUser, setUserBillingInfo, saveBillingInfo } from '../../redux/auth';
 
 import Input from '../Input/Input'
+import { BillingInfo } from '../../types';
 
 const INITIAL_STATE = {
   name: '',
@@ -22,24 +23,57 @@ const INITIAL_STATE = {
 }
 
 const PROVINCES = [
-  'Western Cape',
-  'Eastern Cape',
-  'Northen Cape',
-  'Free State',
-  'Gauteng',
-  'KwaZulu-Natal',
-  'Limpopo',
-  'Mpumalanga',
-  'North West'
+  {
+    province: 'Western Cape',
+    fee: 400
+  }, 
+  {
+    province: 'Northen Cape',
+    fee: 300
+  }, 
+  {
+    province: 'Eastern Cape',
+    fee: 0
+  }, 
+  {
+    province: 'Free State',
+    fee: 200
+  }, 
+  {
+    province: 'Kwazulu-Natal',
+    fee: 100
+  }, 
+  {
+    province: 'Gauteng',
+    fee: 300
+  }, 
+  {
+    province: 'Limpopo',
+    fee: 500
+  }, 
+  {
+    province: 'Mpumalanga',
+    fee: 600
+  }, 
+  {
+    province: 'North West',
+    fee: 100
+  }, 
 ]
 
-const BillingForm = ({ checkout, userData } : {checkout: boolean, userData: any }) => {
+const BillingForm = ({ checkout, userData, billingInformation, setBillingInformation, setDestinationProvince } : {checkout: boolean, userData: any, billingInformation: BillingInfo, setBillingInformation: any, setDestinationProvince: any }) => {
   const dispatch = useDispatch<AppDispatch>()
-  const [billingInfo, setBillingInfo] = useState<any>(userData.billingInfo)
+  const [billingInfo, setBillingInfo] = useState<any>(billingInformation || INITIAL_STATE)
+
+  console.log(billingInformation)
 
   useEffect(() => {
-    setBillingInfo(userData.billingInfo)
-  },[userData])
+    setBillingInfo(billingInformation)
+
+    if(setDestinationProvince){
+      setDestinationProvince(PROVINCES.filter((province: any) => province.province === billingInfo.province)[0])
+    }
+  },[billingInformation])
 
   const handleChange = (e: any) => {
     setBillingInfo({ ...billingInfo, [e.target.name]: e.target.value })
@@ -48,6 +82,8 @@ const BillingForm = ({ checkout, userData } : {checkout: boolean, userData: any 
   const handleSave = (e: any) => {
     e.preventDefault();
     dispatch(setUserBillingInfo(billingInfo))
+    setBillingInformation(billingInfo)
+    setDestinationProvince(PROVINCES.filter((province: any) => province.province === billingInfo?.province)[0])
     
     if(localStorage.getItem('biloToken')){
       const data = {
@@ -153,10 +189,10 @@ const BillingForm = ({ checkout, userData } : {checkout: boolean, userData: any 
                   {PROVINCES.map((province, i) => (
                     <MenuItem 
                       key = {i}
-                      value = {province} 
-                      selected = {billingInfo?.province === province}
+                      value = {province.province} 
+                      selected = {billingInfo?.province === province.province}
                     >
-                      {province}
+                      {province.province}
                     </MenuItem>
                   ))}
               </Select>

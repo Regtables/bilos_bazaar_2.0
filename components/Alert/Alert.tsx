@@ -63,7 +63,7 @@ const Alert = () => {
       >
         <DialogContentText 
           sx = {{
-            fontWeight: '400'
+            fontWeight: '300'
           }}
         >
           {content}

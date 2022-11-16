@@ -36,6 +36,9 @@ const Input = ({
 				fullWidth
 				value={value}
 				required = {required}
+				sx = {{
+					zIndex :'unset'
+				}}
 				// size= {size}
 			/>
 		</Grid>

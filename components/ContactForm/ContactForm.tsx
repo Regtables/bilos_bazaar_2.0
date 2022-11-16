@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { Grid, Button } from '@mui/material'
+import emailjs from '@emailjs/browser'
+import { useDispatch } from 'react-redux'
 
 import styles from './ContactForm.module.scss'
+import { setToggleAlert } from '../../redux/altert'
 
 const INITIAL_STATE = {
   name: '',
@@ -11,6 +14,7 @@ const INITIAL_STATE = {
 
 const ContactForm = () => {
   const [formData, setFormData] = useState(INITIAL_STATE)
+  const dispatch = useDispatch()
 
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name] : e.target.value })
@@ -19,7 +23,18 @@ const ContactForm = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault()
 
-    //send email
+    emailjs.send('service_0dttrnw', 'template_oifvvce', formData, 'LC_QO3GOebggMCv_Z')
+      .then((res) => {
+        if(res.status === 200){
+          dispatch(setToggleAlert({
+            toggle: true,
+            title: 'Message Sucessfully Sent',
+            content: 'We have recieved your message. Thank you for taking the time to make contact with us. We will respond as soon as we can.',
+            option: 'okay'
+          }))
+        }
+      })
+    
   }
 
   return (

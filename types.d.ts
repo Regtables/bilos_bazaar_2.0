@@ -135,7 +135,12 @@ export interface BillingInfo{
 }
 
 export interface Payment{
-
+  _type: string,
+  chargeId: string,
+  amount: number,
+  deliveryFee: number,
+  date: string,
+  items: CartItem[]
 }
 
 export interface WishlistItem{
@@ -170,6 +175,14 @@ export interface Question{
   _createdAt: string,
   question: string,
   answer: string
+}
+
+export interface HeadMeta{
+  _type: string,
+  _id:string,
+  page: string
+  title: string,
+  description: string
 }
 
 

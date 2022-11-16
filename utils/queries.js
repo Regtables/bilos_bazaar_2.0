@@ -21,7 +21,7 @@ export const productItemsQuery = (product) => {
 }
 
 export const productsQuery = () => {
-  const query = '*[_type =="product"]{categories[]->, slug, product}';
+  const query = '*[_type =="product"]{categories[]->{category, itemType, product->}, slug, product}';
 
   return query
 }
@@ -65,7 +65,7 @@ export const itemsQuery = (slug) => {
 }
 
 export const featuredItemsQuery = () => {
-  const query = '*[_type == "popularItems"]{ items[]->{category->, name, images, description, product->, slug, variants[]{color->, sku, image, inStock, itemQuantity}, price, _id}}'
+  const query = '*[_type == "popularItems"]{ items[]->{category->, name, images, description, product->{product, slug}, slug, variants[]{color->, sku, image, inStock, itemQuantity}, price, _id}}'
 
   return query
 }
@@ -78,7 +78,10 @@ export const itemQuery = (slug) => {
     images,
     description,
     dimentions,
-    product->,
+    product->{
+      product,
+      slug
+    },
     slug,
     variants[]{
       color->,
@@ -103,9 +106,29 @@ export const userQuery = (id) => {
     _id,
     username,
     billingInfo,
-    payments[],
+    payments[]{
+      chargeId,
+      amount,
+      deliveryFee,
+      date,
+      items[]{
+        item->,
+        variant{
+          color->,
+          image,
+          sku
+        },
+        qty
+      }
+    },
     wishlist[]->
   }`
+
+  return query
+}
+
+export const headQuery = (page) => {
+  const query = `*[_type == "seo" && page == "${page}"]`
 
   return query
 }

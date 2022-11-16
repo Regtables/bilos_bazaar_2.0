@@ -1,8 +1,9 @@
 .container{
   width: 100%;
-  position: absolute;
-  top: -30%;
-  left: -900%;
+  position: relative;
+  // position: absolute;
+  // top: -30%;
+  // left: -100%;
 
   input{
     outline: none;
@@ -10,4 +11,52 @@
     padding: 0.4rem 1rem;
     width: 100%;
   }
+}
+
+.results{
+  width: 100%;
+  padding: 1rem 1rem;
+  position: absolute;
+  z-index: 10;
+  background-color:aliceblue;
+  height: 300px;
+  overflow: scroll;
+  text-transform: capitalize;
+  font-family: var(--font-family);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+  .heading{
+    border-bottom:2px solid var(--color-secondary);
+
+    h3{
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      color: var(--color-secondary);
+      font-size: 18px;
+    }
+  }
+
+  .items, .categories{
+    height: 100px;
+    overflow: scroll;
+  }
+
+  .item,.category{
+    background-color: rgb(226, 241, 255);
+    padding: 0.5rem 1rem;
+    margin: 0.3rem 0;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    p{
+      margin: 0;
+      text-transform: capitalize;
+      font-size: 14px;
+    }
+
+    &:hover{
+      background-color: #f6f6f6;
+    }
+  }
+
 }

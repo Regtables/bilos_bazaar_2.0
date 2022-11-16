@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid, Select, MenuItem, Button, Card, Switch } from '@mui/material'
 import { MdLocalShipping } from 'react-icons/md'
 import { GoLocation } from 'react-icons/go';
@@ -6,11 +6,36 @@ import { GoLocation } from 'react-icons/go';
 import styles from './Shipping.module.scss'
 import Input from '../Input/Input'
 
-const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, setActiveAddress: any }) => {
+const Shipping = ({ activeAddress, setActiveAddress, destinationProvince, confirmedDestination, setConfirmedDestination }: { activeAddress: string, setActiveAddress: any, destinationProvince: any, confirmedDestination: boolean, setConfirmedDestination: any }) => {
   const [toggleDiff, setToggleDiff] = useState(false)
+  const [differentAdress, setDifferentAdress] = useState('')
+  const [oldAdress, setOldAdress] = useState(activeAddress)
+  console.log(destinationProvince)
+
+  console.log(activeAddress)
+
+  useEffect(() => {
+    if(activeAddress){
+      setOldAdress(activeAddress)
+    }
+  }, [activeAddress, toggleDiff])
 
   const handleToggle = () => {
     setToggleDiff((prev) => !prev)
+    setConfirmedDestination(false)
+    if(!toggleDiff){
+      setActiveAddress('')
+    } else{
+      setActiveAddress(oldAdress)
+    }
+  }
+
+  const handleConfirm = () => {
+    if(activeAddress){
+      setConfirmedDestination(true)
+    } else {
+      //popup
+    }
   }
 
   return (
@@ -22,15 +47,15 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
       <div className= {styles.content}>
         <div className= {styles.activeAdress}>
           <p className= {styles.to}>Delivering to:</p>
-          <p className = {styles.address}><GoLocation />{activeAddress}</p>
+          <p className = {styles.address}><GoLocation />{activeAddress && activeAddress}</p>
         </div>
         
         <Card className = {styles.fee} elevation = {5}>
           <div className= {styles.province}>
-            Western Cape
+            <p>{destinationProvince?.province}</p>
           </div>
           <div className = {styles.amount}>
-            R400
+            <p>R {destinationProvince?.fee}</p>
           </div>
         </Card>
 
@@ -117,7 +142,14 @@ const Shipping = ({ activeAddress, setActiveAddress }: { activeAddress: string, 
         )}
 
         <div className= {styles.confirm}>
-          <Button variant = 'contained' sx = {{borderRadius: '20px', backgroundColor: 'var(--color-primary)'}}>Confirm</Button>
+          <Button 
+            variant = 'contained' 
+            sx = {{borderRadius: '20px', backgroundColor: 'var(--color-primary)'}}
+            onClick = {handleConfirm}
+            disabled = {activeAddress ? false : true}
+          >
+              {confirmedDestination ? 'confirmed' : 'confirm'}
+          </Button>
         </div>
       </div>
     </div>

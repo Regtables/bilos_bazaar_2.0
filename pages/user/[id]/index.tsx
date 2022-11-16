@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch } from '../../../redux/store'
 import { useRouter } from 'next/router'
-import { Paper, Button } from '@mui/material'
+import { Paper, Button, Grid } from '@mui/material'
 import { FaUser } from 'react-icons/fa'
 import { MdPayment } from 'react-icons/md'
 import { AiFillHeart } from 'react-icons/ai'
@@ -15,6 +15,8 @@ import ProfileBanner from '../../../components/ProfileBanner/ProfileBanner'
 import ProfileSectionList from '../../../components/ProfileSectionList/ProfileSectionList'
 import BillingForm from '../../../components/BillingForm/BillingForm'
 import Loader from '../../../components/Loader/Loader'
+import PaymentCard from '../../../components/PaymentCard/PaymentCard'
+import { Payment } from '../../../types'
 
 const user = {
   _type: 'user',
@@ -72,6 +74,9 @@ const User = () => {
           <BillingForm
             checkout = {false}
             userData = {userInfo}
+            billingInformation = {userInfo?.billingInfo}
+            setBillingInformation = {() => {}}
+            setDestinationProvince = {() => {}}
           />
           <div className= {styles.delete}>
             <Button variant='contained' type = 'submit'>Delete Profile</Button>
@@ -79,14 +84,20 @@ const User = () => {
         </>
       )
     } else if(activeSection.section === 'payments') {
+      console.log(userInfo.payments)
       return (
-        user?.payments?.map((payment: string, i: number) => (
-          <p key = {i}>Payment</p>
-        ))
+        <Grid container spacing = {2}>
+          {userInfo?.payments?.map((payment: Payment, i: number) => (
+            <Grid item sm = {12}>
+              <PaymentCard payment = {payment} />
+            </Grid>
+          ))}
+        </Grid>
       )
+      
     } else if(activeSection.section === 'wishlist') {
       return (
-        user?.wishlist?.map((item: string, i: number) => (
+        userInfo?.wishlist?.map((item: string, i: number) => (
           <p key = {i}>Item</p>
         ))
       )

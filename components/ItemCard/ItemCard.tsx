@@ -33,8 +33,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const cart = useSelector(selectCartItems)
 	const user = useSelector(selectUser)
 	const [hover, setHover] = useState(false);
-	const [index, setIndex] = useState(0)
-	const [isLoved, setIsLoved] = useState(user?.wishlist?.filter((wishListedItem: Item) => wishListedItem._id === item._id).length > 0 ? true : false)
+	const [isLoved, setIsLoved] = useState(user?.wishlist?.filter((wishListedItem: Item) => wishListedItem?._id === item._id).length > 0 ? true : false)
 	const [activeVariant, setActiveVariant] = useState(item?.variants[0])
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
@@ -43,16 +42,18 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const handleWishlistToggle = async () => {
 		if(user._id){
 			const wishlist = user?.wishlist
+
+			const existingItem = wishlist?.filter((wishlistItem: any) => wishlistItem.name === name)[0]
 		
 			const itemToRemove = [`wishlist[_ref == "${item._id}"]`]
 
-			if(wishlist?.filter((wishlistItem: any) => wishlistItem.name === name)[0]){
+			if(existingItem){
 				setIsLoved(false)
 				dispatch(addItemToWishlist(item))
 				const bResponse = await dispatch(removeFromWishlist(item))
 
-			} else{
-				setIsLoved(true)
+			} else if(!wishlist || !existingItem) {
+				setIsLoved(true)	
 				dispatch(addItemToWishlist(item))
 				const response = await dispatch(addToWishlist(item))
 			}
@@ -87,7 +88,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 		dispatch(addCartItem({
 			item,
 			variant: activeVariant,
-			qty
+			qty,
 		}))
 		dispatch(toggleCart(true))
 		setQty(1)

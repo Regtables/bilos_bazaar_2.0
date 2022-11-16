@@ -5,6 +5,10 @@
   background-color: var(--color-primary);
   padding: 0.7rem 4%;
   justify-content: space-between;
+
+  @media screen and (max-width: 450px) {
+    display: none;
+  }
   // padding: 1rem;
 }
 
@@ -101,6 +105,7 @@
 
 .website{
   display: flex;
+  position: relative;
 
   svg{
     margin-left: 1rem;
@@ -230,9 +235,15 @@
   display: flex;
   align-items: center;
   position: relative;
+  overflow: visible;
+  // width: 20%;
 
-  .searcbar{
-    width: 300px;
-  }
 }
 
+.searchbar{
+  position: absolute;
+  // width: 20%;
+  left: -300%;
+  bottom: 1px;
+  width: 280px;
+}
