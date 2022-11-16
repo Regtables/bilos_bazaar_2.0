@@ -1,16 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
+import { useDispatch } from 'react-redux'
 import { Grid } from '@mui/material'
 
 import styles from '../../styles/Products.module.scss'
 import { client } from '../../utils/client'
-import { HeadMeta, Product } from '../../types'
-import { headQuery } from '../../utils/queries'
+import { Contact, HeadMeta, Product, Item } from '../../types'
+import { contactQuery, headQuery, itemsQuery, productsQuery } from '../../utils/queries'
+import { setContact } from '../../redux/info'
+import { setAllItems, setProducts } from '../../redux/items'
 
 // import ProductTile from '../../components/ProductTile/ProductTile'
 
-const Products = ({ products, head } : { products: [Product], head: HeadMeta}) => {
-  console.log(products)
+const Products = ({ products, head, items, contact } : { products: Product[], head: HeadMeta, items: Item[], contact: Contact }) => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setAllItems(items))
+    dispatch(setProducts(products))
+    dispatch(setContact(contact))
+
+  }, [items, products, contact])
+
   return (
     <>
       <Head>
@@ -32,14 +43,17 @@ const Products = ({ products, head } : { products: [Product], head: HeadMeta}) =
 }
 
 export const getStaticProps = async () => {
-  const productsQuery = '*[_type == "product"]'
-  const productsData = await client.fetch(productsQuery)
+  const productsData = await client.fetch(productsQuery())
+  const itemsData = await client.fetch(itemsQuery())
+  const contactData = await client.fetch(contactQuery())
 
   const headData = await client.fetch(headQuery('products'))
 
   return {
     props: {
       products: productsData,
+      items: itemsData,
+      contact: contactData[0],
       head: headData[0]
     }
   }

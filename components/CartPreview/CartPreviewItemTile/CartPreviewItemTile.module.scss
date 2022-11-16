@@ -1,0 +1,51 @@
+.container{
+  display: flex;
+}
+
+.image{
+  position: relative;
+  height: 120px;
+  width: 120px;
+}
+
+.info{
+  display: flex;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  align-items: center;
+
+  .details{
+    flex: 0.4;
+  }
+
+  .category, .color{
+    p{
+      margin: 0;
+      font-size: 12px;
+      text-transform: capitalize;
+    }
+  }
+
+  .name{
+    h4{
+      font-family: var(--font-family);
+      margin: 1rem 0;
+      text-transform: capitalize;
+    }
+  }
+
+}
+
+.itemTotals{
+  flex: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 14px;
+
+  .total{
+    font-size: 16px;
+  }
+
+
+}

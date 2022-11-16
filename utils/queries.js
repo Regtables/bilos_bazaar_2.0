@@ -111,8 +111,14 @@ export const userQuery = (id) => {
       amount,
       deliveryFee,
       date,
+      _createdAt,
       items[]{
-        item->,
+        item->{
+          name,
+          price,
+          category->,
+          product->
+        },
         variant{
           color->,
           image,
@@ -121,7 +127,15 @@ export const userQuery = (id) => {
         qty
       }
     },
-    wishlist[]->
+    wishlist[]->{
+      name,
+      price,
+      category->,
+      product->,
+      slug,
+      _id,
+      images
+    }
   }`
 
   return query

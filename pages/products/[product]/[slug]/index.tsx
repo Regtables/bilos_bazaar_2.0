@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head';
 import { useDispatch } from 'react-redux';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 
 import { client } from '../../../../utils/client';
-import { itemQuery, itemsQuery } from '../../../../utils/queries';
+import { contactQuery, itemQuery, itemsQuery, productsQuery } from '../../../../utils/queries';
 import styles from './Item.module.scss';
-import { Item, Variant, Color } from '../../../../types'
+import { Item, Variant, Color, Product, Contact } from '../../../../types'
 import { addCartItem } from '../../../../redux/cart';
 
 import ItemInfo from '../../../../components/ItemInfo/ItemInfo';
@@ -21,6 +21,8 @@ import Wishlist from '../../../../components/Wishlist/Wishlist';
 
 import MotionWrapper from '../../../../wrappers/MotionWrapper';
 import ColorSelect from '../../../../components/ColorSelect/ColorSelect';
+import { setAllItems, setProducts } from '../../../../redux/items';
+import { setContact } from '../../../../redux/info';
 
 const colors = [
 	'#33ab9f',
@@ -36,7 +38,7 @@ interface Params {
   product: string
 }
 
-const Item = ({ item, items } : { item: Item, items: [Item] }) => {
+const Item = ({ item, items, products, contact } : { item: Item, items: [Item], products: Product[], contact: Contact }) => {
   const { images, variants, category, name } = item
   const dispatch = useDispatch()
   const [activeVariant, setActiveVariant] = useState(item?.variants[0])
@@ -48,6 +50,12 @@ const Item = ({ item, items } : { item: Item, items: [Item] }) => {
   const itemColors = item.variants.map((variant) => variant.color)
   const itemVariants = item.variants.map((variant) => variant)
   const similarItems = items.filter((item) => item.category.category === category.category && item.name !== name )
+
+  useEffect(() => {
+    dispatch(setAllItems(items))
+    dispatch(setProducts(products))
+    dispatch(setContact(contact))
+  }, [products, items, contact])
 
   const handleVariantChange = (color: Color) => {
     const activeColor = variants?.find((variant: Variant) => variant?.color === color)
@@ -163,11 +171,15 @@ export const getStaticProps = async ({ params } : { params: any}) => {
   const itemData = await client.fetch(itemQuery(slug))
   
   const itemsData = await client.fetch(itemsQuery())
+  const productsData = await client.fetch(productsQuery())
+  const contactData = await client.fetch(contactQuery())
 
   return {
     props: {
       item: itemData[0],
-      items: itemsData
+      items: itemsData,
+      products: productsData,
+      contact: contactData[0]
     },
     revalidate: 1
   }

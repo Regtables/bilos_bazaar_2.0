@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Head from 'next/head'
 import { useDispatch, useSelector } from 'react-redux'
 import type { AppDispatch } from '../../../redux/store'
 import { useRouter } from 'next/router'
@@ -16,7 +17,8 @@ import ProfileSectionList from '../../../components/ProfileSectionList/ProfileSe
 import BillingForm from '../../../components/BillingForm/BillingForm'
 import Loader from '../../../components/Loader/Loader'
 import PaymentCard from '../../../components/PaymentCard/PaymentCard'
-import { Payment } from '../../../types'
+import { Item, Payment } from '../../../types'
+import WishlistTile from '../../../components/WishlistTile/WishlistTile'
 
 const user = {
   _type: 'user',
@@ -97,15 +99,22 @@ const User = () => {
       
     } else if(activeSection.section === 'wishlist') {
       return (
-        userInfo?.wishlist?.map((item: string, i: number) => (
-          <p key = {i}>Item</p>
-        ))
+        <Grid container spacing={2}>
+          {userInfo?.wishlist?.map((item: Item, i: number) => (
+            <Grid item sm = {12} key = {i}>
+              <WishlistTile item={item} />
+            </Grid>
+          ))}
+        </Grid>
       )
     }
   }
 
   return (
     <>
+      <Head>
+        <title>{"Bilo's Bazaar - User Profile"}</title>
+      </Head>
       <div className= {styles.container}>
         <div className= {styles.banner}>
           <ProfileBanner 

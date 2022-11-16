@@ -1,4 +1,5 @@
 import React from 'react'
+import { Grid } from '@mui/material'
 
 import { Category } from '../../types'
 
@@ -11,9 +12,13 @@ const FeaturedCategories = ({ categories } : { categories: [Category]}) => {
     <div className= {`${styles.container} section__padding`}>
       <h2 className= 'section__heading'>Our Categories</h2>
       <div className= {styles.categories}>
-        {categories.map((category, i) => (
-          <CategoryCard category = {category} key = {i}/>
-        ))}
+        <Grid container spacing = {1}>
+          {categories.map((category, i) => (
+            <Grid item sm = {3}>
+              <CategoryCard category = {category} key = {i}/>
+            </Grid>
+          ))}
+        </Grid>
       </div>
     </div>
   )

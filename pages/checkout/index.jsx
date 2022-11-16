@@ -116,6 +116,9 @@ const Checkout = () => {
   return (
     // <MotionWrapper>
     <>
+      <Head>
+        <title>{"Bilo's Bazaar - Checkout"}</title>
+      </Head>
       <Script
         id="yoco-js"
         src="https://js.yoco.com/sdk/v1/yoco-sdk-web.js">

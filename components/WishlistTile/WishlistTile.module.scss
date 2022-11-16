@@ -1,0 +1,44 @@
+.container{
+  display: flex;
+  align-items: center;
+  outline: 1px solid #e3e3e3;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 4%);
+  border-radius: 5px;
+}
+
+.item_info{
+  padding: 1rem;
+  flex: 0.8;
+
+  .category{
+    p{
+      font-size: 12px;
+    }
+  }
+
+  .name{
+    h4{
+      font-family: var(--font-family);
+      text-transform: capitalize;
+      margin: 0.5rem 0 2rem 0;
+    }
+  }
+
+  .price{
+    p{
+      font-weight: 500;
+    }
+  }
+}
+
+.image{
+  position: relative;
+  height: 160px;
+  width: 160px;
+}
+
+.actions{
+  .remove{
+    margin-bottom: 1rem;
+  }
+}

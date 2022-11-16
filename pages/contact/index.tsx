@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import Head from 'next/head';
 
-import { Contact, Question } from '../../types';
+import { Contact, Question, Item, Product } from '../../types';
 import { client } from '../../utils/client';
-import { contactQuery } from '../../utils/queries';
+import { setProducts, setAllItems } from '../../redux/items';
+import { setContact } from '../../redux/info';
+import { contactQuery, productsQuery, itemsQuery } from '../../utils/queries';
 import styles from './Contact.module.scss';
 
 import ContactLocation from '../../components/ContactLocation/ContactLocation';
@@ -11,8 +15,19 @@ import ContactForm from '../../components/ContactForm/ContactForm'
 
 import MotionWrapper from '../../wrappers/MotionWrapper';
 
-const Contact = ({ contact, faq } : { contact: Contact, faq: Question[]}) => {
+const Contact = ({ contact, faq, products, items } : { contact: Contact, faq: Question[], products: Product[], items: Item[]}) => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setAllItems(items))
+    dispatch(setProducts(products))
+    dispatch(setContact(contact))
+  }, [contact, products, items])
 	return (
+    <>
+    <Head>
+        <title>{"Bilo's Bazaar - Contact Us"}</title>
+    </Head>
     <MotionWrapper>
       <div className={`${styles.container} section__padding`}>
         <div className = {styles.content}>
@@ -33,6 +48,7 @@ const Contact = ({ contact, faq } : { contact: Contact, faq: Question[]}) => {
         </div>
       </div>
     </MotionWrapper>
+    </>
 	);
 };
 
@@ -40,9 +56,16 @@ export const getStaticProps = async () => {
   const contactData = await client.fetch(contactQuery())
   const faqData = await client.fetch('*[_type == "faq"]')
 
+
+ const productsData = await client.fetch(productsQuery())
+
+ const itemsData = await client.fetch(itemsQuery())
+
   return {
     props: {
       contact: contactData[0],
+      products: productsData,
+      items: itemsData,
       faq: faqData
     },
     revalidate: 1
