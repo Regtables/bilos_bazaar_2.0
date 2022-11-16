@@ -90,7 +90,7 @@ const User = () => {
       return (
         <Grid container spacing = {2}>
           {userInfo?.payments?.map((payment: Payment, i: number) => (
-            <Grid item sm = {12}>
+            <Grid item sm = {12} key = {payment.chargeId}>
               <PaymentCard payment = {payment} />
             </Grid>
           ))}
@@ -101,7 +101,7 @@ const User = () => {
       return (
         <Grid container spacing={2}>
           {userInfo?.wishlist?.map((item: Item, i: number) => (
-            <Grid item sm = {12} key = {i}>
+            <Grid item sm = {12} key = {item._id}>
               <WishlistTile item={item} />
             </Grid>
           ))}
