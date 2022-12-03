@@ -74,9 +74,8 @@ const Section = ({ section, links }: { section: string; links: any[] }) => {
 			</div>
 			<div className={styles.links}>
 				{links.map((link, i) => (
-					<Link href={`${link.slug}`}>
+					<Link href={`${link.slug}`} key = {i}>
           <div 
-						key = {i}
 						className = {styles.link}
 						style = { link.icon ? { display: 'flex', alignItems: 'center'} : {display: 'block'}}
 					>
