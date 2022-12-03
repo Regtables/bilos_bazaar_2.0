@@ -141,7 +141,7 @@ const Preview = ({
                 decQty = {decQty}
               />
             </div>
-            <div className= {styles.add}>
+            <div className= {styles.add} onClick = {() => setShowPreview(false)}>
               <AddToCart
                 item={item}
                 activeVariant = {activeVariant}
