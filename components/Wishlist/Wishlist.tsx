@@ -16,11 +16,12 @@ const Wishlist = ({ isLoved, setIsLoved, handleToggle } : { isLoved: boolean, se
         icon = {<MdFavoriteBorder />} 
         checkedIcon = {<MdFavorite />}
         checked = {isLoved}
-        sx = {{
-          "&:checked": {
-            backgroundColor: 'red'
-          } 
-        }} 
+        sx={{
+          // color: 'red',
+          '&.Mui-checked': {
+            color: 'red',
+          },
+        }}
         onChange = {handleToggle}
       />
     </div>

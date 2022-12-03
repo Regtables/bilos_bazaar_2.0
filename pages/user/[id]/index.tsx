@@ -52,7 +52,9 @@ const User = () => {
   const router = useRouter()
   const [activeSection, setActiveSection] = useState(sections[0])
   const userInfo = useSelector(selectUser)
+  const [payments, setPayments] = useState<Payment[]>(userInfo.payments)
   const isLoading = useSelector(isLoadingUser)
+  const [animateMain, setAnimateMain] = useState({})
 
   const { id } = router.query
 
@@ -62,12 +64,30 @@ const User = () => {
     }
   }, [router, dispatch, id])
 
+  useEffect(() => {
+    let sortedPayments: Payment[] = []
+
+    for(let i = userInfo?.payments?.length-1; i >= 0; i--){
+      sortedPayments.push(userInfo.payments[i])
+    }
+
+    setPayments(sortedPayments)
+  }, [userInfo])
+
   const handleLogout = () => {
     dispatch(setUser({}))
     logout(dispatch)
     router.push('/auth')
   }
 
+  const handleSectionChange = (section: any) => {
+    setAnimateMain({y: [0, 50], opacity: 0.2})
+    setActiveSection(section)
+
+    setTimeout(() => {
+      setAnimateMain({y: [50, 0], opacity: 1})
+    }, 300);
+  }
 
   const renderSection = () => {
     if(activeSection.section === 'profile'){
@@ -78,7 +98,10 @@ const User = () => {
             userData = {userInfo}
             billingInformation = {userInfo?.billingInfo}
             setBillingInformation = {() => {}}
+            setBillingProvince = {() => {}}
             setDestinationProvince = {() => {}}
+            setBillingAddress = {() => {}}
+            setConfirmedDestination = {() => {}}
           />
           <div className= {styles.delete}>
             <Button variant='contained' type = 'submit'>Delete Profile</Button>
@@ -86,10 +109,9 @@ const User = () => {
         </>
       )
     } else if(activeSection.section === 'payments') {
-      console.log(userInfo.payments)
       return (
         <Grid container spacing = {2}>
-          {userInfo?.payments?.map((payment: Payment, i: number) => (
+          {payments?.map((payment: Payment, i: number) => (
             <Grid item sm = {12} key = {payment.chargeId}>
               <PaymentCard payment = {payment} />
             </Grid>
@@ -101,7 +123,7 @@ const User = () => {
       return (
         <Grid container spacing={2}>
           {userInfo?.wishlist?.map((item: Item, i: number) => (
-            <Grid item sm = {12} key = {item._id}>
+            <Grid item sm = {12} key = {item?._id}>
               <WishlistTile item={item} />
             </Grid>
           ))}
@@ -133,7 +155,7 @@ const User = () => {
             <ProfileSectionList 
               sections = {sections}
               activeSection = {activeSection}
-              setActiveSection = {setActiveSection}
+              setActiveSection = {handleSectionChange}
             />
           </motion.div>
   
@@ -142,6 +164,7 @@ const User = () => {
             whileInView = {{x: [200, 0], opacity: [0, 1]}} 
             initial = {{opacity: 0}}
             transition = {{duration: 0.3}}
+            animate = {animateMain}
           >
             <div className= {styles.sectionHeading}>
               <h2>{activeSection.icon} {activeSection.section}</h2>

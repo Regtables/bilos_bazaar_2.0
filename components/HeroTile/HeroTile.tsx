@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 import { useNextSanityImage } from 'next-sanity-image'
 import { Button } from '@mui/material'
@@ -7,9 +8,12 @@ import { Button } from '@mui/material'
 import styles from './HeroTile.module.scss'
 import { HeroImage } from '../../types'
 import { client } from '../../utils/client'
+import { setActiveCategory } from '../../redux/items'
 
 const HeroTile = ({ tile } : { tile: HeroImage }) => {
-  const { title, image } = tile
+  console.log(tile)
+  const dispatch = useDispatch()
+  const { title, image, category } = tile
   const imageProps = useNextSanityImage(client, image)
 
   return (
@@ -30,11 +34,12 @@ const HeroTile = ({ tile } : { tile: HeroImage }) => {
         <p>Browse our selected items</p>
       </div> */}
       <div className={styles.button_container}>
-        <Link href ='/'>
+        <Link href = {`/products/${category.product.slug.current}`}>
           <Button 
             variant='contained' 
             className= {styles.button} 
             size = 'large'
+            onClick={() => dispatch(setActiveCategory(category.category))}
             sx = {{
               color: 'white',
               backgroundColor: 'var(--color-primary)',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Backdrop, Button } from '@mui/material';
 import { IoIosCloseCircleOutline} from 'react-icons/io'
@@ -55,7 +55,21 @@ const Preview = ({
   setIsLoved: any
 }) => {
   const { name, price, images, description, category: { category }, variants } = item
- 
+  const [animateImage, setAnimateImage] = useState<any>()
+
+  const handleVariantClick = (variant: Variant) => {
+    setAnimateImage({opacity: 0.2})
+
+    setTimeout(() => {
+      handleVariantChange(variant)
+      
+    }, 200);
+
+    setTimeout(() => {
+      setAnimateImage({opacity: 1})
+    }, 300);
+  }
+
 	return (
 		<Backdrop
 			sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -74,12 +88,12 @@ const Preview = ({
         >
           <IoIosCloseCircleOutline />
         </div>
-        <div className={styles.banner}>
+        <motion.div className={styles.banner} animate = {animateImage} transition = {{duration: 0.3}}>
           <SlideShowImage
             image={activeVariant.image}
             priority = {true}
           />
-        </div>
+        </motion.div>
 
         <div className={styles.information}>
           <h6>{category}</h6>
@@ -112,7 +126,7 @@ const Preview = ({
           <div className = {styles.colors}>
             <ColorSelect 
               activeVariant={activeVariant}
-              setActiveVariant = {setActiveVariant}
+              setActiveVariant = {handleVariantClick}
               variants = {item.variants}
               size = {28}
               setIndex = {false}

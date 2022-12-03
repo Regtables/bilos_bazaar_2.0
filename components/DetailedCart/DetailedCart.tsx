@@ -35,28 +35,33 @@ const DetailedCart = () => {
           className = {`${styles.container} section__padding`}
           animate = {animateCart}
         >
-          <header className = {styles.top}>
+          <div className = {styles.breadcrums}>
             <div className = {styles.continue}>
               <Link href = '/'>
                 <p><BsArrowLeft />continue shopping</p>
               </Link>
             </div>
-            <div className= {styles.heading}>
-              <h3>Your bag summary</h3>
-              <p>({totalItems} {totalItems > 1 ? 'items' : 'item'})</p>
-            </div>
+
             <div className = {styles.user}>
               <div className = {styles.user}>
                 {user._id ? (
-                  <Link href = '/auth'>
+                  <Link href = {`/user/${user._id}`}>
                     <p>Logged in as {user.username}</p>
                   </Link>
                 ) : (
                   <>
+                  <Link href = '/auth'>
                     <p><FaUser /> Log in</p>
+                  </Link>
                   </>
                 )}
               </div>
+            </div>
+          </div>
+          <header className = {styles.top}>
+            <div className= {styles.heading}>
+              <h3>Your bag summary</h3>
+              <p>({totalItems} {totalItems == 1 ? 'item' : 'items'})</p>
             </div>
           </header>
 
@@ -64,7 +69,9 @@ const DetailedCart = () => {
             {cartItems.length === 0 ? (
               <div className = {styles.no_items}>
                 <h4>You have no items in your bag</h4>
-                <Button>Continue shopping</Button>
+                <Link href = '/'>
+                  <Button>Continue shopping</Button>
+                </Link>
               </div>
             ) : (
               <Grid container spacing = {2} className= {styles.items}>

@@ -14,7 +14,13 @@ const CartPreviewItemTile = ( { cartItem } : { cartItem: CartItem }) => {
   const imageProps = useNextSanityImage(client, image)
 
   return (
-    <Card elevation = {3}>
+    <Card 
+      elevation = {0}
+      sx = {{
+        outline: '1px solid #e3e3e3',
+        boxShadow: '0 4px 6px rgb(0 0 0 / 4%)',
+      }}
+    >
       <Link href = {``}>
         <div className = {styles.container}>
           <div className = {styles.image}>

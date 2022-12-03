@@ -33,7 +33,7 @@ const PaymentCard = ({ payment } : { payment: Payment}) => {
 
   return (
     <>
-      <Card sx = {{ padding: '1rem' }} elevation = {6}>
+      <Card sx = {{ padding: '1rem' }} elevation = {4}>
         <div className = {styles.heading}>
           <h3>Payment: {chargeId}</h3>
           <div className= {styles.date}>

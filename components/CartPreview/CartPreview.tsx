@@ -10,9 +10,6 @@ import { BsBag } from 'react-icons/bs'
 
 
 const CartPreview = ({ items, showPreview, setShowPreview, date, amount, deliveryFee } : { items: CartItem[], showPreview: boolean, setShowPreview: any, date: string, amount: number, deliveryFee: number}) => {
-
-  console.log(items)
-
   return (
     <Backdrop
       sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

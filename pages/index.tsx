@@ -62,7 +62,7 @@ const Home = ({ hero, categories, featuredItems, products, faq, items, head } : 
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const heroQuery = '*[_type == "heroImages"]'
+  const heroQuery = '*[_type == "heroImages"]{category->{category, product->}, product->, title, image}'
   const heroData = await client.fetch(heroQuery)
 
   const categoriesQuery = '*[_type == "category"]{category, image, product->}'

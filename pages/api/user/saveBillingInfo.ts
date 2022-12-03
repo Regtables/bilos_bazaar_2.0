@@ -4,7 +4,8 @@ import { client } from '../../../utils/client';
 import { verify } from '../../../utils/auth';
 
 export default async function handler(req: NextApiRequest, result: NextApiResponse ) {
-  const { billingInfo } = req.body
+  const billingInfo = req.body
+  console.log(billingInfo)
 
   if(req.method === 'POST'){
     try{

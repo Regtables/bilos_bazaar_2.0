@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { GetStaticProps, GetStaticPaths } from 'next';
 
 import { client } from '../../../../utils/client';
@@ -8,21 +8,23 @@ import { contactQuery, itemQuery, itemsQuery, productsQuery } from '../../../../
 import styles from './Item.module.scss';
 import { Item, Variant, Color, Product, Contact } from '../../../../types'
 import { addCartItem } from '../../../../redux/cart';
+import { setAllItems, setProducts } from '../../../../redux/items';
+import { setContact } from '../../../../redux/info';
+import { selectUser, removeFromWishlist, addToWishlist, addItemToWishlist } from '../../../../redux/auth';
+import { setToggleAlert } from '../../../../redux/altert';
 
 import ItemInfo from '../../../../components/ItemInfo/ItemInfo';
 import ImageCarousel from '../../../../components/ImageCarousel/ImageCarousel'
-import ItemColors from '../../../../components/ItemColors/ItemColors';
 import Quantity from '../../../../components/Quantity/Quantity';
 import AddToCart from '../../../../components/AddToCart/AddToCart';
 import BuyNow from '../../../../components/BuyNow/BuyNow';
 import Breadcrums from '../../../../components/Breadcrums/Breadcrums';
 import SimilarItems from '../../../../components/SimilarItems/SimilarItems';
 import Wishlist from '../../../../components/Wishlist/Wishlist';
+import ColorSelect from '../../../../components/ColorSelect/ColorSelect';
 
 import MotionWrapper from '../../../../wrappers/MotionWrapper';
-import ColorSelect from '../../../../components/ColorSelect/ColorSelect';
-import { setAllItems, setProducts } from '../../../../redux/items';
-import { setContact } from '../../../../redux/info';
+import { AppDispatch } from '../../../../redux/store';
 
 const colors = [
 	'#33ab9f',
@@ -40,14 +42,17 @@ interface Params {
 
 const Item = ({ item, items, products, contact } : { item: Item, items: [Item], products: Product[], contact: Contact }) => {
   const { images, variants, category, name } = item
-  const dispatch = useDispatch()
+  console.log(item)
+  const dispatch = useDispatch<AppDispatch>()
   const [activeVariant, setActiveVariant] = useState(item?.variants[0])
   const [activeImage, setActiveImage] = useState(item?.images[0].image)
   const [index, setIndex] = useState(0)
   const [qty, setQty] = useState(1)
-  const [isLoved, setIsLoved] = useState(false)
+  const user = useSelector(selectUser)
+  console.log(user)
+  const [isLoved, setIsLoved] = useState(user.wishlist.filter((wishListedItem: Item) => wishListedItem?.name === item.name).length > 0 ? true : false)
+  console.log(isLoved)
   
-  const itemColors = item.variants.map((variant) => variant.color)
   const itemVariants = item.variants.map((variant) => variant)
   const similarItems = items.filter((item) => item.category.category === category.category && item.name !== name )
 
@@ -56,6 +61,44 @@ const Item = ({ item, items, products, contact } : { item: Item, items: [Item], 
     dispatch(setProducts(products))
     dispatch(setContact(contact))
   }, [products, items, contact])
+
+  useEffect(() => {
+    setActiveVariant(item.variants[0])
+    setActiveImage(activeVariant.image)
+  }, [item])
+
+  const handleWishlistToggle = async () => {
+		if(user._id){
+			const wishlist = user?.wishlist
+
+			const existingItem = wishlist?.filter((wishlistItem: any) => wishlistItem?.name === name)[0]
+		
+			const itemToRemove = [`wishlist[_ref == "${item._id}"]`]
+
+			if(existingItem){
+				setIsLoved(false)
+				dispatch(addItemToWishlist(item))
+				const bResponse = await dispatch(removeFromWishlist(item))
+
+			} else if(!wishlist || !existingItem) {
+				setIsLoved(true)	
+				dispatch(addItemToWishlist(item))
+				const response = await dispatch(addToWishlist(item))
+			}
+
+		} else {
+			dispatch(setToggleAlert({
+				toggle: true,
+				title: 'Please login',
+				content: 'Please login to use the wishlist feature. Would you like to taken to the login page?',
+				option: 'no',
+				secondOption: {
+					href: '/auth',
+					option: 'Log in'
+				}
+			}))
+		}
+	}
 
   const handleVariantChange = (color: Color) => {
     const activeColor = variants?.find((variant: Variant) => variant?.color === color)
@@ -111,7 +154,7 @@ const Item = ({ item, items, products, contact } : { item: Item, items: [Item], 
                 <Wishlist
                   isLoved = {isLoved}
                   setIsLoved = {setIsLoved}
-                  handleToggle = {() => {}}
+                  handleToggle = {handleWishlistToggle}
                 />
               </div>
             </div>

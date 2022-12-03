@@ -5,10 +5,11 @@ import { useRouter } from 'next/router'
 import { Paper, Card } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import { BsArrowLeft } from 'react-icons/bs'
+import emailjs from '@emailjs/browser'
 
 import styles from './Checkout.module.scss'
-import { selectCartItems, selectCartTotal } from '../../redux/cart'
-import { selectUser } from '../../redux/auth'
+import { clearCart, selectCartItems, selectCartTotal } from '../../redux/cart'
+import { selectUser, setUserBillingInfo } from '../../redux/auth'
 import { yocoCharge } from '../../api'
 
 import BillingForm from '../../components/BillingForm/BillingForm'
@@ -19,28 +20,101 @@ import MotionWrapper from '../../wrappers/MotionWrapper'
 import { setToggleAlert } from '../../redux/altert'
 import Loader from '../../components/Loader/Loader'
 
+const INITIAL_STATE = {
+  name: '',
+  surname: '',
+  email: '',
+  phoneNumber: '',
+  city: '',
+  province: '',
+  streetAddress: '',
+  apt: '',
+  zip: '',
+  address: ''
+}
+
+const PROVINCES = [
+	{
+		province: 'Western Cape',
+		fee: 400,
+	},
+	{
+		province: 'Northen Cape',
+		fee: 300,
+	},
+	{
+		province: 'Eastern Cape',
+		fee: 0,
+	},
+	{
+		province: 'Free State',
+		fee: 200,
+	},
+	{
+		province: 'Kwazulu-Natal',
+		fee: 100,
+	},
+	{
+		province: 'Gauteng',
+		fee: 300,
+	},
+	{
+		province: 'Limpopo',
+		fee: 500,
+	},
+	{
+		province: 'Mpumalanga',
+		fee: 600,
+	},
+	{
+		province: 'North West',
+		fee: 100,
+	},
+];
+
 const Checkout = () => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const [activeAddress, setActiveAddress] = useState('')
   const cartTotal = useSelector(selectCartTotal)
   const cartItems = useSelector(selectCartItems)
   const user = useSelector(selectUser)
-  const [billingInformation, setBillingInformation] = useState(user?.billingInfo)
-  const [destinationProvince, setDestinationProvince] = useState({province: '', fee: 0})
+
+  const [billingAddress, setBillingAddress] = useState('')
+  const [differentAddress, setDifferentAddress] = useState('')
+  const [billingInformation, setBillingInformation] = useState(user?.billingInfo || INITIAL_STATE)
+  const [billingProvince, setBillingProvince] = useState({province: '', fee: 0})
+  const [differentProvince, setDifferentProvince] = useState({province: '', fee: 0})
   const [confirmedDestination, setConfirmedDestination] = useState(false)
+  const [useDifferentAddress, setUseDifferentAddress] = useState(false)
+  const [deliveryFee, setDeliveryFee] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    if(useDifferentAddress && differentProvince?.province.length > 0){
+      setDeliveryFee(differentProvince.fee)
+
+    } else if (useDifferentAddress && differentProvince?.province.length === 0){
+      setDeliveryFee(0)
+    } 
+  
+    else if(!useDifferentAddress && billingProvince.province.length > 0){
+      setDeliveryFee(billingProvince.fee)
+    }
+  }, [useDifferentAddress, differentProvince, billingProvince])
+
+  useEffect(() => {
+    console.log(billingInformation)
     if(billingInformation){
-      const { apt, streetAddress, city, province, zip} = billingInformation
+      
       if(billingInformation.streetAddress){
+        const { apt, streetAddress, city, province, zip } = billingInformation
         const address = `${apt && apt} ${streetAddress}, ${city}, ${province}, ${zip}`
-        setActiveAddress(address)
+        setBillingProvince(PROVINCES.filter((province) => province.province === billingInformation.province)[0])
+        setBillingAddress(address)
+        console.log(billingAddress)
       }
     }
   }, [billingInformation])
-
 
 
   const handlePayment = async (amount, deliveryFee) => {
@@ -85,19 +159,20 @@ const Checkout = () => {
       
         } else {
           setIsLoading(true)
-          const response = await yocoCharge((amount+deliveryFee)*100, deliveryFee, result.id, user, items)
-          
-          if(response.error){
+          const { payment, error} = await yocoCharge((amount+deliveryFee)*100, deliveryFee, result.id, user, items)
+
+          if(error){
             setIsLoading(false)
             dispatch(setToggleAlert({
               toggle: true,
               title: 'Something went wrong',
-              content: response.error,
+              content:  error,
               option: 'okay'
             }))
           } else{
             setIsLoading(false)
-            console.log(response)
+            dispatch(clearCart())
+          
             dispatch(setToggleAlert({
               toggle: true,
               title: "Thank you for purchace with Bilo's Bazaar!",
@@ -105,12 +180,33 @@ const Checkout = () => {
               option: 'okay'
             }))
 
-            //emailjs
+            router.push('/')
+
+            const { name, surname, phoneNumber, email, streetAddress, city, province, apt, zip } = billingInformation
+
+            const { date, amount, chargeId } = payment
+ 
+            const data = {
+              name: name,
+              surname: surname,
+              phoneNumber: phoneNumber,
+              email: email,
+              amount: amount,
+              paymentId:  chargeId,
+              date: date,
+              billingAddress: billingAddress,
+              deliveryAddress: differentAddress ? differentAddress : billingAddress,
+              items: Object.values(cartItems).map((item,i) => (
+                `${item.item.name}(${item.variant.color.color})`
+              ))
+            }
+            console.log(data)
+            emailjs.send('service_0dttrnw', 'template_70x0fkk', data, 'LC_QO3GOebggMCv_Z')
+      
           }
         }
       }
     })
-    
   }
 
   return (
@@ -135,26 +231,34 @@ const Checkout = () => {
                 userData = {user}
                 billingInformation = {billingInformation}
                 setBillingInformation = {setBillingInformation}
-                setDestinationProvince = {setDestinationProvince}
+                setBillingProvince = {setBillingProvince}
+                setBillingAddress = {setBillingAddress}
+                setConfirmedDestination = {setConfirmedDestination}
               />
             </Paper>
             <Paper className= {styles.shipping} elevation = {2}>
               <Shipping 
-                activeAddress = {activeAddress}
-                setActiveAddress = {setActiveAddress}
-                destinationProvince = {destinationProvince}
+                billingAddress = {billingAddress}
+                billingProvince = {billingProvince}
+                differentAddress = {differentAddress}
+                useDifferentAddress = {useDifferentAddress}
+                setDifferentAddress = {setDifferentAddress}
                 confirmedDestination = {confirmedDestination}
                 setConfirmedDestination = {setConfirmedDestination}
+                setUseDifferentAddress = {setUseDifferentAddress}
+                setDifferentProvince = {setDifferentProvince}
+                differentProvince = {differentProvince}
               
               />
             </Paper>
           </div>
           <Card className = {styles.orderInfo} elevation = {3}>
             <OrderInfo 
-              deliveryFee={destinationProvince?.fee || 0} 
+              deliveryFee={deliveryFee || 0}
               cartTotal = {cartTotal}
               cartItems = {cartItems}
               handlePayment = {handlePayment}
+              confirmedDestination = {confirmedDestination}
             />
           </Card>
         </div>

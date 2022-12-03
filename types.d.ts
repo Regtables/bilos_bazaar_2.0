@@ -136,6 +136,7 @@ export interface BillingInfo{
 
 export interface Payment{
   _type: string,
+  _createdAt: Date,
   chargeId: string,
   amount: number,
   deliveryFee: number,

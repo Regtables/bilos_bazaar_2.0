@@ -52,6 +52,7 @@ export const googleAuth = createAsyncThunk('auth/googleAuth', async (data: any) 
 })
 
 export const saveBillingInfo = createAsyncThunk('auth/saveBillingInfo', async (data: any) => {
+  console.log(data)
   try{
     const response = await api.saveBillingInfo(data)
 
@@ -99,7 +100,8 @@ const authSlice: Slice = createSlice({
         province: '',
         zip: '',
         apt: '',
-        streetAddress: ''
+        streetAddress: '',
+        address: ''
       },
       wishlist: [],
       payments: []
@@ -121,10 +123,10 @@ const authSlice: Slice = createSlice({
       if(wishlist === null){
         state.user.wishlist = [action.payload]
       } else if(wishlist !== null){
-        const containsItem = wishlist.filter((item: Item) => item._id === action.payload._id)[0]
+        const containsItem = wishlist.filter((item: Item) => item?._id === action.payload._id)[0]
 
         if(containsItem){
-          const newWishlist = wishlist.filter((item: Item) => item._id !== action.payload._id)
+          const newWishlist = wishlist.filter((item: Item) => item?._id !== action.payload._id)
           state.user.wishlist = newWishlist
 
         } else{

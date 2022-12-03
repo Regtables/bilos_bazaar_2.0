@@ -12,6 +12,10 @@
   // padding: 1rem;
   background-color: #F6F6F6;
   border-radius: 20px;
+
+  @media screen and (max-width:450px) {
+    width: 90%;
+  }
 }
 
 .header{
@@ -38,6 +42,7 @@
 .totals{
   background-color: rgb(217, 232, 243);
   padding: 1rem;
+  border-radius: 20px;
 
   div{
     display: flex;
@@ -64,6 +69,11 @@
     margin-bottom: 0;
     font-size: 16px;
     font-weight: 700;
+  }
+
+  .deliveryFee{
+    padding-bottom: 1rem;
+    border-bottom: 1px solid black;
   }
 
   .total{

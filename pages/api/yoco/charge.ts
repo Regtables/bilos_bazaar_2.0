@@ -32,6 +32,7 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
 
           const payment = {
             _type: 'payment',
+            _createdAt: date,
             amount: res.data.amountInCents / 100,
             deliveryFee: deliveryFee,
             chargeId: res.data.chargeId,

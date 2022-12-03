@@ -27,9 +27,7 @@ const MobileNavbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false)
   const [animateMenu, setAnimateMenu] = useState({})
   const [activeItem, setActiveItem] = useState('')
-
-  console.log(activeItem)
-
+  
   useEffect(() => {
     handleClose()
   }, [router])

@@ -89,12 +89,18 @@
 
 .icons{
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+  align-items: center;
 
   svg{
     color: white;
     cursor: pointer;
   }
+}
+
+.searchBar{
+  flex: 1.2;
+  transform: translateY(-100px);
 }
 
 .socials{
@@ -240,10 +246,10 @@
 
 }
 
-.searchbar{
-  position: absolute;
-  // width: 20%;
-  left: -300%;
-  bottom: 1px;
-  width: 280px;
-}
+// .searchbar{
+//   position: absolute;
+//   // width: 20%;
+//   left: -300%;
+//   bottom: 1px;
+//   width: 280px;
+// }

@@ -53,9 +53,12 @@ export const fetchUser = async (id) => {
 };
 
 export const saveBillingInfo = async (data) => {
+	console.log('test')
+	console.log(data)
 	if (localStorage.getItem('biloToken')) {
 		const token = JSON.parse(localStorage.getItem('biloToken'));
 
+		console.log('saving')
 		const response = await fetch('/api/user/saveBillingInfo', {
 			method: 'POST',
 			body: JSON.stringify(data),

@@ -33,7 +33,22 @@
       text-transform: capitalize;
     }
   }
+  @media screen and (max-width: 450px) {
+    .category, .color{
+      p{
+        margin: 0;
+        font-size: 9px;
+        text-transform: capitalize;
+      }
 
+    }
+    .name{
+      h4{
+        margin: 0.5rem 0;
+        font-size: 12px;
+      }
+    }
+  }
 }
 
 .itemTotals{
@@ -48,4 +63,20 @@
   }
 
 
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    p{
+      margin: 0.5rem;
+      font-size: 10px;
+    }
+
+    .total{
+      h5{
+        margin-top: 0.5rem;
+        font-size: 12px;
+      }
+    }
+  }
 }

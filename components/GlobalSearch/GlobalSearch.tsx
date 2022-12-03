@@ -8,7 +8,7 @@ import { Category, Item, Product } from '../../types'
 
 import styles from './GlobalSearch.module.scss'
 
-const GlobalSearch = () => {
+const   GlobalSearch = () => {
   const [term, setTerm] = useState('')
   const [itemResults, setItemResults] = useState<Item[]>([])
   const [categoryResults, setCategoryResults] = useState <Category[]>([])
@@ -76,7 +76,7 @@ const GlobalSearch = () => {
             <div className= {styles.items}>
               {itemResults.map((item: Item, i) => (
                 <div className = {styles.item} key = {i} onClick = {() => handleItemClick(item)}>
-                    <p>{item.name}</p>
+                  <p>{item.name}</p>
                 </div>
               ))}
             </div>

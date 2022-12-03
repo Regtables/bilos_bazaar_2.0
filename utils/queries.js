@@ -72,6 +72,7 @@ export const featuredItemsQuery = () => {
 
 export const itemQuery = (slug) => {
   const query = `*[_type == "item" && slug.current == "${slug}"]{
+    _id,
     category->,
     name,
     price,

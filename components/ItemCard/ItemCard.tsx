@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { motion } from 'framer-motion';
@@ -37,6 +37,11 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const [activeVariant, setActiveVariant] = useState(item?.variants[0])
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
+	const [animateImage, setAnimateImage] = useState({})
+
+	useEffect(() => {
+		setActiveVariant(item.variants[0])
+	}, [item])
 
 
 	const handleWishlistToggle = async () => {
@@ -73,7 +78,15 @@ const ItemCard = ({ item }: { item: Item }) => {
 	}
 
 	const handleVariantChange = (variant: Variant) => {
-		setActiveVariant(variant)
+		setAnimateImage({opacity: 0.2})
+		
+		setTimeout(() => {
+			setActiveVariant(variant)
+		}, 200);
+
+		setTimeout(() => {
+			setAnimateImage({opacity: 1})
+		}, 300);
 	}
 
 	const incQty = () => {	
@@ -115,12 +128,12 @@ const ItemCard = ({ item }: { item: Item }) => {
 				<div className={styles.overlay} />
 
 				<div className={styles.image}>
-					<div className= {styles.imageContainer}>
+					<motion.div className= {styles.imageContainer} animate = {animateImage}>
 						<SlideShowImage
 							image={activeVariant.image}
 							priority = {false}
 						/>
-					</div>
+					</motion.div>
 					<div className= {styles.wishlist}>
 						<Wishlist
 							isLoved = {isLoved}
@@ -170,7 +183,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 						<ColorSelect 
 							variants={variants}
 							activeVariant = {activeVariant}
-							setActiveVariant = {setActiveVariant}
+							setActiveVariant = {handleVariantChange}
 							size = {22}
 							setIndex = {false}
 						/>

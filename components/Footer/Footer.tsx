@@ -1,12 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
 import { BsInstagram, BsTelephone } from 'react-icons/bs';
 import { AiOutlineMail } from 'react-icons/ai';
 import { GoLocation } from 'react-icons/go'
 import { FaFacebookF, FaQuestion } from 'react-icons/fa';
 
 import styles from './Footer.module.scss';
+import { selectContact } from '../../redux/info';
 
 const SHOP = {
   section: 'shop',
@@ -64,6 +66,7 @@ const CONTACT = {
 };
 
 const Section = ({ section, links }: { section: string; links: any[] }) => {
+	const { phoneNumber, email, address } = useSelector(selectContact)
 	return (
 		<div className={styles.section}>
 			<div className={styles.heading}>
@@ -71,18 +74,18 @@ const Section = ({ section, links }: { section: string; links: any[] }) => {
 			</div>
 			<div className={styles.links}>
 				{links.map((link, i) => (
+					<Link href={`${link.slug}`}>
           <div 
 						key = {i}
 						className = {styles.link}
 						style = { link.icon ? { display: 'flex', alignItems: 'center'} : {display: 'block'}}
 					>
-            <Link href={`$${link.slug}`}>
 							<>
 								{link.icon && link.icon}
 								<p style = {link.icon ? {margin: '0'} : {margin: ''}}>{link.link}</p>
 							</>
-            </Link>
           </div>
+        	</Link>
 				))}
 			</div>
 		</div>

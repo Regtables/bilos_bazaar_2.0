@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { AiFillLeftCircle, AiFillRightCircle } from 'react-icons/ai'
-import { Button } from '@mui/material'
+import { motion } from 'framer-motion'
 
 import styles from './ImageCarousel.module.scss'
 import SlideShowImage from '../SlideShowImage/SlideShowImage'
@@ -17,9 +17,18 @@ interface itemImage {
 
 
 const ImageCarousel = ({ variants, activeVariant, activeImage, setActiveImage, index, setIndex } : { variants: Variant[], activeImage: any, setActiveImage: any, index: number, setIndex: any, activeVariant: Variant }) => {
+  const [animateActiveImage, setAnimateActiveImage] = useState({})
 
   useEffect(() => {
-    setActiveImage(variants[index].image)
+    setAnimateActiveImage({opacity: 0.2})
+
+    setTimeout(() => {
+      setActiveImage(variants[index].image)
+    }, 200);
+
+    setTimeout(() => {
+      setAnimateActiveImage({opacity: 1})
+    }, 300);
   }, [index])
 
   useEffect(() => {
@@ -50,7 +59,9 @@ const ImageCarousel = ({ variants, activeVariant, activeImage, setActiveImage, i
   return (
     <div className= {styles.container}>
       <div className= {styles.activeImage}>
-        <SlideShowImage image = {activeImage} priority />
+        <motion.div className = {styles.activeImage_wrapper} animate = {animateActiveImage} transition = {{duration: 0.3}}>
+          <SlideShowImage image = {activeImage} priority />
+        </motion.div>
         <div className= {styles.back} onClick = {handleBack}>
           {/* <Button> */}
             <AiFillLeftCircle />

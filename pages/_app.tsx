@@ -12,6 +12,7 @@ import Cart from '../components/Cart/Cart'
 import DetailedCart from '../components/DetailedCart/DetailedCart'
 import Alert from '../components/Alert/Alert'
 import MobileNavbar from '../components/MobileNavbar/MobileNavbar'
+import ViewCart from '../components/ViewCart/ViewCart'
 
 function MyApp({ Component, pageProps, }: { Component: any, pageProps: AppProps, props: any }) {
   return (
@@ -20,6 +21,7 @@ function MyApp({ Component, pageProps, }: { Component: any, pageProps: AppProps,
         <div>
         <Alert />
         <Cart />
+        <ViewCart />
         {/* <DetailedCart /> */}
           <nav>
             <Navbar />

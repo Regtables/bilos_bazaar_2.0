@@ -26,6 +26,7 @@ const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [toggleSearch, setToggleSearch] = useState(false)
   const [animateArrow, setAnimateArrow] = useState({})
+  const [animateSearch, setAnimateSearch] = useState({})
   const [animateDropDown, setAnimateDropDown] = useState({})
 
   const toggleHover = (link: any) => {
@@ -40,7 +41,14 @@ const Navbar = () => {
   }
 
   const handleToggleSearch = () => {
-    setToggleSearch((prev) => !prev)
+    if(toggleSearch){
+      setToggleSearch(false)
+      setAnimateSearch({y: '-100px', opacity: 0})
+
+    } else {
+      setToggleSearch(true)
+      setAnimateSearch({y: '0px', opacity: 1})
+    }
   }
 
   const handleLinkClick = (link: Product) => {
@@ -78,12 +86,20 @@ const Navbar = () => {
               <a><AiOutlineInstagram /></a>
               <a><FaFacebookF /></a>
             </div>
+            <motion.div 
+              className = {styles.searchBar} 
+              animate = {animateSearch} 
+              initial = {{y:'-100px', opacity: 0}}
+              transition = {{duration: 0.5}}
+            >
+              <GlobalSearch />
+            </motion.div>
             <div className= {styles.website}>
-              <div className= {styles.searchbar}>
+              {/* <div className= {styles.searchbar}>
                 {toggleSearch && (
                   <GlobalSearch />
                 )}
-              </div>
+              </div> */}
               <div className= {styles.search}>
                 <div className = {styles.bar}>
                   <div className= {styles.icon} onClick = {handleToggleSearch}>
