@@ -260,7 +260,7 @@ const BillingForm = ({
 						required={true}
 					/>
 
-					<Grid item sm={6}>
+					<Grid item sm={6} xs = {12}>
 						<FormControl fullWidth>
 							<InputLabel id='province'>Province</InputLabel>
 							<Select
@@ -304,7 +304,7 @@ const BillingForm = ({
 					/>
 					<Grid item sm={6}>
 						<Grid container spacing={2}>
-							<Grid item sm={6}>
+							<Grid item sm={6} xs = {6}>
 								<Input
 									name='apt'
 									label='Apartment Number'
@@ -317,7 +317,7 @@ const BillingForm = ({
 									handleShowPassword={false}
 								/>
 							</Grid>
-							<Grid item sm={6}>
+							<Grid item sm={6} xs = {6}>
 								<Input
 									name='zip'
 									label='zip code'
@@ -332,7 +332,7 @@ const BillingForm = ({
 							</Grid>
 						</Grid>
 					</Grid>
-					<Grid item>
+					<Grid item xs = {12}>
 						<div className={styles.save}>
 							<Button
 								variant='contained'

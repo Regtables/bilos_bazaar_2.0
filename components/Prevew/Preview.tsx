@@ -151,7 +151,7 @@ const Preview = ({
           </div>
 
           <div className= {styles.buyNow}>
-            <BuyNow />
+            <BuyNow item = {item} activeVariant = {activeVariant}/>
           </div>
         </div>
       </motion.div>

@@ -6,6 +6,7 @@
   // background-color: aliceblue;
   // background: linear-gradient(360deg, #d1dbe250, #eef6f8);
   background-color: rgb(230, 238, 246);
+  margin-bottom: 2rem;
 
   @media screen and (max-width: 450px) {
    min-height: 100vh;
@@ -62,7 +63,8 @@
     }
 
     .search{
-      width: 30%;
+      width: 100%;
+      margin-bottom: 0.5rem;
     }
   }
 }

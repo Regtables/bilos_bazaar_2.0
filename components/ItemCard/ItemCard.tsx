@@ -43,7 +43,6 @@ const ItemCard = ({ item }: { item: Item }) => {
 		setActiveVariant(item.variants[0])
 	}, [item])
 
-
 	const handleWishlistToggle = async () => {
 		if(user._id){
 			const wishlist = user?.wishlist

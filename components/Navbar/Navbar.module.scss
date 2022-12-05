@@ -104,7 +104,11 @@
 }
 
 .socials{
-  svg{
+  display: flex;
+
+  .social{
+    width: 17px;
+    height: 17px;
     margin-right: 1rem;
   }
 }

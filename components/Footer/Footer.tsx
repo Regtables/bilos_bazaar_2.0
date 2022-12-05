@@ -9,6 +9,8 @@ import { FaFacebookF, FaQuestion } from 'react-icons/fa';
 
 import styles from './Footer.module.scss';
 import { selectContact } from '../../redux/info';
+import Facebook from '../Icons/Facebook/Facebook';
+import Instagram from '../Icons/Instagram/Instagram';
 
 const SHOP = {
   section: 'shop',
@@ -67,6 +69,7 @@ const CONTACT = {
 
 const Section = ({ section, links }: { section: string; links: any[] }) => {
 	const { phoneNumber, email, address } = useSelector(selectContact)
+	console.log(links)
 	return (
 		<div className={styles.section}>
 			<div className={styles.heading}>
@@ -75,15 +78,15 @@ const Section = ({ section, links }: { section: string; links: any[] }) => {
 			<div className={styles.links}>
 				{links.map((link, i) => (
 					<Link href={`${link.slug}`} key = {i}>
-          <div 
-						className = {styles.link}
-						style = { link.icon ? { display: 'flex', alignItems: 'center'} : {display: 'block'}}
-					>
-							<>
-								{link.icon && link.icon}
-								<p style = {link.icon ? {margin: '0'} : {margin: ''}}>{link.link}</p>
-							</>
-          </div>
+						<div 
+							className = {styles.link}
+							style = { link.icon ? { display: 'flex', alignItems: 'center'} : {display: 'block'}}
+						>
+								<>
+									{link.icon && link.icon}
+									<p style = {link.icon ? {margin: '0'} : {margin: ''}}>{link.link}</p>
+								</>
+						</div>
         	</Link>
 				))}
 			</div>
@@ -121,8 +124,12 @@ const Footer = () => {
 					<div className={styles.socials}>
 						<h3>stay connected</h3>
 						<div className={styles.icons}>
-							<BsInstagram />
-							<FaFacebookF />
+							<div className= {styles.icon}>
+								<Instagram />
+							</div>
+							<div className = {styles.icon}>
+								<Facebook />
+							</div>
 						</div>
 					</div>
 				</div>

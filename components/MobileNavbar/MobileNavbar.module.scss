@@ -11,10 +11,11 @@
 
 .icons{
   display: flex;
+  align-items: center;
 
   svg{
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
     color: white;
     margin-right: 1rem;
   }
@@ -73,12 +74,13 @@
     font-family: var(--font-family);
     color: white;
     font-weight: 300;
+    font-weight: 14px;
   }
 
   .image{
     position: relative;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     margin: 0 0.4rem;
   }
 }
@@ -194,11 +196,35 @@
   }
 }
 
-.contact{
-  margin-top: 1rem;
-  background-color: rgb(217, 232, 243);
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  font-family: var(--font-family);
-  text-transform: capitalize;
+// .contact{
+//   margin-top: 1rem;
+//   background-color: rgb(217, 232, 243);
+//   padding: 0.5rem 1rem;
+//   border-radius: 10px;
+//   font-family: var(--font-family);
+//   text-transform: capitalize;
+// }
+
+.socials{
+  margin-top: 2rem;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  // text-align: center;
+  h3{
+    width: auto;
+    font-size: 20px;
+    font-family: var(--font-family);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+  }
+
+  .icons{
+    display: flex;
+
+    svg{
+      color: var(--color-primary);
+      margin-right: 1rem;
+    }
+  }
 }

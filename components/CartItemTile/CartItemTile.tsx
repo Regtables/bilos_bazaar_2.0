@@ -15,7 +15,7 @@ import Quantity from '../Quantity/Quantity'
 const CartItemTile = ({ item } : { item: CartItem }) => {
   const { 
     variant: { image, color }, 
-    item: { name, price },
+    item: { name, price, category },
     qty
   } = item;
   const dispatch = useDispatch()
@@ -53,7 +53,7 @@ const CartItemTile = ({ item } : { item: CartItem }) => {
         <div className= {styles.infoAndCat}>
           <div className= {styles.itemInfo}>
             <div className = {styles.category}>
-              <p>category</p>
+              <p>{category.category}</p>
             </div>
             <div className = {styles.name}>
               <h4>{name}</h4>

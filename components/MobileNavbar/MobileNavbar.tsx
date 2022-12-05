@@ -16,6 +16,9 @@ import { selectUser } from '../../redux/auth'
 import { selectTotalCartItems, toggleCart } from '../../redux/cart'
 import { selectProducts, setActiveCategory } from '../../redux/items'
 import { Category, Product } from '../../types'
+import GlobalSearch from '../GlobalSearch/GlobalSearch'
+import Facebook from '../Icons/Facebook/Facebook'
+import Instagram from '../Icons/Instagram/Instagram'
 
 
 const MobileNavbar = () => {
@@ -68,14 +71,14 @@ const MobileNavbar = () => {
         </div>
         <Link href = {user?._id ? `/user/${user._id}` : `/auth`}>
           <div className= {styles.user_icon}>
-            <FaUser />
+            <FaUser height={20} width = {20} />
             {user?._id && (
               <div className = {styles.logged_in}/>
             )}
           </div>
         </Link>
         <div className= {styles.bag_icon} onClick = {() => dispatch(toggleCart(true))}>
-          <BsBagFill />
+          <BsBagFill height={20} width = {20} />
           <div className = {styles.bag_item_count}>
             <p>{totalBagItems}</p>
           </div>
@@ -115,7 +118,7 @@ const MobileNavbar = () => {
           </div>
           <div className= {styles.content}>
             <div className = {styles.search}>
-              Search
+             <GlobalSearch />
             </div>
 
             <div className = {styles.links}>
@@ -161,13 +164,20 @@ const MobileNavbar = () => {
                 </div>
               </Link>
             </div>
-{/*           
-            <div className = {styles.contact}>
-              <h3>Get in touch</h3>
-              <h5>Phone</h5>
-              <h5>email</h5>
-              <h5>address</h5>
-            </div> */}
+          
+            <div className = {styles.socials}>
+              {/* <h3>Connect with us</h3> */}
+              <div className = {styles.icons}>
+                <div className= {styles.icon}>
+                  <Facebook />
+                </div>
+                <div className = {styles.icon}>
+                  <Instagram />
+                </div>
+              </div>
+              {/* <h5>email</h5>
+              <h5>address</h5> */}
+            </div>
           </div>
         </motion.div>
       )}

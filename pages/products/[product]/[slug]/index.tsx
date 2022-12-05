@@ -190,7 +190,7 @@ const Item = ({ item, items, products, contact } : { item: Item, items: [Item], 
                 </div>
               </div>
               <div className= {styles.buy}>
-                <BuyNow />
+                <BuyNow item = {item} activeVariant = {activeVariant} />
               </div>
             </div>
           </div>

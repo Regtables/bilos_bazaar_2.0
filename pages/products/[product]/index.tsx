@@ -113,17 +113,19 @@ const Product = ({ product, items, products, contact, allItems, head } : { produ
                 <div className = {styles.heading}>
                   <h1>{name}</h1>
                 </div>
-                <div className = {styles.search}>
-                  <Search
-                    term = {searchTerm}
-                    setTerm = {setSearchTerm}
-                  />
-                </div>
-                <div className= {styles.sort}>
-                  <Sort
-                    sortOrder= {sortOrder}
-                    setSortOrder = {setSortOrder}
-                  />
+                <div className = {styles.search_sort}>
+                  <div className = {styles.search}>
+                    <Search
+                      term = {searchTerm}
+                      setTerm = {setSearchTerm}
+                    />
+                  </div>
+                  <div className= {styles.sort}>
+                    <Sort
+                      sortOrder= {sortOrder}
+                      setSortOrder = {setSortOrder}
+                    />
+                  </div>
                 </div>
                 {/* <div className= {styles.search}>
                   <TextField 

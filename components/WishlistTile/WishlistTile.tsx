@@ -24,6 +24,7 @@ const WishlistTile = ({ item }: { item: Item }) => {
 
   const handleRemove = async () => {
     dispatch(addItemToWishlist(item))
+    
     const bResponse = await dispatch(removeFromWishlist(item))
   }
 

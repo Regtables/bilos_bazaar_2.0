@@ -51,8 +51,8 @@
   // padding-left: 1rem;
 
   p{
-    margin: 0.3rem 0;
-    font-weight: 100;
+    margin: 0.5rem 0;
+    font-weight: 500;
     color: gray
   }
 
@@ -67,7 +67,7 @@
 
     @media screen and (max-width: 450px) {
       font-size: 12px;
-      margin: 0.3rem 0;
+      margin: 0.2rem 0;
     }
   }
 }
@@ -76,6 +76,10 @@
   min-height: 55px;
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 450px) {
+    min-height: 40px;
+  }
 }
 
 .qty{
