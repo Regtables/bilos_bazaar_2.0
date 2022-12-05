@@ -65,7 +65,6 @@ const   GlobalSearch = () => {
         value = {term}
         onChange = {(e) => setTerm(e.target.value)}
         placeholder = 'What are you looking for?'
-        autoFocus
       />
       {(itemResults.length > 0 || categoryResults.length > 0 )&& (
         <div className= {styles.results}>

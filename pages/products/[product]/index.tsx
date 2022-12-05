@@ -36,7 +36,7 @@ const Product = ({ product, items, products, contact, allItems, head } : { produ
 
   useEffect(() => {
     setFilteredItems(items)
-  }, [product, items])
+  }, [product, items, sortOrder])
 
   useEffect(() => {
     setAnimateItems({opacity: 0})
@@ -59,7 +59,7 @@ const Product = ({ product, items, products, contact, allItems, head } : { produ
   }, [activeCategory, items])
 
   useEffect(() => {
-    setFilteredItems((items.filter((item) => item.name.includes(searchTerm))))
+    setFilteredItems((items.filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()) || item.category.category.toLowerCase().includes(searchTerm.toLowerCase()))))
   }, [searchTerm, items])
 
   useEffect(() => {

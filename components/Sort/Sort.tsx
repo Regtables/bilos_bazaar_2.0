@@ -29,8 +29,8 @@ const SortButton = ({order, handleClick, icon} : {order: string, handleClick: an
 const Sort = ({sortOrder, setSortOrder} : {sortOrder: string, setSortOrder: any}) => {
   const [toggle, setToggle] = useState(false)
   return (
-    <div className= {styles.container}>
-      <div onClick={() => setToggle((prev) => !prev) }>Sort</div>
+    <div className= {styles.container} onClick={() => setToggle((prev) => !prev)}>
+      <div >Sort</div>
       {toggle && (
         <div className= {styles.options}>
           <SortButton 

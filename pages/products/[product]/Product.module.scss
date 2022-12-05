@@ -47,19 +47,31 @@
       font-size: 42px;
     }
   }
+
+  .search_sort{
+    display: flex;
+    flex: 0.7;
+    justify-content: space-between;
+  }
   
   .search{
     // margin-top: 12px;
-    width: 50%;
+    width: 60%;
   }
 
   @media screen and (max-width: 450px) {
     .heading{
-      flex: 0.2;
+      flex: 0.5;
       padding: 0.5rem 0;
       h1{
         font-size: 32px;
       }
+    }
+
+    .search_sort{
+      flex: 0.7;
+      flex-direction: column;
+      padding: 0rem 0 0.5rem 0;
     }
 
     .search{
