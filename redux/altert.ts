@@ -7,7 +7,8 @@ const alertSlice = createSlice({
     title: '',
     content: '',
     option: {},
-    secondOption: {}
+    secondOption: {},
+    confirmed: false
   },
   reducers: {
     setToggleAlert: (state, action) => {
@@ -17,12 +18,17 @@ const alertSlice = createSlice({
       state.content = content
       state.option = option 
       state.secondOption = secondOption
+    },
+    setConfirmed: (state, action) => {
+      console.log(action.payload)
+      state.confirmed = action.payload
     }
   }
 })
 
-export const { setToggleAlert } = alertSlice.actions
+export const { setToggleAlert, setConfirmed } = alertSlice.actions
 
 export const selectAlert = (state: any) => state.alert 
+export const selectConfirmed = (state: any) => state.alert.confirmed
 
 export default alertSlice.reducer

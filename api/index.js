@@ -53,8 +53,6 @@ export const fetchUser = async (id) => {
 };
 
 export const saveBillingInfo = async (data) => {
-	console.log('test')
-	console.log(data)
 	if (localStorage.getItem('biloToken')) {
 		const token = JSON.parse(localStorage.getItem('biloToken'));
 
@@ -73,6 +71,25 @@ export const saveBillingInfo = async (data) => {
 		return billingInfo;
 	}
 };
+
+export const deleteUser = async () => {
+	if(localStorage.getItem('biloToken')){
+		const token = JSON.parse(localStorage.getItem('biloToken'));
+
+		const response = await fetch('/api/user/deleteUser', {
+			method: 'POST',
+			// body: JSON.stringify(id),
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			}
+		})
+
+		const data = await response.json()
+		console.log(data)
+		return data
+	}
+}
 
 export const addToWishlist = async (item) => {
 	console.log(item);
@@ -127,3 +144,4 @@ export const yocoCharge = async (amount, deliveryFee, token, user = null, items)
 
 	return data
 };
+

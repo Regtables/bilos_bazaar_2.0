@@ -85,6 +85,16 @@ export const removeFromWishlist = createAsyncThunk('auth/removeFromWishlist', as
   }
 })
 
+export const deleteUser = createAsyncThunk('auth/deleteProfile', async () => {
+  try{
+    const data = await api.deleteUser()
+
+    return data
+  } catch (error) {
+
+  }
+})
+
 const authSlice: Slice = createSlice({
   name: 'auth',
   initialState: {
@@ -221,6 +231,21 @@ const authSlice: Slice = createSlice({
         state.user = action.payload 
       })
       .addCase(saveBillingInfo.rejected, (state) => {
+        state.isLoading = false
+        state.hasError = true
+      })
+      
+      //deleteUser
+      .addCase(deleteUser.pending, (state) => {
+        state.isLoading = true
+        state.hasError = false
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.user = {}
+        state.hasError = false
+      })
+      .addCase(deleteUser.rejected, (state) => {
         state.isLoading = false
         state.hasError = true
       })

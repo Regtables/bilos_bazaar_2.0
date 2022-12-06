@@ -9,7 +9,7 @@ import { MdPayment } from 'react-icons/md'
 import { AiFillHeart } from 'react-icons/ai'
 import { motion } from 'framer-motion'
 
-import { fetchUser, selectUser, isLoadingUser, logout, setUser } from '../../../redux/auth'
+import { fetchUser, selectUser, isLoadingUser, logout, setUser, deleteUser } from '../../../redux/auth'
 import styles from './User.module.scss'
 
 import ProfileBanner from '../../../components/ProfileBanner/ProfileBanner'
@@ -19,6 +19,7 @@ import Loader from '../../../components/Loader/Loader'
 import PaymentCard from '../../../components/PaymentCard/PaymentCard'
 import { Item, Payment } from '../../../types'
 import WishlistTile from '../../../components/WishlistTile/WishlistTile'
+import { selectConfirmed, setConfirmed, setToggleAlert } from '../../../redux/altert'
 
 const user = {
   _type: 'user',
@@ -54,6 +55,7 @@ const User = () => {
   const userInfo = useSelector(selectUser)
   const [payments, setPayments] = useState<Payment[]>(userInfo.payments)
   const isLoading = useSelector(isLoadingUser)
+  const alertConfirmed = useSelector(selectConfirmed)
   const [animateMain, setAnimateMain] = useState({})
 
   const { id } = router.query
@@ -74,6 +76,15 @@ const User = () => {
     setPayments(sortedPayments)
   }, [userInfo])
 
+  useEffect(() => {
+    console.log('test')
+    if(alertConfirmed === true){
+      handleDelete()
+    } else{
+      console.log('declined')
+    }
+  }, [alertConfirmed])
+
   const handleLogout = () => {
     dispatch(setUser({}))
     logout(dispatch)
@@ -87,6 +98,46 @@ const User = () => {
     setTimeout(() => {
       setAnimateMain({y: [50, 0], opacity: 1})
     }, 300);
+  }
+
+  const handleDeleteClick = async () => {
+    console.log('deleting')
+    dispatch(setToggleAlert({
+      toggle: true,
+      title: 'Deleting Profile',
+      content: 'Are you sure you would like to delete your profile?',
+      option: 'no',
+      secondOption: {
+        option: 'yes'
+      }
+    }))
+  }
+
+  const handleDelete = async () => {
+    const response = await dispatch(deleteUser())
+      .then((res: any) => {
+        if(res.payload.error){
+          const { error } = res.payload
+          dispatch(setToggleAlert({
+            toggle: true,
+            title: 'An Error has occurred',
+            content: error,
+            option: 'okay'
+          }))
+        } else {
+          const { title, content } = res.payload
+          router.push('/')
+          dispatch(setConfirmed(false))
+          dispatch(setToggleAlert({
+            toggle: true,
+            title: title,
+            content: content,
+            option: 'okay'
+          }))
+        }
+      })
+
+    console.log(response)
   }
 
   const renderSection = () => {
@@ -104,7 +155,22 @@ const User = () => {
             setConfirmedDestination = {() => {}}
           />
           <div className= {styles.delete}>
-            <Button variant='contained' type = 'submit'>Delete Profile</Button>
+            <Button 
+              variant='contained' 
+              type = 'submit'
+              onClick = {handleDeleteClick}
+              sx = {{
+                backgroundColor: 'red',
+                border: '2px solid red',
+
+                "&:hover": {
+                  backgroundColor: 'white',
+                  color: 'red'
+                }
+              }}
+            >
+              Delete Profile
+            </Button>
           </div>
         </>
       )

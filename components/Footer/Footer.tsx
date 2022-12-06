@@ -2,15 +2,18 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { BsInstagram, BsTelephone } from 'react-icons/bs';
-import { AiOutlineMail } from 'react-icons/ai';
+import { BsInstagram, BsTelephoneFill } from 'react-icons/bs';
+import { AiFillMail, AiOutlineMail, AiTwotoneFileExclamation } from 'react-icons/ai';
 import { GoLocation } from 'react-icons/go'
 import { FaFacebookF, FaQuestion } from 'react-icons/fa';
+import { Grid } from '@mui/material';
 
 import styles from './Footer.module.scss';
 import { selectContact } from '../../redux/info';
 import Facebook from '../Icons/Facebook/Facebook';
 import Instagram from '../Icons/Instagram/Instagram';
+import { selectProducts } from '../../redux/items';
+import { Product } from '../../types';
 
 const SHOP = {
   section: 'shop',
@@ -53,7 +56,7 @@ const CONTACT = {
     },
 		{
 			link: '0123456789',
-			icon: <BsTelephone />
+			// icon: <BsTelephone />
 		},
 		{
 			link: 'bilosbazaar@gmail.com',
@@ -95,6 +98,8 @@ const Section = ({ section, links }: { section: string; links: any[] }) => {
 };
 
 const Footer = () => {
+	const products = useSelector(selectProducts)
+	const { address, email, phoneNumber }= useSelector(selectContact)
 	return (
 		<div className={styles.container}>
 			<div className={styles.content}>
@@ -135,37 +140,94 @@ const Footer = () => {
 				</div>
 
 				<div className={styles.right}>
-          <div className = {styles.sections}>
-            <Section 
-              section= {SHOP.section}
-              links = {SHOP.links}
-            />
-            <Section 
-              section= {COMPLIANCE.section}
-              links = {COMPLIANCE.links}
-            />
-            <Section 
-              section= {CONTACT.section}
-              links = {CONTACT.links}
-            />
-          </div>
-          <div className = {styles.yoco}>
-            <h5>Powered and secured by</h5>
-            <Image 
-              src = {'/yoco.svg'}
-              height = {30}
-              width = {100}
-							alt = 'yoco logo'
-            />
-          </div>
-				</div>
+          <Grid container className = {styles.sections} spacing = {2} justifyContent = 'center'>
+						<Grid item sm = {4} xs = {6}>
+							<div className= {styles.section}>
+								<Grid item sm = {12} xs = {12}>
+									<div className = {styles.heading}>
+										<h4>Shop</h4>
+									</div>
+								</Grid>
+								<Grid container className = {styles.links} spacing = {1}>
+									{products.map((product: Product, i: number) => (
+										<Grid item sm = {12} key = {i} xs= {12}>
+											<Link href = {`/products/${product.slug.current}`}>
+												<div className= {styles.link}>
+													<p>{product.product}</p>
+												</div>
+											</Link>
+										</Grid>
+									))}
+								</Grid>
+							</div>
+						</Grid>
+						
+						<Grid item sm = {4} xs= {6}>
+								<div className= {styles.section}>
+									<Grid item sm = {12} xs = {12}>
+										<div className= {styles.heading}>
+											<h4>Complaince</h4>
+										</div>
+									</Grid>
+									<Grid container spacing = {1}>
+										{COMPLIANCE.links.map((item, i) => (
+											<Grid item sm = {12} xs = {12} key = {i}>
+												<Link href = {item.slug}>
+													<div className = {styles.link}>
+														<p>{item.link}</p>
+													</div>
+												</Link>
+											</Grid>
+										))}
+									</Grid>
+								</div>
+						</Grid>
+
+						<Grid item sm = {4} xs = {6} className = {styles.section}>
+							<div className= {styles.heading}>
+								<h4>Contact</h4>
+							</div>
+							<Grid container className= {styles.links} spacing = {1}>
+								<Grid item sm = {12} xs = {12}>
+									<div className= {styles.link}>
+										<p><FaQuestion />FAQ</p>
+									</div>
+								</Grid>
+								<Grid item sm = {12} xs = {12}>
+									<div className= {styles.link}>
+										<p><BsTelephoneFill />{phoneNumber}</p>
+									</div>
+								</Grid>
+								<Grid item sm = {12} xs = {12}>
+									<div className= {styles.link}>
+										<p><AiFillMail />{email}</p>
+									</div>
+								</Grid>
+								<Grid item sm = {12} xs = {12}>
+									<div className= {styles.link}>
+										<p><GoLocation />{address}</p>
+									</div>
+								</Grid>
+							</Grid>
+						</Grid>
+					</Grid>
+					<div className= {styles.section}>
+						<div className = {styles.yoco}>
+							<h5>Powered and secured by</h5>
+							<Image 
+								src = {'/yoco.svg'}
+								height = {30}
+								width = {100}
+								alt = 'yoco logo'
+							/>
+						</div>
+					</div>
 			</div>
-
-
+		</div>
 			<div className={styles.copyright}>
         <p>© 2022 BILOS BAZAAR. All Rights Reserved.</p>
       </div>
-		</div>
+	</div>
 	);
 };
 

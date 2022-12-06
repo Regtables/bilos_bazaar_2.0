@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import styles from './Alert.module.scss'
-import { selectAlert, setToggleAlert } from '../../redux/altert'
+import { selectAlert, setConfirmed, setToggleAlert } from '../../redux/altert'
 
 const ConfirmButton = ({text, handleClick} : {text:string, handleClick: any}) => {
  return (
@@ -35,7 +35,10 @@ const Alert = () => {
   const { toggleAlert, title, content, option, secondOption } = useSelector(selectAlert)
 
   const handleSecondOption = () => {
-    router.push(`${secondOption.href}`)
+    dispatch(setConfirmed(true))
+    if(secondOption.href){
+      router.push(`${secondOption.href}`)
+    }
     dispatch(setToggleAlert({
       toggleAlert: false
     }))
