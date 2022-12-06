@@ -242,7 +242,24 @@ const authSlice: Slice = createSlice({
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.isLoading = false
-        state.user = {}
+        state.user = {
+          _id: '',
+          username: '',
+          billingInfo: {
+            name: '',
+            surname: '',
+            phoneNumber: '',
+            email: '',
+            city: '',
+            province: '',
+            zip: '',
+            apt: '',
+            streetAddress: '',
+            address: ''
+          },
+          wishlist: [],
+          payments: []
+        }
         state.hasError = false
       })
       .addCase(deleteUser.rejected, (state) => {
