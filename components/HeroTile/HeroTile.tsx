@@ -11,7 +11,6 @@ import { client } from '../../utils/client'
 import { setActiveCategory } from '../../redux/items'
 
 const HeroTile = ({ tile } : { tile: HeroImage }) => {
-  console.log(tile)
   const dispatch = useDispatch()
   const { title, image, category } = tile
   const imageProps = useNextSanityImage(client, image)

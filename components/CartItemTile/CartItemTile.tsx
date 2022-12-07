@@ -14,13 +14,12 @@ import Quantity from '../Quantity/Quantity'
 
 const CartItemTile = ({ item } : { item: CartItem }) => {
   const { 
-    variant: { image, color }, 
+    variant: { image, color, itemQuantity }, 
     item: { name, price, category },
     qty
   } = item;
   const dispatch = useDispatch()
   const [qtyy, setQty] = useState(1)
-
 
   const handelQtyChange = () => {
 
@@ -28,7 +27,6 @@ const CartItemTile = ({ item } : { item: CartItem }) => {
 
   const imageProps: any = useNextSanityImage(client, image)
 
-  console.log(item)
   return (
     <ButtonBase className = {styles.container}>
       <Card 
@@ -67,7 +65,8 @@ const CartItemTile = ({ item } : { item: CartItem }) => {
             <Quantity 
               qty = {qty}
               incQty = {() => dispatch(incQty(item))}
-              decQty = {() => dispatch(decQty(item))}        
+              decQty = {() => dispatch(decQty(item))}
+              itemQuantity = {itemQuantity}        
             />
           </div>
         </div>

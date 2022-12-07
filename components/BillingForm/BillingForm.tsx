@@ -98,8 +98,6 @@ const BillingForm = ({
 	);
 	const [saved, setSaved] = useState(false);
 
-	console.log(billingInformation);
-
 	useEffect(() => {
 		setBillingInfo(billingInformation);
 

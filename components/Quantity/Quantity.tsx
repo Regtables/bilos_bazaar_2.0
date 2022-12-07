@@ -15,7 +15,7 @@ import styles from './Quantity.module.scss'
 //   }
 // }))
 
-const Quantity = ({ qty, incQty, decQty } : { qty: number, incQty: any, decQty: any }) => {
+const Quantity = ({ qty, incQty, decQty, itemQuantity } : { qty: number, incQty: any, decQty: any, itemQuantity: number }) => {
   // const mStyles = useStyles();
 
   return (
@@ -23,17 +23,18 @@ const Quantity = ({ qty, incQty, decQty } : { qty: number, incQty: any, decQty: 
       <button
         className= {`${styles.less} ${styles.button}`}
         onClick = {decQty}
-        disabled = { qty === 0 && true }
+        disabled = { qty <= 0 && true }
 
       >
         <AiOutlineMinus />
       </button>
       <div className= {styles.qty}>
-        <p>{qty}</p>
+        <p>{ itemQuantity <= 0 ? 0 : qty }</p>
       </div>
       <button 
         className = {`${styles.more} ${styles.button}`}
         onClick = {incQty}
+        disabled = { qty === itemQuantity ? true : false }
       >
         <AiOutlinePlus />
       </button>

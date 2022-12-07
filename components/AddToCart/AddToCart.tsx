@@ -23,6 +23,7 @@ const AddToCart = ({ item, activeVariant, qty } : { item: Item, activeVariant: V
       variant='contained'
       className= {styles.button}
       onClick = {addItem}
+      disabled = {activeVariant.itemQuantity <= 0 ? true: false}
       sx = {{
         backgroundColor: 'var(--color-secondary)',
         borderRadius: '20px',

@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 import styles from '../styles/Home.module.scss'
 import { client } from '../utils/client'
-import { HeroImage, Category, Item, Product, Question } from '../types'
+import { HeroImage, Category, Item, Product, Question, Contact } from '../types'
 import { contactQuery, featuredItemsQuery, headQuery, itemsQuery, productsQuery } from '../utils/queries'
 import { setAllItems, setProducts } from '../redux/items'
 
@@ -16,16 +16,16 @@ import FeaturedItems from '../components/FeaturedItems/FeaturedItems'
 import FAQ from '../components/FAQ/FAQ'
 
 import MotionWrapper from '../wrappers/MotionWrapper'
+import { setContact } from '../redux/info'
 
 
-const Home = ({ hero, categories, featuredItems, products, faq, items, head } : { hero: [HeroImage], categories: [Category], featuredItems: Item[], items: Item[], products: Product[], faq: Question[], head: any }) => {
+const Home = ({ hero, categories, featuredItems, products, faq, items, head, contact } : { hero: [HeroImage], categories: [Category], featuredItems: Item[], items: Item[], products: Product[], faq: Question[], head: any, contact: Contact }) => {
   const dispatch = useDispatch()
-
-  console.log(products)
 
   useEffect(() => {
     dispatch(setProducts(products))
     dispatch(setAllItems(items))
+    dispatch(setContact(contact))
   }, [products, dispatch, items])
 
   return (
@@ -82,7 +82,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const headData = await client.fetch(headQuery('home'))
 
-  console.log(popularItemsData)
+  // console.log(popularItemsData)
 
   return {
     props: {
@@ -92,7 +92,8 @@ export const getStaticProps: GetStaticProps = async () => {
       products: productsData,
       faq: faqData,
       items: itemsData,
-      head: headData[0]
+      head: headData[0],
+      contact: contactData[0]
     },
     revalidate: 1
   }

@@ -14,9 +14,10 @@ import AddToCart from '../AddToCart/AddToCart';
 import BuyNow from '../BuyNow/BuyNow';
 import SlideShowImage from '../SlideShowImage/SlideShowImage';
 import Wishlist from '../Wishlist/Wishlist';
+import InStock from '../inStock/InStock';
+import ColorSelect from '../ColorSelect/ColorSelect';
 
 import MotionWrapper from '../../wrappers/MotionWrapper';
-import ColorSelect from '../ColorSelect/ColorSelect';
 
 const colors = [
 	'#33ab9f',
@@ -36,6 +37,7 @@ const Preview = ({
   decQty,
   activeVariant,
   handleVariantChange,
+  handleWishlistToggle,
   setActiveVariant,
   addItemToCart,
   isLoved,
@@ -47,8 +49,9 @@ const Preview = ({
   qty: number;
   incQty: any,
   decQty: any,
+  handleWishlistToggle: any,
   activeVariant: Variant,
-  setActiveVariant: any
+  setActiveVariant: any,
   handleVariantChange: any,
   addItemToCart: any,
   isLoved: boolean,
@@ -102,7 +105,7 @@ const Preview = ({
             <Wishlist 
               isLoved = {isLoved}
               setIsLoved = {setIsLoved}
-              handleToggle = {() => {}}
+              handleToggle = {handleWishlistToggle}
             />
           </div>
           <h4>R {price}</h4>
@@ -132,13 +135,16 @@ const Preview = ({
               setIndex = {false}
             />
           </div>
-          
+          <div className= {styles.stock}>
+            <InStock itemQuantity = {activeVariant.itemQuantity}/>
+          </div>
           <div className= {styles.cart}>
             <div className = {styles.qty}>
               <Quantity
                 qty = {qty} 
                 incQty = {incQty}
                 decQty = {decQty}
+                itemQuantity = {activeVariant.itemQuantity}
               />
             </div>
             <div className= {styles.add} onClick = {() => setShowPreview(false)}>

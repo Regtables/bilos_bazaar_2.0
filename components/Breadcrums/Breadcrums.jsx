@@ -22,7 +22,7 @@ const Breadcrums = ({
 					<p>{`products >`}</p>
 				</Link>
 				{product && (
-					<Link href={`/products/${product}`}>
+					<Link href={`/products/${product.replace(" ", "-")}`}>
 						<p>{`${product} >`}</p>
 					</Link>
 				)}

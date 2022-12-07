@@ -103,7 +103,6 @@ const Checkout = () => {
   }, [useDifferentAddress, differentProvince, billingProvince])
 
   useEffect(() => {
-    console.log(billingInformation)
     if(billingInformation){
       
       if(billingInformation.streetAddress){
@@ -130,6 +129,7 @@ const Checkout = () => {
           _ref: cartItem.item._id
         },
         variant: {
+          _id: cartItem.variant._id,
           _type: 'variant',
           color: {
             _type: 'reference',
@@ -141,6 +141,8 @@ const Checkout = () => {
         qty: cartItem.qty
       }
     })
+
+    console.log(items)
 
     yoco.showPopup({
       amountInCents: (amount+deliveryFee)*100,
@@ -159,51 +161,72 @@ const Checkout = () => {
       
         } else {
           setIsLoading(true)
-          const { payment, error} = await yocoCharge((amount+deliveryFee)*100, deliveryFee, result.id, user, items)
+          await yocoCharge((amount+deliveryFee)*100, deliveryFee, result.id, user, items)
+            .then(async (res) => {
+              const { error, payment, stock } = res
 
-          if(error){
-            setIsLoading(false)
-            dispatch(setToggleAlert({
-              toggle: true,
-              title: 'Something went wrong',
-              content:  error,
-              option: 'okay'
-            }))
-          } else{
-            setIsLoading(false)
-            dispatch(clearCart())
-          
-            dispatch(setToggleAlert({
-              toggle: true,
-              title: "Thank you for purchace with Bilo's Bazaar!",
-              content: 'Thank you for buying something from our store! We hope you love your purchace. You will recieve a reciept in your email soon.',
-              option: 'okay'
-            }))
+              if(error){
+                setIsLoading(false)
+                dispatch(setToggleAlert({
+                  toggle: true,
+                  title: 'Something went wrong',
+                  content:  error,
+                  option: 'okay'
+                }))
+              } else{
+                setIsLoading(false)
+                dispatch(clearCart())
+              
+                dispatch(setToggleAlert({
+                  toggle: true,
+                  title: "Thank you for purchace with Bilo's Bazaar!",
+                  content: 'Thank you for buying something from our store! We hope you love your purchace. You will recieve a reciept in your email soon.',
+                  option: 'okay'
+                }))
+              }
+              router.push('/')
 
-            router.push('/')
+              return {
+                payment,
+                stock
+              }
 
-            const { name, surname, phoneNumber, email, streetAddress, city, province, apt, zip } = billingInformation
+              }).then((res) => {
+                console.log(res)
 
-            const { date, amount, chargeId } = payment
- 
-            const data = {
-              name: name,
-              surname: surname,
-              phoneNumber: phoneNumber,
-              email: email,
-              amount: amount,
-              paymentId:  chargeId,
-              date: date,
-              billingAddress: billingAddress,
-              deliveryAddress: differentAddress ? differentAddress : billingAddress,
-              items: Object.values(cartItems).map((item,i) => (
-                `${item.item.name}(${item.variant.color.color})`
-              ))
-            }
-            console.log(data)
-            emailjs.send('service_0dttrnw', 'template_70x0fkk', data, 'LC_QO3GOebggMCv_Z')
-      
-          }
+                const { payment, stock } = res
+                const { name, surname, phoneNumber, email, streetAddress, city, province, apt, zip } = billingInformation
+    
+                const { date, amount, chargeId } = payment
+     
+                const data = {
+                  test: '<p style = "color: red;">testing</p>',
+                  name: name,
+                  surname: surname,
+                  phoneNumber: phoneNumber,
+                  email: email,
+                  amount: amount,
+                  paymentId:  chargeId,
+                  date: date,
+                  billingAddress: billingAddress,
+                  deliveryAddress: differentAddress ? differentAddress : billingAddress,
+                  items: Object.values(cartItems).map((item,i) => (
+                    `<div style = "display: flex; justify-content: space-between; width: 100%">
+                      <p style = "text-transform: capitalize; margin-right: 300px">${item.item.name}(${item.variant.color.color}</p>
+                      <p>R${item.item.price}</p>
+                    </div>`
+                  ))
+                }
+                console.log(data)
+                emailjs.send('service_0dttrnw', 'template_70x0fkk', data, 'LC_QO3GOebggMCv_Z')
+
+                for(let i = 0; i < stock.length; i++){
+                  console.log(stock[i])
+
+                  emailjs.send('service_0dttrnw', 'template_h66y3qa', stock[i], 'LC_QO3GOebggMCv_Z')
+                }
+
+              })
         }
       }
     })

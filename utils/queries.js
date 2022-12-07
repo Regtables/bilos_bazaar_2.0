@@ -6,11 +6,12 @@ export const productItemsQuery = (product) => {
     description, 
     product->, 
     slug, 
-    variants[]{
+    variants[]->{
       color->,
       sku,
       image,
-      inStock
+      itemQuantity,
+      _id
     }, 
     price, 
     _id,
@@ -34,7 +35,7 @@ export const categoryItemsQuery = (category) => {
     description, 
     product->, 
     slug, 
-    variants, 
+    variants->, 
     price, 
     _id
   }`
@@ -52,12 +53,13 @@ export const itemsQuery = (slug) => {
     dimentions,
     product->,
     slug,
-    variants[]{
+    variants[]->{
       color->,
       sku,
       image,
       inStock,
-      itemQty
+      itemQuantity,
+      _id
     }
   }`
 
@@ -65,7 +67,7 @@ export const itemsQuery = (slug) => {
 }
 
 export const featuredItemsQuery = () => {
-  const query = '*[_type == "popularItems"]{ items[]->{category->, name, images, description, product->{product, slug}, slug, variants[]{color->, sku, image, inStock, itemQuantity}, price, _id}}'
+  const query = '*[_type == "popularItems"]{ items[]->{category->, name, images, description, product->{product, slug}, slug, variants[]->{color->, sku, image, itemQuantity, _id}, price, _id}}'
 
   return query
 }
@@ -84,12 +86,12 @@ export const itemQuery = (slug) => {
       slug
     },
     slug,
-    variants[]{
+    variants[]->{
       color->,
       sku,
       image,
-      inStock,
-      itemQty
+      itemQuantity,
+      _id
     }
   }`
 
@@ -120,10 +122,12 @@ export const userQuery = (id) => {
           category->,
           product->
         },
-        variant{
+        variant->{
           color->,
           image,
-          sku
+          sku,
+          itemQuantity,
+          _key
         },
         qty
       }

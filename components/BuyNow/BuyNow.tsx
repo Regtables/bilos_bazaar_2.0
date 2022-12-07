@@ -11,9 +11,6 @@ import { Item, Variant } from '../../types'
 const BuyNow = ({ item, activeVariant } : { item: Item, activeVariant: Variant }) => {
   const router = useRouter()
   const dispatch = useDispatch()
-
-  console.log(item)
-  console.log(activeVariant)
   
   const handleClick = () => {
     dispatch(addCartItem({
@@ -30,6 +27,7 @@ const BuyNow = ({ item, activeVariant } : { item: Item, activeVariant: Variant }
       className= {styles.button}
       variant = 'outlined'
       onClick = {handleClick}
+      disabled = {activeVariant.itemQuantity <= 0 ? true: false}
       sx = {{
         width: '100%',
         height: '100%',

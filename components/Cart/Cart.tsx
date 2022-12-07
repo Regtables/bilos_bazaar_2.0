@@ -23,7 +23,6 @@ const Cart = () => {
   const cartItems = useSelector(selectCartItems)
 
   const cartItemsArr = Object.values(cartItems)
-  console.log(showDetailedCart)
 
   useEffect(() => {
     if(showCart){
@@ -46,7 +45,6 @@ const Cart = () => {
   const handleViewClick = () => {
     handleClose()
     dispatch(toggleDetailedCart(true))
-    console.log(showDetailedCart)
   }
   
   return (

@@ -1,0 +1,27 @@
+.container{
+  background-color: white;
+  border-radius: 20px;
+  padding: 0.3rem 1rem;
+
+
+  p{
+    // color: rgb(181, 83, 83);
+    font-family: var(--font-family);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .out{
+    color: red;
+  }
+
+  .low{
+    color: orange;
+  }
+
+  .in{
+    color: rgb(97, 177, 105);
+  }
+}

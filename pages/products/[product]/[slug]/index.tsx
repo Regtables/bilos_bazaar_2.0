@@ -25,6 +25,7 @@ import ColorSelect from '../../../../components/ColorSelect/ColorSelect';
 
 import MotionWrapper from '../../../../wrappers/MotionWrapper';
 import { AppDispatch } from '../../../../redux/store';
+import InStock from '../../../../components/inStock/InStock';
 
 const colors = [
 	'#33ab9f',
@@ -41,11 +42,12 @@ interface Params {
 }
 
 const Item = ({ item, items, products, contact } : { item: Item, items: [Item], products: Product[], contact: Contact }) => {
-  const { images, variants, category, name } = item
+  const { images, variants, category, name, product } = item
   console.log(item)
   const dispatch = useDispatch<AppDispatch>()
   const [activeVariant, setActiveVariant] = useState(item?.variants[0])
   const [activeImage, setActiveImage] = useState(item?.images[0].image)
+  const [inStock, setInStock] = useState(activeVariant.itemQuantity > 0 ? true : false)
   const [index, setIndex] = useState(0)
   const [qty, setQty] = useState(1)
   const user = useSelector(selectUser)
@@ -134,8 +136,8 @@ const Item = ({ item, items, products, contact } : { item: Item, items: [Item], 
       <div className= {`section__padding ${styles.container}`}>
         <div className= {styles.breadcrums}>
           <Breadcrums 
-            product='beach'
-            category='towels'
+            product= {product.product}
+            category= {category.category}
             item = {item.name}
           />
         </div>
@@ -173,12 +175,16 @@ const Item = ({ item, items, products, contact } : { item: Item, items: [Item], 
                 />
                 <p>{activeVariant.color.color}</p>
               </div>
+              <div className= {styles.stock}>
+                <InStock itemQuantity={activeVariant.itemQuantity} />
+              </div>
               <div className= {styles.cart}>
                 <div className= {styles.qty}>
                   <Quantity 
                     qty={qty}
                     incQty = {incQty} 
-                    decQty = {decQty}  
+                    decQty = {decQty}
+                    itemQuantity = {activeVariant.itemQuantity}  
                   />
                 </div>
                 <div className= {styles.add}>

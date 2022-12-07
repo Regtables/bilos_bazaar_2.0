@@ -9,6 +9,7 @@
   // outline: 1px solid #e3e3e3;
   // box-shadow: 1px 0px 1px var(--color-secondary);
   box-shadow: 0 4px 6px rgb(0 0 0 / 4%);
+  transform: skew(-2deg);
 
 
   &:hover{
@@ -37,6 +38,34 @@
     right: 5%;
     top: 5%;
     z-index: 3;
+  }
+
+  .stock{
+    position: absolute;
+    top: 15%;
+    left: 33%;
+    z-index: 14;
+    background-color: white;
+    border-radius: 20px;
+    padding: 0.3rem 1rem;
+
+    p{
+      color: rgb(181, 83, 83);
+      font-family: var(--font-family);
+      font-weight: 300;
+      font-style: italic;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    @media screen and (max-width: 450px) {
+      top: 15%;
+      left: 30%;
+
+      p{
+        font-size: 12px;
+      }
+    }
   }
   // border-radius: 20px;
 }
@@ -76,6 +105,7 @@
   min-height: 40px;
   color: var(--color-secondary);
   text-transform: capitalize;
+  font-style: italic;
   font-family: var(--font-family);
   // margin: 1rem 0;
 

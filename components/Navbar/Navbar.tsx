@@ -85,14 +85,12 @@ const Navbar = () => {
         <div className= {styles.links_container}>
           <div className = {styles.icons} onMouseEnter = {() => toggleHover('')}>
             <div className= {styles.socials}>
-              {/* <a href = 'https://www.instagram.com/bilosbazaar/?next=%2F' target = '_blank' rel = 'norefferer'><AiOutlineInstagram /></a> */}
               <div className= {styles.social}>
                 <Instagram />
               </div>
               <div className = {styles.social}>
                 <Facebook />
               </div>
-              {/* <a href = 'https://web.facebook.com/profile.php?id=100063704474726' target = '_blank' rel = 'norefferer'><FaFacebookF /></a> */}
             </div>
             <motion.div 
               className = {styles.searchBar} 

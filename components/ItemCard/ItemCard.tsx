@@ -35,6 +35,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 	const [hover, setHover] = useState(false);
 	const [isLoved, setIsLoved] = useState(user?.wishlist?.filter((wishListedItem: Item) => wishListedItem?._id === item._id).length > 0 ? true : false)
 	const [activeVariant, setActiveVariant] = useState(item?.variants[0])
+	const [outStock, setOutStock] = useState(activeVariant.itemQuantity <= 0 ? true : false )
 	const [qty, setQty] = useState(1)
 	const [showPreview, setShowPreview] = useState(false);
 	const [animateImage, setAnimateImage] = useState({})
@@ -42,6 +43,10 @@ const ItemCard = ({ item }: { item: Item }) => {
 	useEffect(() => {
 		setActiveVariant(item.variants[0])
 	}, [item])
+
+	useEffect(() => {
+		setOutStock(activeVariant.itemQuantity <= 0 ? true : false)
+	}, [activeVariant])
 
 	const handleWishlistToggle = async () => {
 		if(user._id){
@@ -142,6 +147,16 @@ const ItemCard = ({ item }: { item: Item }) => {
 					</div>
 					{hover && (
 						<div className={styles.buttons}>
+							{outStock && (
+								<motion.div 
+									className= {styles.stock}
+									whileInView = {{y: ['-50px', '0px'], opacity: [0,1]}}
+									initial = { { y: '-50px', opacity: 0}}
+									transition = { { duration: 0.2 } }
+								>
+									<p>Sold Out</p>
+								</motion.div>
+							)}
 							<motion.div 
 								className={styles.addToCart} 
 								whileInView = { { x: ['-50px', '0px'], opacity: [0,1] } }
@@ -151,6 +166,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 								<Button 
 									className={styles.button} 
 									onClick = {addItemToCart}
+									disabled = {outStock ? true : false}
 								>
 									<BsBagPlus />
 								</Button>
@@ -212,6 +228,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 					addItemToCart = {addItemToCart}
 					isLoved = {isLoved}
 					setIsLoved = {setIsLoved}
+					handleWishlistToggle = {handleWishlistToggle}
 				/>
 			)}
 		</>
