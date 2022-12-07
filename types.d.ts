@@ -17,6 +17,7 @@ export interface Item {
     itemType: string
   },
   product: {
+    product: string
     slug: {
       current: string
     }
