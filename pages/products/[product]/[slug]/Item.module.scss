@@ -67,13 +67,19 @@
   
     .cart{
       flex-direction: column;
-      height: 80px;
+      height: 120px;
+      max-height: 80px;
       margin-bottom: 0.7rem;
   
       .qty{
-        height: 200px;
+        // height: 80px;
         margin-bottom: 0.7rem;
         margin-right: unset;
+        max-height: 40px;
+      }
+
+      .add{
+        max-height: 40px;
       }
     }
   }
