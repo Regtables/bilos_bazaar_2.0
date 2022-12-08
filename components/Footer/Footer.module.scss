@@ -131,6 +131,7 @@
 
     .link{
       margin-bottom: 1rem;
+      width: 100%;
 
       p{
         color: white;
@@ -159,6 +160,7 @@
     .section{
       display: flex;
       flex-direction: column;
+      width: 100%;
       // align-items: center;
       // text-align: center;
     }

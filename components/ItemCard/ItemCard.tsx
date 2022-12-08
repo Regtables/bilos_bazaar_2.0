@@ -113,18 +113,19 @@ const ItemCard = ({ item }: { item: Item }) => {
 
 	return (
 		<>
-			<Card
-				elevation={hover ? 8 : 0}
-				className={styles.card}
-				sx = {{
-					borderRadius: '10px',
-					outline: '1px solid #e3e3e3',
+			<div
+				// elevation={hover ? 8 : 0}
+				// className={styles.card}
+				// sx = {{
+				// 	borderRadius: '10px',
+				// 	outline: '1px solid #e3e3e3',
 
-					"&:hover": {
-						boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.10)'
-					}
-				}}
-				raised
+				// 	"&:hover": {
+				// 		boxShadow: '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.10)'
+				// 	}
+				// }}
+				// raised
+				className= {styles.card}
 				onMouseEnter={() => setHover(true)}
 				onMouseLeave={() => setHover(false)}
 			>
@@ -212,7 +213,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 						</Link>
 					</div>
 				</div>
-			</Card>
+			</div>
 
 			{showPreview && (
 				<Preview

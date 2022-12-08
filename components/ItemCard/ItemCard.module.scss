@@ -6,9 +6,11 @@
   // cursor: pointer;
   // border-radius: 20px;
   transition: all 0.3s;
-  // outline: 1px solid #e3e3e3;
+  outline: 1px solid #e3e3e3;
   // box-shadow: 1px 0px 1px var(--color-secondary);
   box-shadow: 0 4px 6px rgb(0 0 0 / 4%);
+  background-color: white;
+  border-radius: 5px;
   // transform: skew(-2deg);
 
 
@@ -31,6 +33,10 @@
     position: absolute;
     height: 100%;
     width: 100%;
+
+    img{
+      border-radius: 5px;
+    }
   }
 
   .wishlist{
@@ -38,6 +44,10 @@
     right: 5%;
     top: 5%;
     z-index: 3;
+  }
+
+  .overlay{
+    border-radius: 5px;
   }
 
   .stock{

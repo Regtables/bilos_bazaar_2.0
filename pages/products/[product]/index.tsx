@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { useSelector, useDispatch } from 'react-redux'
-import { Paper } from '@mui/material'
+import { Paper, Grid } from '@mui/material'
 import { client } from '../../../utils/client'
 import { motion } from 'framer-motion'
 
@@ -155,9 +155,13 @@ const Product = ({ product, items, products, contact, allItems, head } : { produ
                   animate = {animateItems}
                   transition = {{duration: 0.5}}
                 >
-                  {filteredItems.map((item, i) => (
-                    <ItemCard item = {item} key = {i} />
-                  ))}
+                  <Grid container spacing = {1.5}>
+                    {filteredItems.map((item, i) => (
+                      <Grid item sm = {3} xs = {6}>
+                        <ItemCard item = {item} key = {i} />
+                      </Grid>
+                    ))}
+                  </Grid>
                 </motion.div>
               </div>
           </Paper>

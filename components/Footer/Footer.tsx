@@ -183,7 +183,7 @@ const Footer = () => {
 								</div>
 						</Grid>
 
-						<Grid item sm = {4} xs = {6} className = {styles.section}>
+						<Grid item sm = {4} xs = {8} className = {styles.section}>
 							<div className= {styles.heading}>
 								<h4>Contact</h4>
 							</div>
