@@ -15,8 +15,8 @@ const SimilarItems = ({ items } : { items: Item[] }) => {
       <div className= {styles.items}>
         <Grid container spacing = {1.5}>
           {items.map((item, i) => (
-            <Grid item sm = {2.5} xs = {6}>
-              <ItemCard item={item} key = {i}/>
+            <Grid item sm = {2.5} xs = {6} key = {i}>
+              <ItemCard item={item}/>
             </Grid>
           ))}
         </Grid>

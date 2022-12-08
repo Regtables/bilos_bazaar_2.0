@@ -157,8 +157,8 @@ const Product = ({ product, items, products, contact, allItems, head } : { produ
                 >
                   <Grid container spacing = {1.5}>
                     {filteredItems.map((item, i) => (
-                      <Grid item sm = {3} xs = {6}>
-                        <ItemCard item = {item} key = {i} />
+                      <Grid item sm = {3} xs = {6} key = {i}>
+                        <ItemCard item = {item} />
                       </Grid>
                     ))}
                   </Grid>
