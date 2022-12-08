@@ -8,7 +8,7 @@ import { BsArrowLeft } from 'react-icons/bs'
 import emailjs from '@emailjs/browser'
 
 import styles from './Checkout.module.scss'
-import { clearCart, selectCartItems, selectCartTotal } from '../../redux/cart'
+import { clearCart, removeCartItem, selectCartItems, selectCartTotal } from '../../redux/cart'
 import { selectUser, setUserBillingInfo } from '../../redux/auth'
 import { yocoCharge } from '../../api'
 
@@ -118,7 +118,7 @@ const Checkout = () => {
 
   const handlePayment = async (amount, deliveryFee) => {
     var yoco = new window.YocoSDK({
-      publicKey: 'pk_live_e6c4c82c49RAvGXe9cf4'
+      publicKey: 'pk_test_e1d35bc149RAvGX21e94'
     })
 
     const items = Object.values(cartItems).map((cartItem) => {
@@ -157,7 +157,7 @@ const Checkout = () => {
           setIsLoading(true)
           await yocoCharge((amount+deliveryFee)*100, deliveryFee, result.id, user, items)
             .then(async (res) => {
-              const { error, payment, stock } = res
+              const { error, payment, stock, outOfStock } = res
 
               if(error){
                 setIsLoading(false)
@@ -167,7 +167,44 @@ const Checkout = () => {
                   content:  error,
                   option: 'okay'
                 }))
+
+              } else if (outOfStock) {
+                setIsLoading(false)
+                console.log(outOfStock)
+
+                for(let i = 0; i< outOfStock.length; i++){
+                  dispatch(removeCartItem({
+                    variant: outOfStock[i].item,
+                    item: outOfStock[i].item.item,
+                    qty: outOfStock[i].qty
+                  }))
+                }
+
+                const items = Object.values(outOfStock).map((item) => (
+                  `${item.item.item.name}(${item.item.color.color})`
+                ))
+
+                const content = [
+                  'We have sold out of the following items: ',
+                  `${items.map((item) => `${item}`)}`,
+                  'Please try again in a couple of weeks. We have removed those items from your bag. You may now checkout with the remaining items if you wish.'
+                ]
+                
+                dispatch(setToggleAlert({
+                  toggle: true,
+                  title: 'Out of Stock',
+                  content: content.map((para) => (
+                    <p style = {{margin: '0.3rem 0'}}>{para}</p>
+                  )),
+                  option: 'okay'
+                }))
+
+                return {
+                  outOfStock
+                }
+
               } else{
+              
                 setIsLoading(false)
                 dispatch(clearCart())
               
@@ -188,37 +225,65 @@ const Checkout = () => {
               }).then((res) => {
                 console.log(res)
 
-                const { payment, stock } = res
-                const { name, surname, phoneNumber, email, streetAddress, city, province, apt, zip } = billingInformation
-    
-                const { date, amount, chargeId } = payment
-     
-                const data = {
-                  test: '<p style = "color: red;">testing</p>',
-                  name: name,
-                  surname: surname,
-                  phoneNumber: phoneNumber,
-                  email: email,
-                  amount: amount,
-                  paymentId:  chargeId,
-                  date: date,
-                  billingAddress: billingAddress,
-                  deliveryAddress: differentAddress ? differentAddress : billingAddress,
-                  items: Object.values(cartItems).map((item,i) => (
-                    `<div style = "display: flex; justify-content: space-between; width: 100%">
-                      <p style = "text-transform: capitalize; margin-right: 300px">${item.item.name}(${item.variant.color.color}</p>
-                      <p>R${item.item.price}</p>
-                    </div>`
-                  ))
-                }
-                console.log(data)
-                emailjs.send('service_0dttrnw', 'template_70x0fkk', data, 'LC_QO3GOebggMCv_Z')
+                const { payment, stock, outOfStock } = res
 
-                for(let i = 0; i < stock.length; i++){
-                  console.log(stock[i])
+                if(payment){
+                  const { name, surname, phoneNumber, email, streetAddress, city, province, apt, zip } = billingInformation
+      
+                  const { date, amount, chargeId } = payment
+       
+                  const data = {
+                    test: '<p style = "color: red;">testing</p>',
+                    name: name,
+                    surname: surname,
+                    phoneNumber: phoneNumber,
+                    email: email,
+                    amount: amount,
+                    paymentId:  chargeId,
+                    date: date,
+                    billingAddress: billingAddress,
+                    deliveryAddress: differentAddress ? differentAddress : billingAddress,
+                    items: Object.values(cartItems).map((item,i) => (
+                      `<p style = "text-transform: capitalize;">${item.item.name}(${item.variant.color.color}</p>
+                       <p style = "margin-left: auto">R${item.item.price}</p>`
+                    ))
+                  }
+                  const receipt = {
+                    paymentId: chargeId,
+                    date: date,
+                    items: Object.values(cartItems).map((item,i) => (
+                      `<p style = "text-transform: capitalize;">${item.item.name}(${item.variant.color.color}</p>
+                       <p style = "margin-left: auto">R${item.item.price}</p>`
+                    )),
+                    billingAddress: billingAddress,
+                    deliveryAddress: differentAddress ? differentAddress : billingAddress,
+                    amount: amount
+                  }
+                  console.log(data)
+                  //Office email
+                  emailjs.send('service_0dttrnw', 'template_70x0fkk', data, 'LC_QO3GOebggMCv_Z')
+                  //customer receipt
+                  emailjs.send('service_0dttrnw', 'template_03mrpcs', data, 'LC_QO3GOebggMCv_Z')
 
-                  emailjs.send('service_0dttrnw', 'template_h66y3qa', stock[i], 'LC_QO3GOebggMCv_Z')
                 }
+
+                if(stock){
+                  for(let i = 0; i < stock.length; i++){
+                    console.log(stock[i])
+
+                    if(0 < stock[i].itemQuantity <= 10){
+                      emailjs.send('service_0dttrnw', 'template_h66y3qa', stock[i], 'LC_QO3GOebggMCv_Z')
+                    } else if(stock[i].itemQuantity <=0 ){
+                      //out of stock email
+                    }
+                  }
+                }
+
+                if(outOfStock){
+                  //email
+                  console.log(outOfStock)
+                }
+
 
               })
         }

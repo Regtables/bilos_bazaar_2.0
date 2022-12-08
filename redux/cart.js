@@ -39,6 +39,7 @@ const cartSlice = createSlice({
 			}
 		},
 		removeCartItem: (state, action) => {
+			console.log(action.payload)
 			const { sku } = action.payload.variant;
 			const qty = action.payload.qty;
 			const { price } = action.payload.item;

@@ -29,12 +29,13 @@ const Quantity = ({ qty, incQty, decQty, itemQuantity } : { qty: number, incQty:
         <AiOutlineMinus />
       </button>
       <div className= {styles.qty}>
-        <p>{ itemQuantity <= 0 ? 0 : qty }</p>
+        {/* <p>{ itemQuantity <= 0 ? 0 : qty }</p> */}
+        {qty}
       </div>
       <button 
         className = {`${styles.more} ${styles.button}`}
         onClick = {incQty}
-        disabled = { qty === itemQuantity ? true : false }
+        // disabled = { qty === itemQuantity ? true : false }
       >
         <AiOutlinePlus />
       </button>
