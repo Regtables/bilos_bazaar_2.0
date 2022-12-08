@@ -109,6 +109,19 @@
       }
     }
   }
+
+  @media screen and (max-width: 450px) {
+    h3{
+      font-size: 22px;
+    }
+    .icons{
+      .icon{
+        width: 25px;
+        height: 25px;
+      }
+
+    }
+  }
 }
 
 

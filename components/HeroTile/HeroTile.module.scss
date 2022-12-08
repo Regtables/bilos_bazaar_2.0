@@ -25,6 +25,14 @@
     margin: 0;
     padding: 1rem;
   }
+
+  @media screen and (max-width: 450px) {
+    top: 5%;
+
+    h3{
+      font-size: 22px;
+    }
+  }
 }
 
 .description{
@@ -56,5 +64,9 @@
   &:hover{
     background-color: white;
     color: var(--color-primary);
+  }
+
+  @media screen and (max-width: 450px) {
+    paddig: 0.5rem 2rem
   }
 }

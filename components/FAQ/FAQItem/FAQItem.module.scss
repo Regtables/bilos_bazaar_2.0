@@ -43,6 +43,12 @@
       color: var(--color-offBlack);
       font-size: 17px;
     }
+
+    @media screen and (max-width: 450px) {
+      h4{
+        font-size: 14px;
+      }
+    }
   }
 
   .question{
@@ -68,7 +74,7 @@
 
   p{
     font-size: 14px;
-    line-height: 17px;
+    line-height: 16px;
     letter-spacing: 0.02em;
     margin: 0;
     width: 90%;
@@ -77,6 +83,7 @@
   @media screen and (max-width: 450px) {
     p{
       width: 100%;
+      font-size: 12px;
     }
   }
 }
