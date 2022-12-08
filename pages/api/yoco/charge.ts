@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
   const { amount, deliveryFee, token, user, items } = req.body
 
   if(req.method === 'POST'){
-    
+
     //Final stock check
 
     try{
@@ -34,10 +34,11 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
           let stock: any = []
 
           for(let i = 0; i <items.length; i++){
-            await client.patch(items[i].variant._id).dec({ itemQuantity: items[i].qty}).commit()
+            await client.patch(items[i].variant._ref).dec({ itemQuantity: items[i].qty}).commit()
               .then(async (res) => {
-                const item = await client.fetch(`*[_type == "variant" && _id == "${items[i].variant._id}"]{_id, color->,itemQuantity, sku, item->{name}}`)
+                const item = await client.fetch(`*[_type == "variant" && _id == "${items[i].variant._ref}"]{_id, color->,itemQuantity, sku, item->{name}}`)
                   .then((res) => {
+                    console.log(res)
                     const { color, sku, itemQuantity, item : { name }} = res[0]
                     if(itemQuantity <= 10){
 

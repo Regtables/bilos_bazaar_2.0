@@ -17,9 +17,13 @@ import ProfileSectionList from '../../../components/ProfileSectionList/ProfileSe
 import BillingForm from '../../../components/BillingForm/BillingForm'
 import Loader from '../../../components/Loader/Loader'
 import PaymentCard from '../../../components/PaymentCard/PaymentCard'
-import { Item, Payment } from '../../../types'
+import { Contact, Item, Payment, Product, User as UserType } from '../../../types'
 import WishlistTile from '../../../components/WishlistTile/WishlistTile'
 import { selectConfirmed, setConfirmed, setToggleAlert } from '../../../redux/altert'
+import { client } from '../../../utils/client'
+import { contactQuery, itemsQuery, productsQuery, usersQuery } from '../../../utils/queries'
+import { setAllItems, setProducts } from '../../../redux/items'
+import { setContact } from '../../../redux/info'
 
 const user = {
   _type: 'user',
@@ -48,7 +52,7 @@ const sections = [
   },
 ]
 
-const User = () => {
+const User = ({ contact, products, items} : { contact: Contact, products: Product[], items: Item[] }) => {
   const dispatch = useDispatch<AppDispatch>()
   const router = useRouter()
   const [activeSection, setActiveSection] = useState(sections[0])
@@ -59,6 +63,12 @@ const User = () => {
   const [animateMain, setAnimateMain] = useState({})
 
   const { id } = router.query
+
+  useEffect(() => {
+    dispatch(setAllItems(items))
+    dispatch(setContact(contact))
+    dispatch(setProducts(products))
+  }, [contact, products, items])
 
   useEffect(() => {
     if(id){
@@ -175,6 +185,7 @@ const User = () => {
         </>
       )
     } else if(activeSection.section === 'payments') {
+      console.log(payments)
       return (
         <Grid container spacing = {2}>
           {payments?.map((payment: Payment, i: number) => (
@@ -250,6 +261,35 @@ const User = () => {
       </div>
     </>
   )
+}
+
+export const getStaticProps = async () => {
+  const productsData = await client.fetch(productsQuery())
+  const itemsData = await client.fetch(itemsQuery())
+  const contactData = await client.fetch(contactQuery())
+
+  return {
+    props: {
+      contact: contactData[0],
+      items: itemsData,
+      products: productsData
+    }
+  }
+}
+
+export const getStaticPaths = async () => {
+  const usersData = await client.fetch(usersQuery())
+
+  const paths = usersData.map((user: UserType) =>({
+    params: {
+      id: user._id
+    }
+  }))
+
+  return {
+    paths,
+    fallback: 'blocking'
+  }
 }
 
 export default User

@@ -127,7 +127,7 @@ export const userQuery = (id) => {
           image,
           sku,
           itemQuantity,
-          _key
+          _id
         },
         qty
       }
@@ -142,6 +142,12 @@ export const userQuery = (id) => {
       images
     }
   }`
+
+  return query
+}
+
+export const usersQuery = () => {
+  const query = '*[_type == "user"]'
 
   return query
 }

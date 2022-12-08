@@ -129,14 +129,8 @@ const Checkout = () => {
           _ref: cartItem.item._id
         },
         variant: {
-          _id: cartItem.variant._id,
-          _type: 'variant',
-          color: {
-            _type: 'reference',
-            _ref: cartItem.variant.color._id
-          },
-          sku: cartItem.variant.sku,
-          image: cartItem.variant.image
+          _ref: cartItem.variant._id,
+          _type: 'reference',
         },
         qty: cartItem.qty
       }
