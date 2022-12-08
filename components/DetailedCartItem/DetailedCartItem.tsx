@@ -46,6 +46,7 @@ const DetailedCartItem = ({ bagItem } : { bagItem: any}) => {
                 qty={qty}
                 incQty = {() => dispatch(incQty(bagItem))}
                 decQty = {() => dispatch(decQty(bagItem))}
+                itemQuantity = {variant.itemQuantity}
               />
             </div>
             <div className= {styles.price}>
