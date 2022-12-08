@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { client } from '../../../utils/client'
 
-const SECRET_KEY = 'sk_test_74a9c7223mG058n577f4bd2b4214'
+const SECRET_KEY = 'sk_live_c8d7499b1eGaVqb20954b6882a18'
 
 export default async function handler(req: NextApiRequest, result: NextApiResponse ) {
   const { amount, deliveryFee, token, user, items } = req.body

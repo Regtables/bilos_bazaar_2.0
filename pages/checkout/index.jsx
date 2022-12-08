@@ -118,7 +118,7 @@ const Checkout = () => {
 
   const handlePayment = async (amount, deliveryFee) => {
     var yoco = new window.YocoSDK({
-      publicKey: 'pk_test_72967bc7R4lo7rzf43c4'
+      publicKey: 'pk_live_e6c4c82c49RAvGXe9cf4'
     })
 
     const items = Object.values(cartItems).map((cartItem) => {
