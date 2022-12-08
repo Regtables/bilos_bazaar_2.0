@@ -7,8 +7,11 @@ const ActionButton = ({ text, handleClick, icon } : { text: string, handleClick:
       variant = 'contained'
       sx = {{
         borderRadius: '20px',
+        minWidth: '120px',
         // padding: '0.4rem 2rem',
+        fontSize: '12px',
         backgroundColor: 'var(--color-primary)'
+
       }}
       onClick = {handleClick}
     >

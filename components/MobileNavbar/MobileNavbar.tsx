@@ -10,6 +10,7 @@ import { AiFillHome, AiFillPhone } from 'react-icons/ai'
 import { FaUser } from 'react-icons/fa'
 import { FiMenu } from 'react-icons/fi'
 import { motion } from 'framer-motion'
+import { useSwipeable } from 'react-swipeable'
 
 import styles from './MobileNavbar.module.scss'
 import { selectUser } from '../../redux/auth'
@@ -30,6 +31,10 @@ const MobileNavbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false)
   const [animateMenu, setAnimateMenu] = useState({})
   const [activeItem, setActiveItem] = useState('')
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleClose()
+  })
   
   useEffect(() => {
     handleClose()
@@ -102,81 +107,84 @@ const MobileNavbar = () => {
           // onClick = {() => setToggleMenu(false)}
           animate = {animateMenu}
           transition = {{duration: 0.3}}
+       
         >
-          <div className = {styles.logo}>
-            <h3>{"Bilo's"}</h3>
-            <div className = {styles.image}>
-              <Image 
-                src = '/logo-no-border.png'
-                layout = 'fill'
-              />
-            </div>
-            <h3>Bazaar</h3>
-            <div className= {styles.close} onClick = {handleClose}>
-              <p><IoCloseCircleOutline /></p>
-            </div>
-          </div>
-          <div className= {styles.content}>
-            <div className = {styles.search}>
-             <GlobalSearch />
-            </div>
-
-            <div className = {styles.links}>
-              <Link href = '/'>
-                <div className = {styles.link}>
-                  <p><AiFillHome /></p>
-                  <h4>Home</h4>
-                </div>
-              </Link>
-              {products.map((product: Product, i: number) => (
-                <>
-                  <div className = {styles.link} key = {product._id}>
-                    <p>{product.product === 'home decor' ? <IoBed /> : <MdBeachAccess />}</p>
-                    <h4  
-                      onClick = {() => handleLinkClick(product)}
-                    > 
-                      {product.product}
-                    </h4>
-                    <span onClick={() => setActiveItem('')}><BsChevronCompactDown /></span>
-                  </div>
-
-                  {activeItem === product.slug.current && (
-                    <motion.div className = {styles.categories}>
-                      {product.categories.map((category,i) => (
-                        <motion.div 
-                          className= {styles.category} 
-                          key = {i} 
-                          onClick = {() => handleCategoryClick(category)}
-                          whileInView = {{opacity: [0,1]}}
-                          transition = {{duration: 0.3*i}}
-                        >
-                          <p>{category.category}</p>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )}
-                </>
-              ))}
-              <Link href = '/contact'>
-                <div className = {styles.link}>
-                  <p><AiFillPhone /></p>
-                  <h4>Contact</h4>
-                </div>
-              </Link>
-            </div>
-          
-            <div className = {styles.socials}>
-              {/* <h3>Connect with us</h3> */}
-              <div className = {styles.icons}>
-                <div className= {styles.icon}>
-                  <Facebook />
-                </div>
-                <div className = {styles.icon}>
-                  <Instagram />
-                </div>
+          <div { ...handlers }>
+            <div className = {styles.logo}>
+              <h3>{"Bilo's"}</h3>
+              <div className = {styles.image}>
+                <Image 
+                  src = '/logo-no-border.png'
+                  layout = 'fill'
+                />
               </div>
-              {/* <h5>email</h5>
-              <h5>address</h5> */}
+              <h3>Bazaar</h3>
+              <div className= {styles.close} onClick = {handleClose}>
+                <p><IoCloseCircleOutline /></p>
+              </div>
+            </div>
+            <div className= {styles.content}>
+              <div className = {styles.search}>
+              <GlobalSearch />
+              </div>
+
+              <div className = {styles.links}>
+                <Link href = '/'>
+                  <div className = {styles.link}>
+                    <p><AiFillHome /></p>
+                    <h4>Home</h4>
+                  </div>
+                </Link>
+                {products.map((product: Product, i: number) => (
+                  <>
+                    <div className = {styles.link} key = {product._id}>
+                      <p>{product.product === 'home decor' ? <IoBed /> : <MdBeachAccess />}</p>
+                      <h4  
+                        onClick = {() => handleLinkClick(product)}
+                      > 
+                        {product.product}
+                      </h4>
+                      <span onClick={() => setActiveItem('')}><BsChevronCompactDown /></span>
+                    </div>
+
+                    {activeItem === product.slug.current && (
+                      <motion.div className = {styles.categories}>
+                        {product.categories.map((category,i) => (
+                          <motion.div 
+                            className= {styles.category} 
+                            key = {i} 
+                            onClick = {() => handleCategoryClick(category)}
+                            whileInView = {{opacity: [0,1]}}
+                            transition = {{duration: 0.3*i}}
+                          >
+                            <p>{category.category}</p>
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </>
+                ))}
+                <Link href = '/contact'>
+                  <div className = {styles.link}>
+                    <p><AiFillPhone /></p>
+                    <h4>Contact</h4>
+                  </div>
+                </Link>
+              </div>
+            
+              <div className = {styles.socials}>
+                {/* <h3>Connect with us</h3> */}
+                <div className = {styles.icons}>
+                  <div className= {styles.icon}>
+                    <Facebook />
+                  </div>
+                  <div className = {styles.icon}>
+                    <Instagram />
+                  </div>
+                </div>
+                {/* <h5>email</h5>
+                <h5>address</h5> */}
+              </div>
             </div>
           </div>
         </motion.div>

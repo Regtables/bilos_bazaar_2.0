@@ -6,6 +6,7 @@ import { Backdrop, Button } from '@mui/material'
 import { motion } from 'framer-motion'
 import { BsBag } from 'react-icons/bs'
 import { IoIosCloseCircleOutline} from 'react-icons/io'
+import { useSwipeable } from 'react-swipeable'
 
 import styles from './Cart.module.scss'
 import { CartItem } from '../../types'
@@ -23,6 +24,10 @@ const Cart = () => {
   const cartItems = useSelector(selectCartItems)
 
   const cartItemsArr = Object.values(cartItems)
+
+  const handlers = useSwipeable({
+    onSwipedRight: () => handleClose()
+  })
 
   useEffect(() => {
     if(showCart){
@@ -63,6 +68,7 @@ const Cart = () => {
             animate = {animateCart}
             transition = {{duration: 0.3}}
             initial = {{x: 1000}}
+            { ...handlers }
           >
             <div className= {styles.wrapper}>
               <div className= {styles.heading}>
