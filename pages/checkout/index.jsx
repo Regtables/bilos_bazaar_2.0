@@ -254,9 +254,11 @@ const Checkout = () => {
                     billingAddress: billingAddress,
                     deliveryAddress: differentAddress ? differentAddress : billingAddress,
                     items: Object.values(cartItems).map((item,i) => (
-                      `<p style = "text-transform: capitalize;">${item.item.name}(${item.variant.color.color}</p>
-                       <p style = "margin-left: auto">R${item.item.price}</p>`
-                    ))
+                      `<div style = "display: flex; width: 100%; justify-content: space-between;">
+                         <p style = "text-transform: capitalize; display: inline; margin-bottom: 0.5rem;">${item.item.name}(${item.variant.color.color}) x ${item.qty} (R ${item.item.price})</p>
+                        <p style = "margin-left: auto; display: inline; margin-bottom: 0.5rem">R ${item.item.price*item.qty}</p>
+                       </div>`
+                    )).join(''),
                   }
                   const receipt = {
                     paymentId: chargeId,
