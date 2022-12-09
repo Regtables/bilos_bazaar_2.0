@@ -5,14 +5,13 @@ import { Grid } from '@mui/material'
 
 import styles from './Products.module.scss'
 import { client } from '../../utils/client'
-import { Contact, HeadMeta, Product, Item } from '../../types'
 import { contactQuery, headQuery, itemsQuery, productsQuery } from '../../utils/queries'
 import { setContact } from '../../redux/info'
 import { setAllItems, setProducts } from '../../redux/items'
 
 import ProductTile from '../../components/ProductTile/ProductTile'
 
-const Products = ({ products, head, items, contact } : { products: Product[], head: HeadMeta, items: Item[], contact: Contact }) => {
+const Products = ({ products, head, items, contact }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
