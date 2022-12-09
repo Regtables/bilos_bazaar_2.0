@@ -22,7 +22,7 @@ export const productItemsQuery = (product) => {
 }
 
 export const productsQuery = () => {
-  const query = '*[_type =="product"]{categories[]->{category, itemType, product->}, slug, product}';
+  const query = '*[_type =="product"]{categories[]->{category, itemType, product->}, slug, product, productImage}';
 
   return query
 }
@@ -155,5 +155,11 @@ export const usersQuery = () => {
 export const headQuery = (page) => {
   const query = `*[_type == "seo" && page == "${page}"]`
 
+  return query
+}
+
+export const aboutQuery = () => {
+  const query = '*[_type == "about"]'
+  
   return query
 }

@@ -86,7 +86,9 @@ const Checkout = () => {
   const [differentProvince, setDifferentProvince] = useState({province: '', fee: 0})
   const [confirmedDestination, setConfirmedDestination] = useState(false)
   const [useDifferentAddress, setUseDifferentAddress] = useState(false)
-  const [deliveryFee, setDeliveryFee] = useState()
+  const [deliveryFee, setDeliveryFee] = useState(0)
+  const [VAT, setVAT] = useState(0)
+  const [total, setTotal] = useState((cartTotal && deliveryFee) && cartTotal + deliveryFee || 0)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -115,8 +117,13 @@ const Checkout = () => {
     }
   }, [billingInformation])
 
+  useEffect(() => {
+    setVAT((deliveryFee + cartTotal)*0.15)
+    setTotal(deliveryFee + cartTotal)
+  }, [deliveryFee, cartTotal, VAT])
 
-  const handlePayment = async (amount, deliveryFee) => {
+
+  const handlePayment = async () => {
     var yoco = new window.YocoSDK({
       publicKey: 'pk_test_e1d35bc149RAvGX21e94'
     })
@@ -139,7 +146,7 @@ const Checkout = () => {
     console.log(items)
 
     yoco.showPopup({
-      amountInCents: (amount+deliveryFee)*100,
+      amountInCents: total*100,
       currency: 'ZAR',
       name: "Bilo's Bazaar",
       description: 'Thank you for your purchace!',
@@ -155,7 +162,7 @@ const Checkout = () => {
       
         } else {
           setIsLoading(true)
-          await yocoCharge((amount+deliveryFee)*100, deliveryFee, result.id, user, items)
+          await yocoCharge(((total)*100), deliveryFee, result.id, user, items)
             .then(async (res) => {
               const { error, payment, stock, outOfStock } = res
 
@@ -170,8 +177,6 @@ const Checkout = () => {
 
               } else if (outOfStock) {
                 setIsLoading(false)
-                console.log(outOfStock)
-
                 for(let i = 0; i< outOfStock.length; i++){
                   dispatch(removeCartItem({
                     variant: outOfStock[i].item,
@@ -195,16 +200,19 @@ const Checkout = () => {
                   title: 'Out of Stock',
                   content: content.map((para) => (
                     <p style = {{margin: '0.3rem 0'}}>{para}</p>
-                  )),
-                  option: 'okay'
-                }))
+                    )),
+                    option: 'okay'
+                  }))
+                    
+                if(Object.values(cartItems).length === 0){
+                  router.push('/')
+                }
 
                 return {
                   outOfStock
                 }
 
               } else{
-              
                 setIsLoading(false)
                 dispatch(clearCart())
               
@@ -238,7 +246,9 @@ const Checkout = () => {
                     surname: surname,
                     phoneNumber: phoneNumber,
                     email: email,
-                    amount: amount,
+                    total: total,
+                    cartTotal: cartTotal,
+                    deliveryFee: deliveryFee,
                     paymentId:  chargeId,
                     date: date,
                     billingAddress: billingAddress,
@@ -257,34 +267,42 @@ const Checkout = () => {
                     )),
                     billingAddress: billingAddress,
                     deliveryAddress: differentAddress ? differentAddress : billingAddress,
-                    amount: amount
+                    email: email,
+                    cartTotal: cartTotal,
+                    total: total,
+                    vat: VAT,
+                    deliveryFee: deliveryFee,
+                    province: useDifferentAddress ? differentProvince.province : billingProvince.province
                   }
                   console.log(data)
                   //Office email
                   emailjs.send('service_0dttrnw', 'template_70x0fkk', data, 'LC_QO3GOebggMCv_Z')
                   //customer receipt
-                  emailjs.send('service_0dttrnw', 'template_03mrpcs', data, 'LC_QO3GOebggMCv_Z')
+                  emailjs.send('service_0dttrnw', 'template_03mrpcs', receipt, 'LC_QO3GOebggMCv_Z')
 
                 }
 
                 if(stock){
                   for(let i = 0; i < stock.length; i++){
-                    console.log(stock[i])
-
-                    if(0 < stock[i].itemQuantity <= 10){
+                    if(stock[i].count > 0 && stock[i].count <= 10){
                       emailjs.send('service_0dttrnw', 'template_h66y3qa', stock[i], 'LC_QO3GOebggMCv_Z')
-                    } else if(stock[i].itemQuantity <=0 ){
-                      //out of stock email
+
+                    } else if(stock[i].count === 0 ){
+                      emailjs.send('service_0dttrnw', 'template_3j78z9v', stock[i], 'LC_QO3GOebggMCv_Z')
                     }
                   }
                 }
 
                 if(outOfStock){
-                  //email
-                  console.log(outOfStock)
+                  for(let i = 0; i < outOfStock.length; i++){
+                    const data = {
+                      item: outOfStock[i].item.item.name,
+                      color: outOfStock[i].item.color.color,
+                      sku: outOfStock[i].item.sku
+                    }
+                    emailjs.send('service_0dttrnw', 'template_3j78z9v', data, 'LC_QO3GOebggMCv_Z')
+                  }
                 }
-
-
               })
         }
       }
@@ -341,6 +359,8 @@ const Checkout = () => {
               cartItems = {cartItems}
               handlePayment = {handlePayment}
               confirmedDestination = {confirmedDestination}
+              VAT = {VAT}
+              total = {total}
             />
           </Card>
         </div>

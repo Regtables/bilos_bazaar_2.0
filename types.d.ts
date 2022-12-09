@@ -187,4 +187,11 @@ export interface HeadMeta{
   description: string
 }
 
+export interface AboutType{
+  _type: string,
+  _id: string,
+  text: string[],
+  image: image
+}
+
 

@@ -10,7 +10,7 @@
 .image{
   height: 190px;
   width: 100%;
-  position: relative;
+  // position: relative;
   overflow: hidden;
   // background:linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(255, 0, 150, 0.3));
   // background-size:cover;
@@ -25,6 +25,10 @@
       transform: scale(1.05);
     }
 
+  }
+
+  @media screen and (max-width: 450px) {
+    height: 100px;
   }
 }
 
@@ -49,6 +53,7 @@
   top: 0;
   bottom: 0;
   left: 0;
+  right: 0;
   border-radius: 10px;
   transition: all 0.3s;
 

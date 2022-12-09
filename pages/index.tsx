@@ -5,8 +5,8 @@ import Head from 'next/head'
 
 import styles from '../styles/Home.module.scss'
 import { client } from '../utils/client'
-import { HeroImage, Category, Item, Product, Question, Contact } from '../types'
-import { contactQuery, featuredItemsQuery, headQuery, itemsQuery, productsQuery } from '../utils/queries'
+import { HeroImage, Category, Item, Product, Question, Contact, AboutType } from '../types'
+import { aboutQuery, contactQuery, featuredItemsQuery, headQuery, itemsQuery, productsQuery } from '../utils/queries'
 import { setAllItems, setProducts } from '../redux/items'
 
 import Hero from '../components/Hero/Hero'
@@ -19,7 +19,7 @@ import MotionWrapper from '../wrappers/MotionWrapper'
 import { setContact } from '../redux/info'
 
 
-const Home = ({ hero, categories, featuredItems, products, faq, items, head, contact } : { hero: [HeroImage], categories: [Category], featuredItems: Item[], items: Item[], products: Product[], faq: Question[], head: any, contact: Contact }) => {
+const Home = ({ hero, categories, featuredItems, products, faq, items, head, contact, about } : { hero: [HeroImage], categories: [Category], featuredItems: Item[], items: Item[], products: Product[], faq: Question[], head: any, contact: Contact, about: AboutType }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -40,7 +40,11 @@ const Home = ({ hero, categories, featuredItems, products, faq, items, head, con
             <Hero data = { hero } />
           </MotionWrapper>
         </header>
-        {/* <About /> */}
+        <section className= {styles.about}>
+          <MotionWrapper>
+             <About data = {about} />
+          </MotionWrapper>
+        </section>
         <section className= {styles.categories}>
           <MotionWrapper>
             <FeaturedCategories categories={categories} />
@@ -82,6 +86,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const headData = await client.fetch(headQuery('home'))
 
+  const aboutData = await client.fetch(aboutQuery())
+
   // console.log(popularItemsData)
 
   return {
@@ -93,7 +99,8 @@ export const getStaticProps: GetStaticProps = async () => {
       faq: faqData,
       items: itemsData,
       head: headData[0],
-      contact: contactData[0]
+      contact: contactData[0],
+      about: aboutData[0]
     },
     revalidate: 1
   }

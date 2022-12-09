@@ -167,7 +167,7 @@ const ItemCard = ({ item }: { item: Item }) => {
 								<Button 
 									className={styles.button} 
 									onClick = {addItemToCart}
-									// disabled = {outStock ? true : false}
+									disabled = {outStock ? true : false}
 								>
 									<BsBagPlus />
 								</Button>

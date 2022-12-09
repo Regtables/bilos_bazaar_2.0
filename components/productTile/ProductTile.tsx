@@ -9,6 +9,7 @@ import { client } from '../../utils/client'
 import { Product } from '../../types'
 
 const ProductTile = ({ product } : { product: Product }) => {
+  console.log(product)
   const { product: name, productImage: image, slug } = product
   const imageProps: any = useNextSanityImage(client, image)
 

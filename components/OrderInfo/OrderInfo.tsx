@@ -29,23 +29,18 @@ const OrderInfo = ({
 	cartTotal,
 	cartItems,
 	handlePayment,
-  confirmedDestination
+  confirmedDestination,
+	VAT,
+	total
 }: {
   deliveryFee: number;
 	cartTotal: number;
 	cartItems: [CartItem];
 	handlePayment: any;
-  confirmedDestination: any
+  confirmedDestination: any,
+	VAT: number,
+	total: number
 }) => {
-
-	// const renderDeliveryFee = () => {
-  //   if(useDifferentAddress){
-  //     return (
-  //       <h5>{ cartTotal + differentProvince.fee}</h5>
-  //     )
-  //   } else 
-  // };
-
 	return (
 		<>
 			<div className={styles.container}>
@@ -88,9 +83,13 @@ const OrderInfo = ({
 						<p>Delivery Fee</p>
 						<p>R {deliveryFee ? deliveryFee : 0}</p>
 					</div>
+					{/* <div className = {styles.tax}>
+						<p>VAT (15%)</p>
+						<p>R {VAT}</p>
+					</div> */}
 					<div className={styles.total}>
-						<h5>Total</h5>
-						<h5>R {cartTotal + deliveryFee}</h5>
+						<h5>Total (Incl. VAT)</h5>
+						<h5>R {total}</h5>
 					</div>
 				</div>
 
@@ -103,7 +102,7 @@ const OrderInfo = ({
 							backgroundColor: 'var(--color-primary)',
 							width: '100%',
 						}}
-						onClick={() => handlePayment(cartTotal, deliveryFee)}
+						onClick={() => handlePayment()}
 					>
 						Pay with
 						<Yoco />

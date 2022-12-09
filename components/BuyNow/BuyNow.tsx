@@ -8,7 +8,7 @@ import { addCartItem } from '../../redux/cart'
 import { Item, Variant } from '../../types'
 
 
-const BuyNow = ({ item, activeVariant } : { item: Item, activeVariant: Variant }) => {
+const BuyNow = ({ item, activeVariant, qty } : { item: Item, activeVariant: Variant, qty: number }) => {
   const router = useRouter()
   const dispatch = useDispatch()
   
@@ -16,7 +16,7 @@ const BuyNow = ({ item, activeVariant } : { item: Item, activeVariant: Variant }
     dispatch(addCartItem({
       item: item,
       variant: activeVariant,
-      qty: 1
+      qty: qty
     }))
 
     router.push('/checkout')

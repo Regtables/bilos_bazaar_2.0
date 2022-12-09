@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
       await client.fetch(`*[_type == "variant" && _id == "${items[i].variant._ref}"]{_id, color->, item->, itemQuantity, sku}`)
         .then((res) => {
           const { itemQuantity } = res[0] 
-          if(itemQuantity <= 0){
+          if(itemQuantity <= 0 || items[i].qty > itemQuantity){
             outOfStock.push({
               item: res[0],
               qty: items[i].qty
@@ -56,7 +56,6 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
                 .then(async (res) => {
                   const item = await client.fetch(`*[_type == "variant" && _id == "${items[i].variant._ref}"]{_id, color->,itemQuantity, sku, item->{name}}`)
                     .then((res) => {
-                      console.log(res)
                       const { color, sku, itemQuantity, item : { name }} = res[0]
                       if(itemQuantity <= 10){
   
