@@ -190,6 +190,7 @@ export interface HeadMeta{
 export interface AboutType{
   _type: string,
   _id: string,
+  heading: string,
   text: string[],
   image: image
 }

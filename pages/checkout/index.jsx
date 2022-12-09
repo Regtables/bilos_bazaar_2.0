@@ -198,8 +198,8 @@ const Checkout = () => {
                 dispatch(setToggleAlert({
                   toggle: true,
                   title: 'Out of Stock',
-                  content: content.map((para) => (
-                    <p style = {{margin: '0.3rem 0'}}>{para}</p>
+                  content: content.map((para, i) => (
+                    <p style = {{margin: '0.3rem 0'}} key = {i}>{para}</p>
                     )),
                     option: 'okay'
                   }))
@@ -262,9 +262,11 @@ const Checkout = () => {
                     paymentId: chargeId,
                     date: date,
                     items: Object.values(cartItems).map((item,i) => (
-                      `<p style = "text-transform: capitalize;">${item.item.name}(${item.variant.color.color}</p>
-                       <p style = "margin-left: auto">R${item.item.price}</p>`
-                    )),
+                      `<div style = "display: flex; width: 100%; justify-content: space-between;">
+                         <p style = "text-transform: capitalize; display: inline; margin-bottom: 0.5rem;">${item.item.name}(${item.variant.color.color}) x ${item.qty} (R ${item.item.price})</p>
+                        <p style = "margin-left: auto; display: inline; margin-bottom: 0.5rem">R ${item.item.price*item.qty}</p>
+                       </div>`
+                    )).join(''),
                     billingAddress: billingAddress,
                     deliveryAddress: differentAddress ? differentAddress : billingAddress,
                     email: email,

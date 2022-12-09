@@ -10,7 +10,7 @@ import { Button } from '@mui/material'
 
 
 const About = ({ data } : { data: AboutType}) => {
-  const { image, text } = data
+  const { image, text, heading } = data
   const imageProps: any = useNextSanityImage(client, image)
 
   return (
@@ -23,6 +23,7 @@ const About = ({ data } : { data: AboutType}) => {
         objectPosition= 'center'
       />
       <div className= {styles.text}>
+        <h3>{heading}</h3>
         {text.map((para: any, i: number) => (
           <p key = {i}>{para.children[0].text}</p>
         ))}
