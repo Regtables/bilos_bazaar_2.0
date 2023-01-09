@@ -37,6 +37,7 @@
       margin: 1rem 0;
       color: white;
       font-weight: 400;
+      text-align: center;
     }
     
     p{
@@ -47,6 +48,16 @@
       font-weight: 300;
     }
   }
+  
+    @media screen and (max-width: 450px) {
+      height: 100vh;
+      
+      .text{
+        p{
+          width: 90%;
+        }
+      }
+    }
 
   .button{
     margin-top: 2rem;

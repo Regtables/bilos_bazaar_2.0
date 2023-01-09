@@ -24,7 +24,6 @@ const Quantity = ({ qty, incQty, decQty, itemQuantity } : { qty: number, incQty:
         className= {`${styles.less} ${styles.button}`}
         onClick = {decQty}
         disabled = { qty <= 0 && true }
-
       >
         <AiOutlineMinus />
       </button>
