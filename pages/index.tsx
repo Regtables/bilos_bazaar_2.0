@@ -17,6 +17,7 @@ import FAQ from '../components/FAQ/FAQ'
 
 import MotionWrapper from '../wrappers/MotionWrapper'
 import { setContact } from '../redux/info'
+import Carousel from '../components/Carousel/Carousel'
 
 
 const Home = ({ hero, categories, featuredItems, products, faq, items, head, contact, about } : { hero: [HeroImage], categories: [Category], featuredItems: Item[], items: Item[], products: Product[], faq: Question[], head: any, contact: Contact, about: AboutType }) => {
@@ -37,7 +38,8 @@ const Home = ({ hero, categories, featuredItems, products, faq, items, head, con
       <div className={`${styles.container}`}>
         <header className= {styles.hero}>
           <MotionWrapper>
-            <Hero data = { hero } />
+            {/* <Hero data = { hero } /> */}
+            <Carousel items={hero}/>
           </MotionWrapper>
         </header>
         <section className= {styles.about}>

@@ -19,7 +19,7 @@ const Hero = ({ data } : { data: HeroImage[] }) => {
   })
 
   useEffect(() => {
-    setAnimateSlide({opacity: 0.2 })
+    setAnimateSlide({ opacity: 0.2 })
 
     setTimeout(() => {
       setActiveTile(data[index])
@@ -60,28 +60,24 @@ const Hero = ({ data } : { data: HeroImage[] }) => {
 
   return (
     <div className={styles.container} { ...handlers }>
-      
-        
-        <motion.div className={styles.tile} animate = {animateSlide} transition = {{duration: 0.3}}>
-          <HeroTile 
-            tile={activeTile}
-          />
-        </motion.div>
- 
-        <div className={styles.prev} onClick = {handlePrev}>
-          <AiFillLeftCircle />
-        </div>
-        <div className={styles.next} onClick = {handleNext}>
-          <AiFillRightCircle />
-        </div>
-        <div className={styles.counter}>
-          {data.map((tile, i) => (
-            <div className= {index === i ? styles.active : ''} key = {i} onClick = {() => setIndex(i)}>
+      <motion.div className={styles.tile} animate = {animateSlide} transition = {{duration: 0.3}}>
+        <HeroTile 
+          tile={activeTile}
+        />
+      </motion.div>
 
-            </div>
-          ))}
-        </div>
+      <div className={styles.prev} onClick = {handlePrev}>
+        <AiFillLeftCircle />
       </div>
+      <div className={styles.next} onClick = {handleNext}>
+        <AiFillRightCircle />
+      </div>
+      <div className={styles.counter}>
+        {data.map((tile, i) => (
+          <div className= {index === i ? styles.active : ''} key = {i} onClick = {() => setIndex(i)} />
+        ))}
+      </div>
+    </div>
   )
 }
 
