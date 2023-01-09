@@ -9,7 +9,7 @@ import { contactQuery, headQuery, itemsQuery, productsQuery } from '../../utils/
 import { setContact } from '../../redux/info'
 import { setAllItems, setProducts } from '../../redux/items'
 
-import ProductTile from '../../components/ProductTile/ProductTile'
+import ProductCard from '../../components/ProductCard/ProductCard'
 
 const Products = ({ products, head, items, contact }) => {
   const dispatch = useDispatch()
@@ -32,7 +32,7 @@ const Products = ({ products, head, items, contact }) => {
           <h1 className= 'section__heading'>Our Products</h1>
         </header>
         {products.map((product, i) => (
-          <ProductTile product = {product} key = {i} />
+          <ProductCard product = {product} key = {i} />
         ))}
       </div>
     </>
