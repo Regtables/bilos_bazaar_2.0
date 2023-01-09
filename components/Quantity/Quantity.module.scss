@@ -20,6 +20,7 @@
   border: 1px solid var(--color-offBlack);
   padding: 0.3rem;
   cursor: pointer;
+  height: 100%;
 
   &:hover{
     background-color: rgba(255, 0, 0, 0.097) ;
@@ -51,7 +52,7 @@
   height: 100%;
   
   border-top: 1px solid var(--color-offBlack);
-  border-bottom: 1px solid var(--color-offBlack) ;
+  border-bottom: 1px solid var(--color-offBlack);
 }
 
 .more{
@@ -62,6 +63,7 @@
   border: 1px solid var(--color-offBlack);
   cursor: pointer;
   display: flex;
+  height: 100%;
   align-items: center;
   justify-content: center;
 
