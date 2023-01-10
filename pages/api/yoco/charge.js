@@ -2,8 +2,8 @@ import axios from 'axios';
 
 import { client } from '../../../utils/client'
 
-// const SECRET_KEY = 'sk_test_8cedaf061eGaVqb06f24ab790cf8'
-const SECRET_KEY = process.env.NEXT_PUBLIC_YOCO_SECRET_KEY
+const SECRET_KEY = 'sk_test_8cedaf061eGaVqb06f24ab790cf8'
+// const SECRET_KEY = process.env.NEXT_PUBLIC_YOCO_SECRET_KEY
 
 console.log(SECRET_KEY)
 
