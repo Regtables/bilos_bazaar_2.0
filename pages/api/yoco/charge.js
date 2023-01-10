@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import axios from 'axios';
 
 import { client } from '../../../utils/client'
@@ -6,13 +5,15 @@ import { client } from '../../../utils/client'
 // const SECRET_KEY = 'sk_test_8cedaf061eGaVqb06f24ab790cf8'
 const SECRET_KEY = process.env.NEXT_PUBLIC_YOCO_SECRET_KEY
 
-export default async function handler(req: NextApiRequest, result: NextApiResponse ) {
+console.log(SECRET_KEY)
+
+export default async function handler(req, result) {
   const { amount, deliveryFee, token, user, items } = req.body
 
   if(req.method === 'POST'){
 
     //Final stock check
-    let outOfStock: any = []
+    let outOfStock = []
     for(let i = 0; i < items.length; i++){
       await client.fetch(`*[_type == "variant" && _id == "${items[i].variant._ref}"]{_id, color->, item->, itemQuantity, sku}`)
         .then((res) => {
@@ -41,7 +42,7 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
           },
           {
             headers: {
-              'X-Auth-Secret-Key': process.env.NEXT_PUBLIC_YOCO_SECRET_KEY || '',
+              'X-Auth-Secret-Key': SECRET_KEY,
             },
           },
         ).then(async (res) => {
@@ -50,7 +51,7 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
             const month = date.getMonth()
             const now = `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${date.getFullYear()}`
   
-            let stock: any = []
+            let stock = []
   
             for(let i = 0; i <items.length; i++){
               await client.patch(items[i].variant._ref).dec({ itemQuantity: items[i].qty}).commit()
