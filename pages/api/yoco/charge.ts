@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import { client } from '../../../utils/client'
 
-const SECRET_KEY = 'sk_test_8cedaf061eGaVqb06f24ab790cf8'
+// const SECRET_KEY = 'sk_test_8cedaf061eGaVqb06f24ab790cf8'
+const SECRET_KEY = process.env.NEXT_PUBLIC_YOCO_SECRET_KEY
 
 export default async function handler(req: NextApiRequest, result: NextApiResponse ) {
   const { amount, deliveryFee, token, user, items } = req.body
@@ -40,7 +41,7 @@ export default async function handler(req: NextApiRequest, result: NextApiRespon
           },
           {
             headers: {
-              'X-Auth-Secret-Key': SECRET_KEY,
+              'X-Auth-Secret-Key': process.env.NEXT_PUBLIC_YOCO_SECRET_KEY || '',
             },
           },
         ).then(async (res) => {
