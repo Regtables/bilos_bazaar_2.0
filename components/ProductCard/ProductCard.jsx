@@ -13,22 +13,25 @@ const ProductCard = ({ product }) => {
   const imageProps = useNextSanityImage(client, image)
 
   return (
-    <ButtonBase className = {styles.container} href = {`/products/${slug.current}`}>
-      {/* <div className='container'> */}
-        <div className= {styles.image}>
-          <Image 
-            { ...imageProps }
-            layout = 'fill'
-            objectFit='cover'
-            alt = {name}
-            // className= {styles.image}
-          />
-        </div>
-        <div className= {styles.name}>
-            <h2>{name}</h2>
-        </div>
-      {/* </div> */}
-    </ButtonBase>
+    <Link href = {`/products/${slug.current}`}>
+      <div className = {styles.container}>
+        {/* <div className='container'> */}
+          <div className= {styles.image}>
+            <Image 
+              { ...imageProps }
+              layout = 'fill'
+              objectFit='cover'
+              alt = {name}
+              // className= {styles.image}
+            />
+          </div>
+          <div className= {styles.name}>
+              <h2>{name}</h2>
+          </div>
+          <div className= {styles.overlay} />
+        {/* </div> */}
+      </div>
+    </Link>
   )
 }
 

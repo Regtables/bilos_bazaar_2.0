@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "api/index.js", "pages/api/auth/signin.js", "pages/auth/index.js", "redux/auth.ts", "wrappers/MotionWrapper.jsx", "components/Breadcrums/Breadcrums.jsx", "pages/checkout/index.jsx", "pages/products/index.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "api/index.js", "pages/api/auth/signin.js", "pages/auth/index.js", "redux/auth.ts", "wrappers/MotionWrapper.jsx", "components/Breadcrums/Breadcrums.jsx", "pages/checkout/index.jsx", "pages/products/index.jsx", "pages/api/yoco/charge.js", "components/Navbar/Navbar.jsx"],
   "exclude": ["node_modules"]
 }

@@ -4,7 +4,11 @@
   position: relative;
   border-radius: 10px;
   margin-bottom: 0.5rem;
-  
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .image{
@@ -14,7 +18,7 @@
   overflow: hidden;
   // background:linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(255, 0, 150, 0.3));
   // background-size:cover;
-  // z-index: 3;
+  z-index: 3;
   
   img{
     border-radius: 10px;
@@ -33,14 +37,22 @@
 }
 
 .name{
-  // z-index: 2;
+  z-index: 3;
   position: absolute;
+  // width: 100%;
+  // height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  // top: 0;
 
   h2{
     font-family: var(--font-family);
     color: white;
     font-size: 32px;
     font-weight: 200;
+    margin: 0 auto;
   }
 }
 

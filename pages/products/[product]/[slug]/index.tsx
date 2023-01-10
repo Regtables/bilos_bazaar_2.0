@@ -52,7 +52,7 @@ const Item = ({ item, items, products, contact } : { item: Item, items: [Item], 
   const [qty, setQty] = useState(1)
   const user = useSelector(selectUser)
   console.log(user)
-  const [isLoved, setIsLoved] = useState(user.wishlist.filter((wishListedItem: Item) => wishListedItem?.name === item.name).length > 0 ? true : false)
+  const [isLoved, setIsLoved] = useState(user?.wishlist?.filter((wishListedItem: Item) => wishListedItem?.name === item.name).length > 0 ? true : false)
   console.log(isLoved)
   
   const itemVariants = item.variants.map((variant) => variant)

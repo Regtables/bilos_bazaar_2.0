@@ -8,15 +8,17 @@ import { AiOutlineInstagram, AiOutlineMenu, AiOutlineMail, AiOutlineCloseCircle 
 import { GoLocation } from 'react-icons/go';
 import { FaFacebookF, FaUser } from 'react-icons/fa';
 import { motion } from 'framer-motion'
+import decode from 'jwt-decode'
 
 import styles from './Navbar.module.scss'
 import { toggleCart, selectTotalCartItems } from '../../redux/cart';
 import { selectProducts, setActiveCategory } from '../../redux/items'
-import { selectUser } from '../../redux/auth';
-import { Item, Product, Category } from '../../types';
+import { logout, selectUser, setUser, fetchUser } from '../../redux/auth';
 import GlobalSearch from '../GlobalSearch/GlobalSearch';
 import Facebook from '../Icons/Facebook/Facebook';
 import Instagram from '../Icons/Instagram/Instagram';
+
+
 
 const Navbar = () => {
   const dispatch = useDispatch()
@@ -31,7 +33,24 @@ const Navbar = () => {
   const [animateSearch, setAnimateSearch] = useState({})
   const [animateDropDown, setAnimateDropDown] = useState({})
 
-  const toggleHover = (link: any) => {
+  useEffect(() => {
+    if(localStorage.getItem('biloToken')){
+      const token = JSON.parse(localStorage.getItem('biloToken'))
+
+      const decoded = decode(token)
+      console.log(decoded)
+
+      if(decoded.exp*1000 < new Date().getTime()){
+        logout(dispatch)
+        dispatch(setUser({}))
+        router.push('/')
+      } else {
+        dispatch(fetchUser(decoded.id))
+      }
+    }
+  }, [router])
+
+  const toggleHover = (link) => {
     setHover(link)
     setAnimateArrow({rotate: '180deg'})
 
@@ -53,7 +72,7 @@ const Navbar = () => {
     }
   }
 
-  const handleLinkClick = (link: Product) => {
+  const handleLinkClick = (link) => {
     setHover('')
     dispatch(setActiveCategory('all'))
     router.push(`/products/${link.slug.current}`)
@@ -143,7 +162,7 @@ const Navbar = () => {
               </Link>
             </div>
             <div className= {styles.links_wrapper}>
-              {products.map((product: Product, i: number) => (
+              {products.map((product, i) => (
                 <div className = {styles.link}  key = {i}>
                   <div onClick={() => handleLinkClick(product)}>
                     {/* <motion.div animate = {animateArrow}><BsChevronCompactUp /></motion.div> */}
@@ -164,7 +183,7 @@ const Navbar = () => {
                       <>
                         <h3>{product.product}</h3>
                           <div className = {styles.categories}>
-                            {product.categories.map((category: Category, i) => (
+                            {product.categories.map((category, i) => (
                               <Link href = {`/products/${product.slug.current}`} key = {category._id}>
                                 <p onClick = {() => dispatch(setActiveCategory(category.category))}>{category.category}</p> 
                               </Link>
