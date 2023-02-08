@@ -43,8 +43,8 @@ const Home = ({ hero, categories, featuredItems, products, faq, items, head, con
             {/* <Carousel items={hero}/> */}
             <Carousel activeIndex={0}>
               {hero.map((item, i) => (
-                <div style = {{minWidth: '100%'}}>
-                  <CarouselItem item={item} key = {i} />
+                <div style = {{minWidth: '100%'}} key = {i}>
+                  <CarouselItem item={item}  />
                 </div>
               ))}
             </Carousel>
