@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import styles from './ImageCarousel.module.scss'
 import SlideShowImage from '../SlideShowImage/SlideShowImage'
 import { Variant } from '../../types'
+import Carousel from '../Carousel/Carousel'
+import Image from 'next/image'
 
 interface itemImage {
   color: string,
@@ -53,24 +55,38 @@ const ImageCarousel = ({ variants, activeVariant, activeImage, setActiveImage, i
   const handleImageClick = (image: any, i: number) => {
     setActiveImage(image)
     setIndex(i)
+    console.log(index)
   }
   
   return (
     <div className= {styles.container}>
-      <div className= {styles.activeImage}>
+      {/* <div className= {styles.activeImage}>
         <motion.div className = {styles.activeImage_wrapper} animate = {animateActiveImage} transition = {{duration: 0.3}}>
           <SlideShowImage image = {activeImage} priority />
         </motion.div>
+        <div className= {styles.slider}>
+          <div className= {styles.inner} style = {{transform: `translate(-${index*100}%)`}}>
+            {variants.map((variant, i) => (
+              <SlideShowImage image = {variant.image} priority />
+          
+            ))}
+          </div>
+        </div>
         <div className= {styles.back} onClick = {handleBack}>
-          {/* <Button> */}
-            <AiFillLeftCircle />
-          {/* </Button> */}
+          <AiFillLeftCircle />
         </div>
         <div className= {styles.next} onClick = {handleNext}>
-          {/* <Button> */}
-            <AiFillRightCircle />
-          {/* </Button> */}
+          <AiFillRightCircle />
         </div>
+      </div> */}
+      <div className= {styles.carousel}>
+        <Carousel activeIndex = {index}>
+          {variants.map((variant, i) => (
+            <div style = {{minWidth: '100%'}}>
+              <SlideShowImage image={variant.image} priority key = {i} />
+            </div>
+          ))}
+        </Carousel>
       </div>
       <div className= {styles.imageSelect}>
         {variants.map((variant: any, i: number) => (

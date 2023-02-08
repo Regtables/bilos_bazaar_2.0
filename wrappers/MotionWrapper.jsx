@@ -8,6 +8,7 @@ function MotionWrapper(props){
       transition = {{duration: 0.7}}
       initial = {{y: 20, opacity: 0}}
       viewport = {{once: true}}
+      style = {{width: '100%', height: '100%'}}
      
     >
       {props.children}

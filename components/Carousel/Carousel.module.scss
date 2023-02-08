@@ -1,7 +1,7 @@
 .container{
   overflow: hidden;
   position: relative;
-  height: 87vh;
+  height: 100%;
   width: 100%;
 
   .prev{
@@ -51,14 +51,19 @@
     }
   }
 
-  @media screen and (max-width: 450px) {
-    height: 90vh;
-  }
+  // @media screen and (max-width: 450px) {
+  //   height: 90vh;
+  // }
 }
 
 .inner{
   transform: translate(-0%);
-  white-space: nowrap;
+  // white-space: nowrap;
   transition: transform 0.3s;
   height: 100%;
+  display: flex;
+
+  // div{
+  //   min-width: 100%;
+  // }
 }

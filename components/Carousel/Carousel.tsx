@@ -6,8 +6,9 @@ import styles from './Carousel.module.scss'
 
 import CarouselItem from './CarouselItem/CarouselItem'
 
-const Carousel = ({ items } : { items: any }) => {
+const Carousel = ( { children: items, activeIndex } : { children: any, activeIndex: number }) => {
   console.log(items)
+  console.log(activeIndex)
   const [index, setIndex] = useState(0)
   const [pause, setPause] = useState(false)
 
@@ -15,6 +16,10 @@ const Carousel = ({ items } : { items: any }) => {
     onSwipedLeft: (e) => handleNext(),
     onSwipedRight: (e) => handlePrev()
   })
+
+  useEffect(() => {
+    setIndex(activeIndex)
+  }, [activeIndex])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -54,9 +59,10 @@ const Carousel = ({ items } : { items: any }) => {
       { ...handlers }
     >
       <div className= {styles.inner} style = {{transform: `translate(-${index*100}%)`}}>
-        {items.map((item: any,i: number) => (
+        {/* {items.map((item: any,i: number) => (
           <CarouselItem item = {item} key = {i}/>
-        ))}
+        ))} */}
+        {items}
       </div>
       <div className= {styles.buttons}>
         <div className= {styles.prev}>

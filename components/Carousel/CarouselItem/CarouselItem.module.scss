@@ -12,9 +12,11 @@
     position: absolute;
     left: 5%; 
     top: 10%;
+    display: flex;
     background-color: rgba(254, 254, 254, 0.251);
+    // width: 200px;
     border-radius: 5px;
-  
+    
     h3{
       font-family: var(--font-family);
       text-transform: capitalize;
