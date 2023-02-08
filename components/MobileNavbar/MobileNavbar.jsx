@@ -141,13 +141,12 @@ const MobileNavbar = () => {
                 </div>
               </Link>
               {products.map((product, i) => (
-                <div>
-                  <CategoryAccordion 
-                    product={product} 
-                    icon = {product.product === 'home decor' ? <IoBed /> : <MdBeachAccess />} 
-                    handleClick = {handleCategoryClick}
-                  />
-                </div>
+                <CategoryAccordion 
+                  product={product} 
+                  icon = {product.product === 'home decor' ? <IoBed /> : <MdBeachAccess />} 
+                  handleClick = {handleCategoryClick}
+                  key = {i}
+                />
               ))}
               {/* {products.map((product) => (
                 <>
