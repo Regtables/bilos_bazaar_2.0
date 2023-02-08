@@ -24,6 +24,7 @@ import { client } from '../../../utils/client'
 import { contactQuery, itemsQuery, productsQuery, usersQuery } from '../../../utils/queries'
 import { setAllItems, setProducts } from '../../../redux/items'
 import { setContact } from '../../../redux/info'
+import { yocoRefund } from '../../../api'
 
 const user = {
   _type: 'user',
@@ -63,6 +64,10 @@ const User = ({ contact, products, items} : { contact: Contact, products: Produc
   const [animateMain, setAnimateMain] = useState({})
 
   const { id } = router.query
+
+  const now = new Date()
+
+  console.log(now.getDate())
 
   useEffect(() => {
     dispatch(setAllItems(items))
@@ -150,6 +155,11 @@ const User = ({ contact, products, items} : { contact: Contact, products: Produc
     console.log(response)
   }
 
+  const handleRefund = async (chargeId: string, date: any) => {
+
+    await yocoRefund(chargeId, date)
+  }
+
   const renderSection = () => {
     if(activeSection.section === 'profile'){
       return (
@@ -190,7 +200,7 @@ const User = ({ contact, products, items} : { contact: Contact, products: Produc
         <Grid container spacing = {2}>
           {payments?.map((payment: Payment, i: number) => (
             <Grid item sm = {12} key = {payment.chargeId}>
-              <PaymentCard payment = {payment} />
+              <PaymentCard payment = {payment} handleRefund = {handleRefund} />
             </Grid>
           ))}
         </Grid>

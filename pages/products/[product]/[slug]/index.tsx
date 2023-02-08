@@ -26,6 +26,7 @@ import ColorSelect from '../../../../components/ColorSelect/ColorSelect';
 import MotionWrapper from '../../../../wrappers/MotionWrapper';
 import { AppDispatch } from '../../../../redux/store';
 import InStock from '../../../../components/inStock/InStock';
+import Carousel from '../../../../components/Carousel/Carousel';
 
 const colors = [
 	'#33ab9f',

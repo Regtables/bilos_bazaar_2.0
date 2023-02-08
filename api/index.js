@@ -145,3 +145,15 @@ export const yocoCharge = async (amount, deliveryFee, token, user = null, items)
 	return data
 };
 
+export const yocoRefund = async (chargeId, date) => {
+	const response = await fetch('/api/yoco/refund', {
+		method: 'POST',
+		body: JSON.stringify({ chargeId, date }),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	})
+
+	console.log(response)
+}
+

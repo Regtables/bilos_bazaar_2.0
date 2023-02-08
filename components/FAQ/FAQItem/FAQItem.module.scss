@@ -6,6 +6,7 @@
   border-radius: 30px;
   transition: all 0.3s;
   width: 100%;
+  overflow: hidden;
 
   &:hover{
     transform: scale(1.02);
@@ -29,6 +30,8 @@
     padding: 1rem;
     border-radius: 30px 0 0 30px;
 
+    transition: all 0.3s;
+
     svg{
       height: 30px;
       width: 30px;
@@ -41,7 +44,7 @@
       margin: 0;
       font-family: var(--font-family);
       color: var(--color-offBlack);
-      font-size: 17px;
+      font-size: 16px;
     }
 
     @media screen and (max-width: 450px) {
@@ -65,19 +68,22 @@
   }
 }
 
-.bottom{
-  padding: 1rem;
+.answer{
+  // padding: 1rem;
   // height: 0px;
   // background-color: white;
   background-color: rgb(249, 249, 250);
   border-radius: 0 0 30px 30px;
+  overflow: hidden;
+  transition: max-height 0.3s;
 
   p{
     font-size: 14px;
     line-height: 16px;
     letter-spacing: 0.02em;
     margin: 0;
-    width: 90%;
+    width: 100%;
+    padding: 1rem;
   }
 
   @media screen and (max-width: 450px) {

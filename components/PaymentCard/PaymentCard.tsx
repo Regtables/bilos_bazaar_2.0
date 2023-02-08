@@ -27,7 +27,7 @@ import ActionButton from '../ActionButton/ActionButton'
 //   )
 // }
 
-const PaymentCard = ({ payment } : { payment: Payment}) => {
+const PaymentCard = ({ payment, handleRefund } : { payment: Payment, handleRefund: any }) => {
   const { amount, chargeId, date, deliveryFee, items } = payment
   const [showPreview, setShowPreview] = useState(false)
 
@@ -59,7 +59,7 @@ const PaymentCard = ({ payment } : { payment: Payment}) => {
           <div className= {styles.refund}>
             <ActionButton 
               text = 'refund' 
-              handleClick={() => {}}
+              handleClick={() => handleRefund(chargeId, date)}
               icon = {<RiRefundLine />}  
             />
           </div>

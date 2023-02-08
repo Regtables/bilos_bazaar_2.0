@@ -15,7 +15,6 @@ interface itemImage {
   }
 }
 
-
 const ImageCarousel = ({ variants, activeVariant, activeImage, setActiveImage, index, setIndex } : { variants: Variant[], activeImage: any, setActiveImage: any, index: number, setIndex: any, activeVariant: Variant }) => {
   const [animateActiveImage, setAnimateActiveImage] = useState({})
 

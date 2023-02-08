@@ -20,7 +20,6 @@ export const signin = createAsyncThunk('auth/signin', async (formData: any) => {
     const response = await api.signin(formData)
     
     const data = await response.json()
-    console.log(data)
 
     return data
 

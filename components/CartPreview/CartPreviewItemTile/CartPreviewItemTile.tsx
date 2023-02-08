@@ -9,7 +9,6 @@ import { client } from '../../../utils/client'
 import Image from 'next/image'
 
 const CartPreviewItemTile = ( { cartItem } : { cartItem: CartItem }) => {
-  console.log(cartItem)
   const { item: { name, price, category }, qty, variant: { color, image} } = cartItem
   const imageProps = useNextSanityImage(client, image)
 

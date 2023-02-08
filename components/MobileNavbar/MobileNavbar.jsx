@@ -16,10 +16,11 @@ import styles from './MobileNavbar.module.scss'
 import { selectUser } from '../../redux/auth'
 import { selectTotalCartItems, toggleCart } from '../../redux/cart'
 import { selectProducts, setActiveCategory } from '../../redux/items'
-import { Category, Product } from '../../types'
+
 import GlobalSearch from '../GlobalSearch/GlobalSearch'
 import Facebook from '../Icons/Facebook/Facebook'
 import Instagram from '../Icons/Instagram/Instagram'
+import CategoryAccordion from './CategoryAccordion/CategoryAccordion'
 
 
 const MobileNavbar = () => {
@@ -54,7 +55,7 @@ const MobileNavbar = () => {
     }, 400);
   }
 
-  const handleLinkClick = (link: Product) => {
+  const handleLinkClick = (link) => {
     setActiveItem(link.slug.current)
     dispatch(setActiveCategory('all'))
 
@@ -63,9 +64,14 @@ const MobileNavbar = () => {
     }
   }
 
-  const handleCategoryClick = (category: Category) => {
-    dispatch(setActiveCategory(category.category))
-    router.push(`/products/${category.product.slug.current}`)
+  const handleCategoryClick = (category, product) => {
+    if(category === 'all'){
+      dispatch(setActiveCategory('all'))
+      router.push(`/products/${product.slug.current}`)
+    } else {
+      dispatch(setActiveCategory(category.category))
+      router.push(`/products/${category.product.slug.current}`)
+    }
   }
 
   return (
@@ -134,7 +140,16 @@ const MobileNavbar = () => {
                   <h4>Home</h4>
                 </div>
               </Link>
-              {products.map((product: Product, i: number) => (
+              {products.map((product, i) => (
+                <div>
+                  <CategoryAccordion 
+                    product={product} 
+                    icon = {product.product === 'home decor' ? <IoBed /> : <MdBeachAccess />} 
+                    handleClick = {handleCategoryClick}
+                  />
+                </div>
+              ))}
+              {/* {products.map((product) => (
                 <>
                   <div className = {styles.link} key = {product._id}>
                     <p>{product.product === 'home decor' ? <IoBed /> : <MdBeachAccess />}</p>
@@ -162,7 +177,7 @@ const MobileNavbar = () => {
                     </motion.div>
                   )}
                 </>
-              ))}
+              ))} */}
               <Link href = '/contact'>
                 <div className = {styles.link}>
                   <p><AiFillPhone /></p>
