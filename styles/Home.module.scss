@@ -4,6 +4,10 @@
 
 .hero{
   height: 87vh;
+
+  @media screen and (max-width: 450px) {
+    height: 93vh;
+  }
 }
 
 .categories{
