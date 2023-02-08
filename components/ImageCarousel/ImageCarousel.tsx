@@ -82,8 +82,8 @@ const ImageCarousel = ({ variants, activeVariant, activeImage, setActiveImage, i
       <div className= {styles.carousel}>
         <Carousel activeIndex = {index}>
           {variants.map((variant, i) => (
-            <div style = {{minWidth: '100%'}}>
-              <SlideShowImage image={variant.image} priority key = {i} />
+            <div style = {{minWidth: '100%'}} key = {i}>
+              <SlideShowImage image={variant.image} priority />
             </div>
           ))}
         </Carousel>
